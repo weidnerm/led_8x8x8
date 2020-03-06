@@ -241,7 +241,7 @@ __code uchar table_cha[8][8]= {
 
 // /*railway 2*/
 
-// __code uchar dat2[28]= {0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4};
+__code uchar dat2[28]= {0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4};
 
 // /*railway 3*/
 
@@ -262,7 +262,8 @@ __code uchar table_3p[3][8]= {{0xff,0x89,0xf5,0x93,0x93,0xf5,0x89,0xff},
 void cirp(char cpp, uchar dir, uchar le)
 {
     uchar a, b, c, cp;
-    if ((cpp < 128) & (cpp >= 0)) {
+    // if ((cpp < 128) & (cpp >= 0)) {
+    if (cpp >= 0) {
         if (dir) {
             cp = 127 - cpp;
         }
@@ -430,66 +431,66 @@ void line(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar le)
 	point(x2,y2,z2,le);
 }
 
-// void box(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
-// {
-// 	uchar i,j,t=0;
-// 	max(&x1,&x2);
-// 	max(&y1,&y2);
-// 	max(&z1,&z2);
-// 	for (i=x1; i<=x2; i++)
-// 		t|=1<<i;
-// 	if (!le)
-// 		t=~t;
-// 	if (fill) {
-// 		if (le) {
-// 			for (i=z1; i<=z2; i++) {
-// 				for (j=y1; j<=y2; j++)
-// 					display[frame][j][i]|=t;
-// 			}
-// 		} else {
-// 			for (i=z1; i<=z2; i++) {
-// 				for (j=y1; j<=y2; j++)
-// 					display[frame][j][i]&=t;
-// 			}
-// 		}
-// 	} else {
-// 		if (le) {
-// 			display[frame][y1][z1]|=t;
-// 			display[frame][y2][z1]|=t;
-// 			display[frame][y1][z2]|=t;
-// 			display[frame][y2][z2]|=t;
-// 		} else {
-// 			display[frame][y1][z1]&=t;
-// 			display[frame][y2][z1]&=t;
-// 			display[frame][y1][z2]&=t;
-// 			display[frame][y2][z2]&=t;
-// 		}
-// 		t=(0x01<<x1)|(0x01<<x2);
-// 		if (!le)
-// 			t=~t;
-// 		if (le) {
-// 			for (j=z1; j<=z2; j+=(z2-z1)) {
-// 				for (i=y1; i<=y2; i++)
-// 					display[frame][i][j]|=t;
-// 			}
-// 			for (j=y1; j<=y2; j+=(y2-y1)) {
-// 				for (i=z1; i<=z2; i++)
-// 					display[frame][j][i]|=t;
-// 			}
-// 		} else {
-// 			for (j=z1; j<=z2; j+=(z2-z1)) {
-// 				for (i=y1; i<=y2; i++) {
-// 					display[frame][i][j]&=t;
-// 				}
-// 			}
-// 			for (j=y1; j<=y2; j+=(y2-y1)) {
-// 				for (i=z1; i<=z2; i++) {
-// 					display[frame][j][i]&=t;
-// 				}
-// 			}
-// 		}
-// 	}
-// }
+void box(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
+{
+	uchar i,j,t=0;
+	max(&x1,&x2);
+	max(&y1,&y2);
+	max(&z1,&z2);
+	for (i=x1; i<=x2; i++)
+		t|=1<<i;
+	if (!le)
+		t=~t;
+	if (fill) {
+		if (le) {
+			for (i=z1; i<=z2; i++) {
+				for (j=y1; j<=y2; j++)
+					display[frame][j][i]|=t;
+			}
+		} else {
+			for (i=z1; i<=z2; i++) {
+				for (j=y1; j<=y2; j++)
+					display[frame][j][i]&=t;
+			}
+		}
+	} else {
+		if (le) {
+			display[frame][y1][z1]|=t;
+			display[frame][y2][z1]|=t;
+			display[frame][y1][z2]|=t;
+			display[frame][y2][z2]|=t;
+		} else {
+			display[frame][y1][z1]&=t;
+			display[frame][y2][z1]&=t;
+			display[frame][y1][z2]&=t;
+			display[frame][y2][z2]&=t;
+		}
+		t=(0x01<<x1)|(0x01<<x2);
+		if (!le)
+			t=~t;
+		if (le) {
+			for (j=z1; j<=z2; j+=(z2-z1)) {
+				for (i=y1; i<=y2; i++)
+					display[frame][i][j]|=t;
+			}
+			for (j=y1; j<=y2; j+=(y2-y1)) {
+				for (i=z1; i<=z2; i++)
+					display[frame][j][i]|=t;
+			}
+		} else {
+			for (j=z1; j<=z2; j+=(z2-z1)) {
+				for (i=y1; i<=y2; i++) {
+					display[frame][i][j]&=t;
+				}
+			}
+			for (j=y1; j<=y2; j+=(y2-y1)) {
+				for (i=z1; i<=z2; i++) {
+					display[frame][j][i]&=t;
+				}
+			}
+		}
+	}
+}
 
 void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
 {
@@ -1081,129 +1082,144 @@ __bit flash_8()
     return 0;
 }
 
-// __bit flash_9()
-// {
-// 	char i;
-// 	uchar j,an[8],x,y,t,x1,y1;
-// 	for (i=0; i<8; i++) {
-// 		box_apeak_xy (i,0,0,i,7,7,1,1);
-// 		if (i)
-// 			box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
-// 		delay(10000);
-// 	}
-// 	roll_apeak_xy(3,10000);
-// 	roll_apeak_xy(0,10000);
-// 	roll_apeak_xy(1,10000);
-// 	for (i=0; i<7; i++) {
-// 		line(6-i,6-i,0,6-i,6-i,7,1);
-// 		line(i,7,0,i,7,7,0);
-// 		delay(10000);
-// 	}
-// 	for (i=0; i<8; i++)
-// 		an[i]=14;
-// 	for (i=0; i<85; i++) {
-// 		clear(0);
-// 		for (j=0; j<8; j++) {
-// 			t=an[j]%28;
-// 			x=dat2[t]>>5;
-// 			y=(dat2[t]>>2)&0x07;
-// 			t=(an[j]-14)%28;
-// 			x1=dat2[t]>>5;
-// 			y1=(dat2[t]>>2)&0x07;
-// 			line(x,y,j,x1,y1,j,1);
-// 		}
-// 		for (j=0; j<8; j++) {
-// 			if ((i>j)&(j>i-71))
-// 				an[j]++;
-// 		}
-// 		delay(5000);
-// 	}
-// 	for (i=0; i<85; i++) {
-// 		clear(0);
-// 		for (j=0; j<8; j++) {
-// 			t=an[j]%28;
-// 			x=dat2[t]>>5;
-// 			y=(dat2[t]>>2)&0x07;
-// 			t=(an[j]-14)%28;
-// 			x1=dat2[t]>>5;
-// 			y1=(dat2[t]>>2)&0x07;
-// 			line(x,y,j,x1,y1,j,1);
-// 		}
-// 		for (j=0; j<8; j++) {
-// 			if ((i>j)&(j>i-71))
-// 				an[j]--;
-// 		}
-// 		delay(5000);
-// 	}
-// 	for (i=0; i<29; i++) {
-// 		clear(0);
-// 		t=an[0]%28;
-// 		x=dat2[t]>>5;
-// 		y=(dat2[t]>>2)&0x07;
-// 		t=(an[0]-14)%28;
-// 		x1=dat2[t]>>5;
-// 		y1=(dat2[t]>>2)&0x07;
-// 		box_apeak_xy(x,y,0,x1,y1,7,0,1);
-// 		box_apeak_xy(x,y,1,x1,y1,6,0,1);
-// 		an[0]++;
-// 		delay(5000);
-// 	}
-// 	for (i=0; i<16; i++) {
-// 		clear(0);
-// 		t=an[0]%28;
-// 		x=dat2[t]>>5;
-// 		y=(dat2[t]>>2)&0x07;
-// 		t=(an[0]-14)%28;
-// 		x1=dat2[t]>>5;
-// 		y1=(dat2[t]>>2)&0x07;
-// 		box_apeak_xy(x,y,0,x1,y1,7,1,1);
-// 		an[0]--;
-// 		delay(5000);
-// 	}
-// 	for (i=0; i<8; i++) {
-// 		line(i,i,0,0,0,i,0);
-// 		delay(5000);
-// 	}
-// 	for (i=1; i<7; i++) {
-// 		line(i,i,7,7,7,i,0);
-// 		delay(5000);
-// 	}
-// 	for (i=1; i<8; i++) {
-// 		clear(0);
-// 		box(7,7,7,7-i,7-i,7-i,0,1);
-// 		delay(10000);
-// 	}
-// 	for (i=1; i<7; i++) {
-// 		clear(0);
-// 		box(0,0,0,7-i,7-i,7-i,0,1);
-// 		delay(10000);
-// 	}
-// 	for (i=1; i<8; i++) {
-// 		clear(0);
-// 		box(0,0,0,i,i,i,0,1);
-// 		delay(10000);
-// 	}
-// 	for (i=1; i<7; i++) {
-// 		clear(0);
-// 		box(7,0,0,i,7-i,7-i,0,1);
-// 		delay(10000);
-// 	}
-// 	for (i=1; i<8; i++) {
-// 		box(7,0,0,7-i,i,i,1,1);
-// 		delay(10000);
-// 	}
-// 	for (i=1; i<7; i++) {
-// 		clear(0);
-// 		box(0,7,7,7-i,i,i,1,1);
-// 		delay(10000);
-// 	}
-// }
+__bit flash_9()
+{
+	char i;
+	uchar j,an[8],x,y,t,x1,y1;
+	for (i=0; i<8; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		box_apeak_xy (i,0,0,i,7,7,1,1);
+		if (i)
+			box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
+		delay(10000);
+	}
+	roll_apeak_xy(3,10000);
+	roll_apeak_xy(0,10000);
+	roll_apeak_xy(1,10000);
+	for (i=0; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		line(6-i,6-i,0,6-i,6-i,7,1);
+		line(i,7,0,i,7,7,0);
+		delay(10000);
+	}
+	for (i=0; i<8; i++)
+		an[i]=14;
+	for (i=0; i<85; i++) {
+		clear(frame, 0);
+		for (j=0; j<8; j++) {
+			t=an[j]%28;
+			x=dat2[t]>>5;
+			y=(dat2[t]>>2)&0x07;
+			t=(an[j]-14)%28;
+			x1=dat2[t]>>5;
+			y1=(dat2[t]>>2)&0x07;
+			line(x,y,j,x1,y1,j,1);
+		}
+		for (j=0; j<8; j++) {
+			if ((i>j)&(j>i-71))
+				an[j]++;
+		}
+        if (rx_in > 0) return 1; // RX command detected
+		delay(5000);
+	}
+	for (i=0; i<85; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		for (j=0; j<8; j++) {
+			t=an[j]%28;
+			x=dat2[t]>>5;
+			y=(dat2[t]>>2)&0x07;
+			t=(an[j]-14)%28;
+			x1=dat2[t]>>5;
+			y1=(dat2[t]>>2)&0x07;
+			line(x,y,j,x1,y1,j,1);
+		}
+		for (j=0; j<8; j++) {
+			if ((i>j)&(j>i-71))
+				an[j]--;
+		}
+		delay(5000);
+	}
+	for (i=0; i<29; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		t=an[0]%28;
+		x=dat2[t]>>5;
+		y=(dat2[t]>>2)&0x07;
+		t=(an[0]-14)%28;
+		x1=dat2[t]>>5;
+		y1=(dat2[t]>>2)&0x07;
+		box_apeak_xy(x,y,0,x1,y1,7,0,1);
+		box_apeak_xy(x,y,1,x1,y1,6,0,1);
+		an[0]++;
+		delay(5000);
+	}
+	for (i=0; i<16; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		t=an[0]%28;
+		x=dat2[t]>>5;
+		y=(dat2[t]>>2)&0x07;
+		t=(an[0]-14)%28;
+		x1=dat2[t]>>5;
+		y1=(dat2[t]>>2)&0x07;
+		box_apeak_xy(x,y,0,x1,y1,7,1,1);
+		an[0]--;
+		delay(5000);
+	}
+	for (i=0; i<8; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		line(i,i,0,0,0,i,0);
+		delay(5000);
+	}
+	for (i=1; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		line(i,i,7,7,7,i,0);
+		delay(5000);
+	}
+	for (i=1; i<8; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		box(7,7,7,7-i,7-i,7-i,0,1);
+		delay(10000);
+	}
+	for (i=1; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		box(0,0,0,7-i,7-i,7-i,0,1);
+		delay(10000);
+	}
+	for (i=1; i<8; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		box(0,0,0,i,i,i,0,1);
+		delay(10000);
+	}
+	for (i=1; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		box(7,0,0,i,7-i,7-i,0,1);
+		delay(10000);
+	}
+	for (i=1; i<8; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		box(7,0,0,7-i,i,i,1,1);
+		delay(10000);
+	}
+	for (i=1; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
+		clear(frame, 0);
+		box(0,7,7,7-i,i,i,1,1);
+		delay(10000);
+	}
+    return 0;
+}
 
 // __bit flash_10()
 // {
 // 	uchar i,j,an[4],x,y,t;
 // 	for (i=1; i<7; i++) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		box(0,6,6,1,7,7,1,1);
 // 		box(i,6,6-i,i+1,7,7-i,1,1);
 // 		box(i,6,6,i+1,7,7,1,1);
@@ -1218,7 +1234,7 @@ __bit flash_8()
 // 		an[i]=6*i;
 // 	}
 // 	for (i=0; i<35; i++) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		for(j=0; j<4; j++) {
 // 			t=an[j]%24;
 // 			x=dat3[t]>>4;
@@ -1231,7 +1247,7 @@ __bit flash_8()
 // 		delay(10000);
 // 	}
 // 	for (i=0; i<35; i++) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		for(j=0; j<4; j++) {
 // 			t=an[j]%24;
 // 			x=dat3[t]>>4;
@@ -1244,7 +1260,7 @@ __bit flash_8()
 // 		delay(10000);
 // 	}
 // 	for (i=0; i<35; i++) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		for(j=0; j<4; j++) {
 // 			t=an[j]%24;
 // 			x=dat3[t]>>4;
@@ -1257,7 +1273,7 @@ __bit flash_8()
 // 		delay(10000);
 // 	}
 // 	for (i=0; i<36; i++) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		for(j=0; j<4; j++) {
 // 			t=an[j]%24;
 // 			x=dat3[t]>>4;
@@ -1270,7 +1286,7 @@ __bit flash_8()
 // 		delay(10000);
 // 	}
 // 	for (i=6; i>0; i--) {
-// 		clear(0);
+// 		clear(frame, 0);
 // 		box(0,6,6,1,7,7,1,1);
 // 		box(i,6,6-i,i+1,7,7-i,1,1);
 // 		box(i,6,6,i+1,7,7,1,1);
@@ -1403,9 +1419,9 @@ void main()
             uart_detected = flash_6();
             uart_detected = flash_7();
             uart_detected = flash_8();
-            // uart_detected = flash_9();
+            uart_detected = flash_9();
             // uart_detected = flash_10();
-            // uart_detected = clear (0);
+            // uart_detected = clear(frame, 0);
             // uart_detected = flash_11();
             // uart_detected = flash_9();
             // uart_detected = flash_5();
