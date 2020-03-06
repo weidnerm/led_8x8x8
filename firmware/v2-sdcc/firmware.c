@@ -245,7 +245,7 @@ __code uchar dat2[28]= {0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0x
 
 // /*railway 3*/
 
-// __code uchar dat3[24]= {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10};
+__code uchar dat3[24]= {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10};
 
 // /*3p char*/
 
@@ -1215,89 +1215,90 @@ __bit flash_9()
     return 0;
 }
 
-// __bit flash_10()
-// {
-// 	uchar i,j,an[4],x,y,t;
-// 	for (i=1; i<7; i++) {
-// 		clear(frame, 0);
-// 		box(0,6,6,1,7,7,1,1);
-// 		box(i,6,6-i,i+1,7,7-i,1,1);
-// 		box(i,6,6,i+1,7,7,1,1);
-// 		box(0,6,6-i,1,7,7-i,1,1);
-// 		box(0,6-i,6,1,7-i,7,1,1);
-// 		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
-// 		box(i,6-i,6,i+1,7-i,7,1,1);
-// 		box(0,6-i,6-i,1,7-i,7-i,1,1);
-// 		delay(30000);
-// 	}
-// 	for (i=0; i<4; i++) {
-// 		an[i]=6*i;
-// 	}
-// 	for (i=0; i<35; i++) {
-// 		clear(frame, 0);
-// 		for(j=0; j<4; j++) {
-// 			t=an[j]%24;
-// 			x=dat3[t]>>4;
-// 			y=dat3[t]&0x0f;
-// 			box(x,y,0,x+1,y+1,1,1,1);
-// 			box(x,y,6,x+1,y+1,7,1,1);
-// 		}
-// 		for (j=0; j<4; j++)
-// 			an[j]++;
-// 		delay(10000);
-// 	}
-// 	for (i=0; i<35; i++) {
-// 		clear(frame, 0);
-// 		for(j=0; j<4; j++) {
-// 			t=an[j]%24;
-// 			x=dat3[t]>>4;
-// 			y=dat3[t]&0x0f;
-// 			box(x,y,0,x+1,y+1,1,1,1);
-// 			box(x,y,6,x+1,y+1,7,1,1);
-// 		}
-// 		for (j=0; j<4; j++)
-// 			an[j]--;
-// 		delay(10000);
-// 	}
-// 	for (i=0; i<35; i++) {
-// 		clear(frame, 0);
-// 		for(j=0; j<4; j++) {
-// 			t=an[j]%24;
-// 			x=dat3[t]>>4;
-// 			y=dat3[t]&0x0f;
-// 			box(x,0,y,x+1,1,y+1,1,1);
-// 			box(x,6,y,x+1,7,y+1,1,1);
-// 		}
-// 		for (j=0; j<4; j++)
-// 			an[j]++;
-// 		delay(10000);
-// 	}
-// 	for (i=0; i<36; i++) {
-// 		clear(frame, 0);
-// 		for(j=0; j<4; j++) {
-// 			t=an[j]%24;
-// 			x=dat3[t]>>4;
-// 			y=dat3[t]&0x0f;
-// 			box(x,0,y,x+1,1,y+1,1,1);
-// 			box(x,6,y,x+1,7,y+1,1,1);
-// 		}
-// 		for (j=0; j<4; j++)
-// 			an[j]--;
-// 		delay(10000);
-// 	}
-// 	for (i=6; i>0; i--) {
-// 		clear(frame, 0);
-// 		box(0,6,6,1,7,7,1,1);
-// 		box(i,6,6-i,i+1,7,7-i,1,1);
-// 		box(i,6,6,i+1,7,7,1,1);
-// 		box(0,6,6-i,1,7,7-i,1,1);
-// 		box(0,6-i,6,1,7-i,7,1,1);
-// 		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
-// 		box(i,6-i,6,i+1,7-i,7,1,1);
-// 		box(0,6-i,6-i,1,7-i,7-i,1,1);
-// 		delay(30000);
-// 	}
-// }
+__bit flash_10()
+{
+	uchar i,j,an[4],x,y,t;
+	for (i=1; i<7; i++) {
+		clear(frame, 0);
+		box(0,6,6,1,7,7,1,1);
+		box(i,6,6-i,i+1,7,7-i,1,1);
+		box(i,6,6,i+1,7,7,1,1);
+		box(0,6,6-i,1,7,7-i,1,1);
+		box(0,6-i,6,1,7-i,7,1,1);
+		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+		box(i,6-i,6,i+1,7-i,7,1,1);
+		box(0,6-i,6-i,1,7-i,7-i,1,1);
+		delay(30000);
+	}
+	for (i=0; i<4; i++) {
+		an[i]=6*i;
+	}
+	for (i=0; i<35; i++) {
+		clear(frame, 0);
+		for(j=0; j<4; j++) {
+			t=an[j]%24;
+			x=dat3[t]>>4;
+			y=dat3[t]&0x0f;
+			box(x,y,0,x+1,y+1,1,1,1);
+			box(x,y,6,x+1,y+1,7,1,1);
+		}
+		for (j=0; j<4; j++)
+			an[j]++;
+		delay(10000);
+	}
+	for (i=0; i<35; i++) {
+		clear(frame, 0);
+		for(j=0; j<4; j++) {
+			t=an[j]%24;
+			x=dat3[t]>>4;
+			y=dat3[t]&0x0f;
+			box(x,y,0,x+1,y+1,1,1,1);
+			box(x,y,6,x+1,y+1,7,1,1);
+		}
+		for (j=0; j<4; j++)
+			an[j]--;
+		delay(10000);
+	}
+	for (i=0; i<35; i++) {
+		clear(frame, 0);
+		for(j=0; j<4; j++) {
+			t=an[j]%24;
+			x=dat3[t]>>4;
+			y=dat3[t]&0x0f;
+			box(x,0,y,x+1,1,y+1,1,1);
+			box(x,6,y,x+1,7,y+1,1,1);
+		}
+		for (j=0; j<4; j++)
+			an[j]++;
+		delay(10000);
+	}
+	for (i=0; i<36; i++) {
+		clear(frame, 0);
+		for(j=0; j<4; j++) {
+			t=an[j]%24;
+			x=dat3[t]>>4;
+			y=dat3[t]&0x0f;
+			box(x,0,y,x+1,1,y+1,1,1);
+			box(x,6,y,x+1,7,y+1,1,1);
+		}
+		for (j=0; j<4; j++)
+			an[j]--;
+		delay(10000);
+	}
+	for (i=6; i>0; i--) {
+		clear(frame, 0);
+		box(0,6,6,1,7,7,1,1);
+		box(i,6,6-i,i+1,7,7-i,1,1);
+		box(i,6,6,i+1,7,7,1,1);
+		box(0,6,6-i,1,7,7-i,1,1);
+		box(0,6-i,6,1,7-i,7,1,1);
+		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+		box(i,6-i,6,i+1,7-i,7,1,1);
+		box(0,6-i,6-i,1,7-i,7-i,1,1);
+		delay(30000);
+	}
+    return 0;
+}
 
 // __bit flash_11()
 // {
@@ -1420,8 +1421,8 @@ void main()
             uart_detected = flash_7();
             uart_detected = flash_8();
             uart_detected = flash_9();
-            // uart_detected = flash_10();
-            // uart_detected = clear(frame, 0);
+            uart_detected = flash_10();
+            clear(frame, 0);
             // uart_detected = flash_11();
             // uart_detected = flash_9();
             // uart_detected = flash_5();
