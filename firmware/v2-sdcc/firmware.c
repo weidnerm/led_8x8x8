@@ -602,43 +602,43 @@ void roll_apeak_xy(uchar n,uint speed)
 	}
 }
 
-// void roll_3_xy(uchar n,uint speed)
-// {
-// 	uchar i;
-// 	switch(n) {
-// 	case 1:
-// 		for (i=0; i<8; i++) {
-// 			box_apeak_xy (0,i,0,7,7-i,7,1,1);
-// 			delay(speed);
-// 			if (i<7)
-// 				box_apeak_xy (3,3,0,0,i,7,1,0);
-// 		};
-// 		break;
-// 	case 2:
-// 		for (i=0; i<8; i++) {
-// 			box_apeak_xy (7-i,0,0,i,7,7,1,1);
-// 			delay(speed);
-// 			if (i<7)
-// 				box_apeak_xy (3,4,0,i,7,7,1,0);
-// 		};
-// 		break;
-// 	case 3:
-// 		for (i=0; i<8; i++) {
-// 			box_apeak_xy (0,i,0,7,7-i,7,1,1);
-// 			delay(speed);
-// 			if (i<7)
-// 				box_apeak_xy (4,4,0,7,7-i,7,1,0);
-// 		};
-// 		break;
-// 	case 0:
-// 		for (i=0; i<8; i++) {
-// 			box_apeak_xy (7-i,0,0,i,7,7,1,1);
-// 			delay(speed);
-// 			if (i<7)
-// 				box_apeak_xy (4,3,0,7-i,0,7,1,0);
-// 		};
-// 	}
-// }
+void roll_3_xy(uchar n,uint speed)
+{
+	uchar i;
+	switch(n) {
+	case 1:
+		for (i=0; i<8; i++) {
+			box_apeak_xy (0,i,0,7,7-i,7,1,1);
+			delay(speed);
+			if (i<7)
+				box_apeak_xy (3,3,0,0,i,7,1,0);
+		};
+		break;
+	case 2:
+		for (i=0; i<8; i++) {
+			box_apeak_xy (7-i,0,0,i,7,7,1,1);
+			delay(speed);
+			if (i<7)
+				box_apeak_xy (3,4,0,i,7,7,1,0);
+		};
+		break;
+	case 3:
+		for (i=0; i<8; i++) {
+			box_apeak_xy (0,i,0,7,7-i,7,1,1);
+			delay(speed);
+			if (i<7)
+				box_apeak_xy (4,4,0,7,7-i,7,1,0);
+		};
+		break;
+	case 0:
+		for (i=0; i<8; i++) {
+			box_apeak_xy (7-i,0,0,i,7,7,1,1);
+			delay(speed);
+			if (i<7)
+				box_apeak_xy (4,3,0,7-i,0,7,1,0);
+		};
+	}
+}
 
 void trans(uchar z,uint speed)
 {
@@ -983,54 +983,82 @@ __bit flash_6()
     return 0;
 }
 
-// __bit flash_7()
-// {
-// 	uchar i;
-// 	uint a=3000;
-// 	roll_apeak_yz(0,10000);
-// 	roll_apeak_yz(1,10000);
-// 	roll_apeak_yz(2,10000);
-// 	roll_apeak_yz(3,10000);
-// 	roll_apeak_yz(0,10000);
-// 	roll_apeak_yz(1,10000);
-// 	roll_apeak_yz(2,10000);
-// 	roll_apeak_yz(3,10000);
-// 	roll_apeak_yz(0,10000);
-// 	roll_apeak_yz(1,10000);
-// 	roll_apeak_yz(2,10000);
-// 	roll_apeak_xy(0,10000);
-// 	roll_apeak_xy(1,10000);
-// 	roll_apeak_xy(2,10000);
-// 	roll_apeak_xy(3,10000);
-// 	roll_apeak_xy(0,10000);
-// 	roll_apeak_xy(1,10000);
-// 	roll_apeak_xy(2,10000);
-// 	roll_apeak_xy(3,10000);
-// 	for (i=0; i<8; i++) {
-// 		box_apeak_xy (0,i,0,7-i,i,7,1,1);
-// 		delay(a);
-// 	}
-// 	delay(30000);
-// 	roll_3_xy(0,a);
-// 	delay(30000);
-// 	roll_3_xy(1,a);
-// 	delay(30000);
-// 	roll_3_xy(2,a);
-// 	delay(30000);
-// 	roll_3_xy(3,a);
-// 	delay(30000);
-// 	roll_3_xy(0,a);
-// 	delay(30000);
-// 	roll_3_xy(1,a);
-// 	delay(30000);
-// 	roll_3_xy(2,a);
-// 	delay(30000);
-// 	roll_3_xy(3,a);
-// 	for (i=7; i>0; i--) {
-// 		box_apeak_xy(i,0,0,i,7,7,1,0);
-// 		delay(a);
-// 	}
-// }
+__bit flash_7()
+{
+	uchar i;
+	uint a=3000;
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(3,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(3,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(3,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_xy(3,10000);
+	for (i=0; i<8; i++) {
+		box_apeak_xy (0,i,0,7-i,i,7,1,1);
+		delay(a);
+	}
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(0,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(1,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(2,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(3,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(0,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(1,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(2,a);
+    if (rx_in > 0) return 1; // RX command detected
+	delay(30000);
+	roll_3_xy(3,a);
+	for (i=7; i>0; i--) {
+		box_apeak_xy(i,0,0,i,7,7,1,0);
+		delay(a);
+	}
+    return 0;
+}
 
 // __bit flash_8()
 // {
@@ -1362,7 +1390,7 @@ void main()
             uart_detected = flash_5();
             uart_detected = flash_5();
             uart_detected = flash_6();
-            // uart_detected = flash_7();
+            uart_detected = flash_7();
             // uart_detected = flash_8();
             // uart_detected = flash_9();
             // uart_detected = flash_10();
