@@ -25,6 +25,8 @@ volatile int rx_in = 0;
     volatile int tx_out = 0;
 #endif
 
+
+
 ///////////////////////////////////////////////////////////
 // interrupt driven uart with ring buffer
 void uart_isr() __interrupt (4)
@@ -223,6 +225,27 @@ __code uchar dat[128]= { /*railway*/
     0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4
 };
 
+// __code uchar table_cha[8][8]= {0x51,0x51,0x51,0x4a,0x4a,0x4a,0x44,0x44,0x18,0x1c,0x18,0x18,0x18,0x18,0x18,0x3c,0x3c,0x66,0x66,0x30,0x18,0xc,0x6,0xf6,0x3c,0x66,0x60,0x38,0x60,0x60,0x66,0x3c,0x30,0x38,0x3c,0x3e,0x36,0x7e,0x30,0x30,0x3c,0x3c,0x18,0x18,0x18,0x18,0x3c,0x3c,0x66,0xff,0xff,0xff,0x7e,0x3c,0x18,0x18,0x66,0x66,0x66,0x66,0x66,0x66,0x7e,0x3c};
+
+// /*the "ideasoft"*/
+
+// __code uchar table_id[40]= {0x81,0xff,0x81,0x00,0xff,0x81,0x81,0x7e,0x00,0xff,0x89,0x89,0x00,0xf8,0x27,0x27,0xf8,0x00,0x8f,0x89,0x89,0xf9,0x00,0xff,0x81,0x81,0xff,0x00,0xff,0x09,0x09,0x09,0x01,0x0,0x01,0x01,0xff,0x01,0x01,0x00};
+
+// /*railway 2*/
+
+// __code uchar dat2[28]= {0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4};
+
+// /*railway 3*/
+
+// __code uchar dat3[24]= {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10};
+
+// /*3p char*/
+
+__code uchar table_3p[3][8]= {{0xff,0x89,0xf5,0x93,0x93,0xf5,0x89,0xff},
+                            {0x0e,0x1f,0x3f,0x7e,0x7e,0x3f,0x1f,0x0e},
+                            {0x18,0x3c,0x7e,0xff,0x18,0x18,0x18,0x18}};
+
+
 /*
     cpp - distance from the midpoint
     le - draw or clean.
@@ -313,7 +336,7 @@ uchar maxt(uchar a,uchar b,uchar c)
 // 	uchar i,j;
 // 	for (j=0; j<8; j++) {
 // 		for (i=0; i<8; i++)
-// 			display[j][i]=le;
+// 			display[frame][j][i]=le;
 // 	}
 // }
 
@@ -323,11 +346,11 @@ uchar maxt(uchar a,uchar b,uchar c)
 // 	for (i=6; i>=-3; i--) {
 // 		if (i>=0) {
 // 			for (j=0; j<8; j++)
-// 				display[j][i]=display[j][i+1];
+// 				display[frame][j][i]=display[frame][j][i+1];
 // 		}
 // 		if (i<4) {
 // 			for (j=0; j<8; j++)
-// 				display[j][i+4]=0;
+// 				display[frame][j][i+4]=0;
 // 		}
 // 		delay(speed);
 // 	}
@@ -339,16 +362,16 @@ uchar maxt(uchar a,uchar b,uchar c)
 // 	ch1=1<<x;
 // 	ch0=~ch1;
 // 	if (le)
-// 		display[z][y]=display[z][y]|ch1;
+// 		display[frame][z][y]=display[frame][z][y]|ch1;
 // 	else
-// 		display[z][y]=display[z][y]&ch0;
+// 		display[frame][z][y]=display[frame][z][y]&ch0;
 // }
 
 // void type(uchar cha,uchar y)
 // {
 // 	uchar xx;
 // 	for (xx=0; xx<8; xx++) {
-// 		display[xx][y]=table_cha[cha][xx];
+// 		display[frame][xx][y]=table_cha[cha][xx];
 // 	}
 // }
 
@@ -413,25 +436,25 @@ void line(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar le)
 // 		if (le) {
 // 			for (i=z1; i<=z2; i++) {
 // 				for (j=y1; j<=y2; j++)
-// 					display[j][i]|=t;
+// 					display[frame][j][i]|=t;
 // 			}
 // 		} else {
 // 			for (i=z1; i<=z2; i++) {
 // 				for (j=y1; j<=y2; j++)
-// 					display[j][i]&=t;
+// 					display[frame][j][i]&=t;
 // 			}
 // 		}
 // 	} else {
 // 		if (le) {
-// 			display[y1][z1]|=t;
-// 			display[y2][z1]|=t;
-// 			display[y1][z2]|=t;
-// 			display[y2][z2]|=t;
+// 			display[frame][y1][z1]|=t;
+// 			display[frame][y2][z1]|=t;
+// 			display[frame][y1][z2]|=t;
+// 			display[frame][y2][z2]|=t;
 // 		} else {
-// 			display[y1][z1]&=t;
-// 			display[y2][z1]&=t;
-// 			display[y1][z2]&=t;
-// 			display[y2][z2]&=t;
+// 			display[frame][y1][z1]&=t;
+// 			display[frame][y2][z1]&=t;
+// 			display[frame][y1][z2]&=t;
+// 			display[frame][y2][z2]&=t;
 // 		}
 // 		t=(0x01<<x1)|(0x01<<x2);
 // 		if (!le)
@@ -439,21 +462,21 @@ void line(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar le)
 // 		if (le) {
 // 			for (j=z1; j<=z2; j+=(z2-z1)) {
 // 				for (i=y1; i<=y2; i++)
-// 					display[i][j]|=t;
+// 					display[frame][i][j]|=t;
 // 			}
 // 			for (j=y1; j<=y2; j+=(y2-y1)) {
 // 				for (i=z1; i<=z2; i++)
-// 					display[j][i]|=t;
+// 					display[frame][j][i]|=t;
 // 			}
 // 		} else {
 // 			for (j=z1; j<=z2; j+=(z2-z1)) {
 // 				for (i=y1; i<=y2; i++) {
-// 					display[i][j]&=t;
+// 					display[frame][i][j]&=t;
 // 				}
 // 			}
 // 			for (j=y1; j<=y2; j+=(y2-y1)) {
 // 				for (i=z1; i<=z2; i++) {
-// 					display[j][i]&=t;
+// 					display[frame][j][i]&=t;
 // 				}
 // 			}
 // 		}
@@ -511,73 +534,73 @@ void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fi
 // 	}
 // }
 
-// void roll_apeak_yz(uchar n,uint speed)
-// {
-// 	uchar i;
-// 	switch(n) {
-// 	case 1:
-// 		for (i=0; i<7; i++) {
-// 			display[i][7]=0;
-// 			display[7][6-i]=255;
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 2:
-// 		for (i=0; i<7; i++) {
-// 			display[7][7-i]=0;
-// 			display[6-i][0]=255;
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 3:
-// 		for (i=0; i<7; i++) {
-// 			display[7-i][0]=0;
-// 			display[0][i+1]=255;
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 0:
-// 		for (i=0; i<7; i++) {
-// 			display[0][i]=0;
-// 			display[i+1][7]=255;
-// 			delay(speed);
-// 		};
-// 	}
-// }
+void roll_apeak_yz(uchar n,uint speed)
+{
+	uchar i;
+	switch(n) {
+	case 1:
+		for (i=0; i<7; i++) {
+			display[frame][i][7]=0;
+			display[frame][7][6-i]=255;
+			delay(speed);
+		};
+		break;
+	case 2:
+		for (i=0; i<7; i++) {
+			display[frame][7][7-i]=0;
+			display[frame][6-i][0]=255;
+			delay(speed);
+		};
+		break;
+	case 3:
+		for (i=0; i<7; i++) {
+			display[frame][7-i][0]=0;
+			display[frame][0][i+1]=255;
+			delay(speed);
+		};
+		break;
+	case 0:
+		for (i=0; i<7; i++) {
+			display[frame][0][i]=0;
+			display[frame][i+1][7]=255;
+			delay(speed);
+		};
+	}
+}
 
-// void roll_apeak_xy(uchar n,uint speed)
-// {
-// 	uchar i;
-// 	switch(n) {
-// 	case 1:
-// 		for (i=0; i<7; i++) {
-// 			line(0,i,0,0,i,7,0);
-// 			line(i+1,7,0,i+1,7,7,1);
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 2:
-// 		for (i=0; i<7; i++) {
-// 			line(i,7,0,i,7,7,0);
-// 			line(7,6-i,0,7,6-i,7,1);
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 3:
-// 		for (i=0; i<7; i++) {
-// 			line(7,7-i,0,7,7-i,7,0);
-// 			line(6-i,0,0,6-i,0,7,1);
-// 			delay(speed);
-// 		};
-// 		break;
-// 	case 0:
-// 		for (i=0; i<7; i++) {
-// 			line(7-i,0,0,7-i,0,7,0);
-// 			line(0,i+1,0,0,i+1,7,1);
-// 			delay(speed);
-// 		};
-// 	}
-// }
+void roll_apeak_xy(uchar n,uint speed)
+{
+	uchar i;
+	switch(n) {
+	case 1:
+		for (i=0; i<7; i++) {
+			line(0,i,0,0,i,7,0);
+			line(i+1,7,0,i+1,7,7,1);
+			delay(speed);
+		};
+		break;
+	case 2:
+		for (i=0; i<7; i++) {
+			line(i,7,0,i,7,7,0);
+			line(7,6-i,0,7,6-i,7,1);
+			delay(speed);
+		};
+		break;
+	case 3:
+		for (i=0; i<7; i++) {
+			line(7,7-i,0,7,7-i,7,0);
+			line(6-i,0,0,6-i,0,7,1);
+			delay(speed);
+		};
+		break;
+	case 0:
+		for (i=0; i<7; i++) {
+			line(7-i,0,0,7-i,0,7,0);
+			line(0,i+1,0,0,i+1,7,1);
+			delay(speed);
+		};
+	}
+}
 
 // void roll_3_xy(uchar n,uint speed)
 // {
@@ -617,16 +640,16 @@ void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fi
 // 	}
 // }
 
-// void trans(uchar z,uint speed)
-// {
-// 	uchar i,j;
-// 	for (j=0; j<8; j++) {
-// 		for (i=0; i<8; i++) {
-// 			display[z][i]>>=1;
-// 		}
-// 		delay(speed);
-// 	}
-// }
+void trans(uchar z,uint speed)
+{
+	uchar i,j;
+	for (j=0; j<8; j++) {
+		for (i=0; i<8; i++) {
+			display[frame][z][i]>>=1;
+		}
+		delay(speed);
+	}
+}
 
 // void tranoutchar(uchar c,uint speed)
 // {
@@ -641,8 +664,8 @@ void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fi
 // 			a=a|(1<<j);
 // 		}
 // 		for (k=0; k<8; k++) {
-// 			display[k][3]|=table_cha[c][k]&a;
-// 			display[k][4]|=table_cha[c][k]&a;
+// 			display[frame][k][3]|=table_cha[c][k]&a;
+// 			display[frame][k][4]|=table_cha[c][k]&a;
 // 		}
 // 		delay(speed);
 // 	}
@@ -653,7 +676,7 @@ void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fi
 // 	uchar i,j;
 // 	for (i=0; i<8; i++) {
 // 		for (j=0; j<8; j++)
-// 			display[i][j]<<=1;
+// 			display[frame][i][j]<<=1;
 // 	}
 // }
 
@@ -923,32 +946,42 @@ __bit flash_5()
     return 0;
 }
 
-// __bit flash_6()
-// {
-// 	uchar i,j,k,z;
-// 	roll_apeak_yz(1,10000);
-// 	roll_apeak_yz(2,10000);
-// 	roll_apeak_yz(3,10000);
-// 	roll_apeak_yz(0,10000);
-// 	roll_apeak_yz(1,10000);
-// 	roll_apeak_yz(2,10000);
-// 	roll_apeak_yz(3,10000);
-// 	for (i=0; i<3; i++) {
-// 		for (j=0; j<8; j++) {
-// 			for (k=0; k<8; k++) {
-// 				if ((table_3p[i][j]>>k)&1) {
-// 					for (z=1; z<8; z++) {
-// 						point (j,7-k,z,1);
-// 						if (z-1)
-// 							point (j,7-k,z-1,0);
-// 						delay(5000);
-// 					}
-// 				}
-// 			}
-// 		}
-// 		trans(7,15000);
-// 	}
-// }
+__bit flash_6()
+{
+	uchar i,j,k,z;
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(3,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(0,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(1,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(2,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	roll_apeak_yz(3,10000);
+    if (rx_in > 0) return 1; // RX command detected
+	for (i=0; i<3; i++) {
+		for (j=0; j<8; j++) {
+			for (k=0; k<8; k++) {
+				if ((table_3p[i][j]>>k)&1) {
+					for (z=1; z<8; z++) {
+                        if (rx_in > 0) return 1; // RX command detected
+						point (j,7-k,z,1);
+						if (z-1)
+							point (j,7-k,z-1,0);
+						delay(5000);
+					}
+				}
+			}
+		}
+		trans(7,15000);
+	}
+    return 0;
+}
 
 // __bit flash_7()
 // {
@@ -1328,7 +1361,7 @@ void main()
             uart_detected = flash_4();
             uart_detected = flash_5();
             uart_detected = flash_5();
-            // uart_detected = flash_6();
+            uart_detected = flash_6();
             // uart_detected = flash_7();
             // uart_detected = flash_8();
             // uart_detected = flash_9();
