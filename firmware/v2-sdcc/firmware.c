@@ -776,143 +776,152 @@ __bit flash_4()
     return 0;
 }
 
-// __bit flash_5()
-// {
-// 	uint a=15000;//a=delay
-// 	char i=8,j,an[4];
-// 	//1
-// 	for (j=7; j<11; j++)
-// 		an[j-7]=j;
-// 	while(i--) {
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]<8)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]<7)
-// 				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]>3)
-// 				an[j]--;
-// 		}
-// 		delay(a);
-// 	}
-// 	//2
-// 	i=3;
-// 	for (j=0; j<4; j++)
-// 		an[j]=5-j;
-// 	while(i--) {
-// 		for (j=1; j<4; j++) {
-// 			if (an[j]<4)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]<3)
-// 				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]>0)
-// 				an[j]--;
-// 		}
-// 		delay(a);
-// 	}
-// 	//3
-// 	i=3;
-// 	for (j=1; j<4; j++)
-// 		an[j]=4-j;
-// 	while(i--) {
-// 		for (j=1; j<4; j++) {
-// 			if (an[j]>=0)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]>0)
-// 				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-// 		}
-// 		for (j=1; j<4; j++) {
-// 			if (an[j]<3)
-// 				an[j]++;
-// 		}
-// 		delay(a);
-// 	}
-// 	//4
-// 	i=3;
-// 	for (j=0; j<4; j++)
-// 		an[j]=j+1;
-// 	while(i--) {
-// 		for (j=1; j<4; j++) {
-// 			if (an[j]>3)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]>3)
-// 				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++)
-// 			an[j]++;
-// 		delay(a);
-// 	}
-// 	//5
-// 	i=3;
-// 	for (j=3; j<6; j++)
-// 		an[j-2]=j;
-// 	while(i--) {
-// 		for (j=1; j<4; j++) {
-// 			box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]>3)
-// 				an[j]--;
-// 		}
-// 		delay(a);
-// 	}
-// 	//6
-// 	i=3;
-// 	for (j=0; j<4; j++)
-// 		an[j]=5-j;
-// 	while(i--) {
-// 		for (j=1; j<4; j++) {
-// 			if (an[j]<4)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]<3)
-// 				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]>0)
-// 				an[j]--;
-// 		}
-// 		delay(a);
-// 	}
-// 	//7
-// 	i=3;
-// 	for (j=0; j<4; j++)
-// 		an[j]=3-j;
-// 	an[0]=2;
-// 	while(i--) {
-// 		for (j=0; j<3; j++) {
-// 			if (an[j]>=0)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]>=0)
-// 				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (j<5-i)
-// 				an[j]--;
-// 		}
-// 		delay(a);
-// 	}
-// 	//8
-// 	i=10;
-// 	for (j=0; j<4; j++)
-// 		an[j]=j-2;
-// 	while(i--) {
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]>=0)
-// 				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-// 			if (an[j]>=0)
-// 				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-// 		}
-// 		for (j=0; j<4; j++) {
-// 			if (an[j]<7)
-// 				an[j]++;
-// 		}
-// 		delay(a);
-// 	}
-// }
+__bit flash_5()
+{
+	uint a=15000;//a=delay
+	char i=8,j,an[4];
+	//1
+	for (j=7; j<11; j++)
+		an[j-7]=j;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=0; j<4; j++) {
+			if (an[j]<8)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]<7)
+				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (an[j]>3)
+				an[j]--;
+		}
+		delay(a);
+	}
+	//2
+	i=3;
+	for (j=0; j<4; j++)
+		an[j]=5-j;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=1; j<4; j++) {
+			if (an[j]<4)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]<3)
+				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (an[j]>0)
+				an[j]--;
+		}
+		delay(a);
+	}
+	//3
+	i=3;
+	for (j=1; j<4; j++)
+		an[j]=4-j;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=1; j<4; j++) {
+			if (an[j]>=0)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]>0)
+				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+		}
+		for (j=1; j<4; j++) {
+			if (an[j]<3)
+				an[j]++;
+		}
+		delay(a);
+	}
+	//4
+	i=3;
+	for (j=0; j<4; j++)
+		an[j]=j+1;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=1; j<4; j++) {
+			if (an[j]>3)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]>3)
+				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+		}
+		for (j=0; j<4; j++)
+			an[j]++;
+		delay(a);
+	}
+	//5
+	i=3;
+	for (j=3; j<6; j++)
+		an[j-2]=j;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=1; j<4; j++) {
+			box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (an[j]>3)
+				an[j]--;
+		}
+		delay(a);
+	}
+	//6
+	i=3;
+	for (j=0; j<4; j++)
+		an[j]=5-j;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=1; j<4; j++) {
+			if (an[j]<4)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]<3)
+				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (an[j]>0)
+				an[j]--;
+		}
+		delay(a);
+	}
+	//7
+	i=3;
+	for (j=0; j<4; j++)
+		an[j]=3-j;
+	an[0]=2;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=0; j<3; j++) {
+			if (an[j]>=0)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]>=0)
+				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (j<5-i)
+				an[j]--;
+		}
+		delay(a);
+	}
+	//8
+	i=10;
+	for (j=0; j<4; j++)
+		an[j]=j-2;
+	while(i--) {
+        if (rx_in > 0) return 1; // RX command detected
+		for (j=0; j<4; j++) {
+			if (an[j]>=0)
+				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+			if (an[j]>=0)
+				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+		}
+		for (j=0; j<4; j++) {
+			if (an[j]<7)
+				an[j]++;
+		}
+		delay(a);
+	}
+    return 0;
+}
 
 // __bit flash_6()
 // {
@@ -1316,9 +1325,9 @@ void main()
             uart_detected = flash_2();
             uart_detected = flash_3();
             uart_detected = flash_4();
-            // uart_detected = flash_4();
-            // uart_detected = flash_5();
-            // uart_detected = flash_5();
+            uart_detected = flash_4();
+            uart_detected = flash_5();
+            uart_detected = flash_5();
             // uart_detected = flash_6();
             // uart_detected = flash_7();
             // uart_detected = flash_8();
