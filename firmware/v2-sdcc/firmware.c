@@ -1429,19 +1429,19 @@ void main()
             uart_detected = flash_5();
             uart_detected = flash_6();
             uart_detected = flash_7();
-            uart_detected = flash_8();
+            uart_detected = flash_8(); // I heart U ???
             uart_detected = flash_9();
             uart_detected = flash_10();
             clear(frame, 0);
             uart_detected = flash_11();
-            // uart_detected = flash_9();
-            // uart_detected = flash_5();
-            // uart_detected = flash_7();
-            // uart_detected = flash_5();
-            // uart_detected = flash_6();
-            // uart_detected = flash_8();
-            // uart_detected = flash_9();
-            // uart_detected = flash_10();
+            uart_detected = flash_9();
+            uart_detected = flash_5();
+            uart_detected = flash_7();
+            uart_detected = flash_5();
+            uart_detected = flash_6();
+            uart_detected = flash_8();
+            uart_detected = flash_9();
+            uart_detected = flash_10();
 
         }
     }
