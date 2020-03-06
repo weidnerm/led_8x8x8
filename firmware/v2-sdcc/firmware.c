@@ -680,14 +680,14 @@ void tranoutchar(uchar c,uint speed)
 	}
 }
 
-// void transss()
-// {
-// 	uchar i,j;
-// 	for (i=0; i<8; i++) {
-// 		for (j=0; j<8; j++)
-// 			display[frame][i][j]<<=1;
-// 	}
-// }
+void transss()
+{
+	uchar i,j;
+	for (i=0; i<8; i++) {
+		for (j=0; j<8; j++)
+			display[frame][i][j]<<=1;
+	}
+}
 
 
 
@@ -1219,6 +1219,7 @@ __bit flash_10()
 {
 	uchar i,j,an[4],x,y,t;
 	for (i=1; i<7; i++) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		box(0,6,6,1,7,7,1,1);
 		box(i,6,6-i,i+1,7,7-i,1,1);
@@ -1234,6 +1235,7 @@ __bit flash_10()
 		an[i]=6*i;
 	}
 	for (i=0; i<35; i++) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		for(j=0; j<4; j++) {
 			t=an[j]%24;
@@ -1247,6 +1249,7 @@ __bit flash_10()
 		delay(10000);
 	}
 	for (i=0; i<35; i++) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		for(j=0; j<4; j++) {
 			t=an[j]%24;
@@ -1260,6 +1263,7 @@ __bit flash_10()
 		delay(10000);
 	}
 	for (i=0; i<35; i++) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		for(j=0; j<4; j++) {
 			t=an[j]%24;
@@ -1273,6 +1277,7 @@ __bit flash_10()
 		delay(10000);
 	}
 	for (i=0; i<36; i++) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		for(j=0; j<4; j++) {
 			t=an[j]%24;
@@ -1286,6 +1291,7 @@ __bit flash_10()
 		delay(10000);
 	}
 	for (i=6; i>0; i--) {
+        if (rx_in > 0) return 1; // RX command detected
 		clear(frame, 0);
 		box(0,6,6,1,7,7,1,1);
 		box(i,6,6-i,i+1,7,7-i,1,1);
@@ -1300,49 +1306,53 @@ __bit flash_10()
     return 0;
 }
 
-// __bit flash_11()
-// {
-// 	uchar i,j,t,x,y;
-// 	uchar code daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
-// 	for (j=0; j<5; j++) {
-// 		for (i=0; i<13; i++) {
-// 			if (daa[i]>>4) {
-// 				t=daa[i]&0x0f;
-// 				line (0,0,t+1,0,7,t+1,1);
-// 			} else
-// 				t=daa[i];
-// 			line (0,0,t,0,7,t,1);
-// 			transss();
-// 			delay(10000);
-// 		}
-// 	}
-// 	for (j=1; j<8; j++) {
-// 		if (j>3)
-// 			t=4;
-// 		else
-// 			t=j;
-// 		for (i=0; i<24; i+=j) {
-// 			x=dat3[i]>>4;
-// 			y=dat3[i]&0x0f;
-// 			box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
-// 			transss();
-// 			delay(10000);
-// 		}
-// 	}
-// 	for (j=1; j<8; j++) {
-// 		if (j>3)
-// 			t=4;
-// 		else
-// 			t=j;
-// 		for (i=0; i<24; i+=j) {
-// 			x=dat3[i]>>4;
-// 			y=dat3[i]&0x0f;
-// 			point (0,x,y,1);
-// 			transss();
-// 			delay(10000);
-// 		}
-// 	}
-// }
+__bit flash_11()
+{
+	uchar i,j,t,x,y;
+	__code uchar daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
+	for (j=0; j<5; j++) {
+		for (i=0; i<13; i++) {
+            if (rx_in > 0) return 1; // RX command detected
+			if (daa[i]>>4) {
+				t=daa[i]&0x0f;
+				line (0,0,t+1,0,7,t+1,1);
+			} else
+				t=daa[i];
+			line (0,0,t,0,7,t,1);
+			transss();
+			delay(10000);
+		}
+	}
+	for (j=1; j<8; j++) {
+		if (j>3)
+			t=4;
+		else
+			t=j;
+		for (i=0; i<24; i+=j) {
+            if (rx_in > 0) return 1; // RX command detected
+			x=dat3[i]>>4;
+			y=dat3[i]&0x0f;
+			box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
+			transss();
+			delay(10000);
+		}
+	}
+	for (j=1; j<8; j++) {
+		if (j>3)
+			t=4;
+		else
+			t=j;
+		for (i=0; i<24; i+=j) {
+            if (rx_in > 0) return 1; // RX command detected
+			x=dat3[i]>>4;
+			y=dat3[i]&0x0f;
+			point (0,x,y,1);
+			transss();
+			delay(10000);
+		}
+	}
+    return 0;
+}
 
 
 ///////////////////////////////////////////////////////////
@@ -1423,7 +1433,7 @@ void main()
             uart_detected = flash_9();
             uart_detected = flash_10();
             clear(frame, 0);
-            // uart_detected = flash_11();
+            uart_detected = flash_11();
             // uart_detected = flash_9();
             // uart_detected = flash_5();
             // uart_detected = flash_7();
