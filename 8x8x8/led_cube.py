@@ -64,29 +64,122 @@ class Led_Cube_8x8x8():
         self.clear()
         
         img =  ['........',
+                '.XXXXXX.',
+                '...XX...',
+                '...XX...',
+                '...XX...',
+                '...XX...',
+                '.XXXXXX.',
+                '........']
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels0 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
+        img_pixels1 = self.get_translate_matrix( 0,  4,  0).dot(img_pixels_raw)
+        img_pixels_I = np.append(img_pixels0, img_pixels1, axis=1)
+
+        img =  ['.XX..XX.',
+                'XXX..XXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                '.XXXXXX.',
+                '.XXXXXX.',
                 '..XXXX..',
-                '...XX...',
-                '...XX...',
-                '...XX...',
-                '...XX...',
+                '...XX...']
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels0 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
+        img_pixels1 = self.get_translate_matrix( 0,  4,  0).dot(img_pixels_raw)
+        img_pixels_heart = np.append(img_pixels0, img_pixels1, axis=1)
+
+
+        img =  ['........',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XX..XX.',
                 '..XXXX..',
                 '........']
-        img_pixels = self.string_plane_to_xyz_list(img, plane='xz')
-        img_pixels = self.get_translate_matrix( 0,  3,  0).dot(img_pixels)
-
-        # ~ print(img_pixels)
-        
-        for angle_index in range(32+1):
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels0 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
+        img_pixels1 = self.get_translate_matrix( 0,  4,  0).dot(img_pixels_raw)
+        img_pixels_U = np.append(img_pixels0, img_pixels1, axis=1)
+      
+        for angle_index in range(16):
             transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
-            transform = self.get_rotate_z_matrix( 11.25*angle_index).dot(transform)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
             transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
             
-            new_pixels = transform.dot(img_pixels)
+            new_pixels = transform.dot(img_pixels_I)
             self.clear()
             self.store_pixel_array(new_pixels)
             # ~ print(self.display)
             self.send_display()
-            time.sleep(0.1)
+            time.sleep(0.025)
+        
+        for angle_index in range(16):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_I)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            # ~ print(self.display)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_I)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            # ~ print(self.display)
+            self.send_display()
+            time.sleep(0.025)
+        
+
+        for angle_index in range(64):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_x_matrix( 11.25*angle_index).dot(transform)
+            transform = self.get_rotate_y_matrix( 11.25*angle_index).dot(transform)
+            transform = self.get_rotate_z_matrix( 11.25*angle_index).dot(transform)
+            transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_I)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            # ~ print(self.display)
+            self.send_display()
+            time.sleep(0.025)
+        
+
+
+
+        for angle_index in range(120+1):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_heart)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            # ~ print(self.display)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(120+1):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_U)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            # ~ print(self.display)
+            self.send_display()
+            time.sleep(0.025)
         
     def send_display(self):
         
@@ -110,8 +203,10 @@ class Led_Cube_8x8x8():
                 intdata = []
                 for index in range(64):
                     intdata.append(ord(data[index]))
-                    
-                self.display = intdata
+                
+                self.clear()
+                pixel_list = self.correct_orientation(intdata)
+                self.store_pixel_array(pixel_list)
                 self.send_display()
                                 
             bytesread = 0
@@ -133,6 +228,25 @@ class Led_Cube_8x8x8():
                 self.display[index] |= 1<<rounded_x
             else:
                 self.display[index] &= ~(1<<rounded_x)
+                
+    def correct_orientation(self, orig_display):
+        pixel_coords = np.array([[],[],[],[]])
+        for old_z in range(8):
+            for old_y in range(8):
+                for old_x in range(8):
+                    index = 8*old_z+old_y
+                    if (orig_display[index]>>old_x) & 0x01:
+                        new_pixel = np.array([[old_x], [old_y], [old_z], [1]])
+                        pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
+                        
+        transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+        transform = self.get_rotate_y_matrix(-90).dot(transform)
+        transform = self.get_translate_matrix(3.5, 3.5, 3.5).dot(transform)
+        
+        new_pixels = transform.dot(pixel_coords)
+        
+        return new_pixels
+        
         
     def string_plane_to_xyz_list(self, pixel_list, plane='xy'):
         pixel_coords = np.array([[],[],[],[]])
