@@ -21,6 +21,11 @@ class Led_Cube_8x8x8():
         0x59,0x39,0x35,0x31,0x2d,0x29,0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,
         0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4
     ]
+    
+        self.table_3p= [[0xff,0x89,0xf5,0x93,0x93,0xf5,0x89,0xff],
+                        [0x0e,0x1f,0x3f,0x7e,0x7e,0x3f,0x1f,0x0e],
+                        [0x18,0x3c,0x7e,0xff,0x18,0x18,0x18,0x18]];
+
 
     def clear(self):
         self.display = []
@@ -418,7 +423,151 @@ class Led_Cube_8x8x8():
             self.line (x2,y2,z1,x2,y2,z2,le)
             # ~ line (x1,y1,z1,x1,y1,z2,le);
             self.line (x1,y1,z1,x1,y1,z2,le)
-    
+
+    # ~ void roll_apeak_yz(uchar n,uint speed)
+    def roll_apeak_yz(self, n, speed):
+        # ~ switch(n) {
+        # ~ case 1:
+        if n == 1:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ display[frame][i][7]=0;
+                self.display[i*8+7]=0;
+                # ~ display[frame][7][6-i]=255;
+                self.display[7*8+ 6-i]=255;
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 2:
+        elif n == 2:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ display[frame][7][7-i]=0;
+                self.display[7*8+ 7-i]=0;
+                # ~ display[frame][6-i][0]=255;
+                self.display[(6-i)*8+0]=255;
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 3:
+        elif n == 3:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ display[frame][7-i][0]=0;
+                self.display[(7-i)*8+0]=0;
+                # ~ display[frame][0][i+1]=255;
+                self.display[0*8+i+1]=255;
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 0:
+        elif n == 0:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ display[frame][0][i]=0;
+                self.display[0*8+i]=0;
+                # ~ display[frame][i+1][7]=255;
+                self.display[(i+1)*8+7]=255;
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+
+
+    # ~ void roll_3_xy(uchar n,uint speed)
+    def roll_3_xy(self, n, speed):
+
+        # ~ switch(n) {
+        # ~ case 1:
+        if n == 1:
+            # ~ for (i=0; i<8; i++) {
+            for i in range(8):
+                # ~ box_apeak_xy (0,i,0,7,7-i,7,1,1);
+                self.box_apeak_xy (0,i,0,7,7-i,7,1,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+                # ~ if (i<7)
+                if (i<7):
+                    # ~ box_apeak_xy (3,3,0,0,i,7,1,0);
+                    self.box_apeak_xy (3,3,0,0,i,7,1,0);
+        # ~ case 2:
+        elif n == 2:
+            # ~ for (i=0; i<8; i++) {
+            for i in range(8):
+                # ~ box_apeak_xy (7-i,0,0,i,7,7,1,1);
+                self.box_apeak_xy (7-i,0,0,i,7,7,1,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+                # ~ if (i<7)
+                if (i<7):
+                    # ~ box_apeak_xy (3,4,0,i,7,7,1,0);
+                    self.box_apeak_xy (3,4,0,i,7,7,1,0);
+        # ~ case 3:
+        elif n == 3:
+            # ~ for (i=0; i<8; i++) {
+            for i in range(8):
+                # ~ box_apeak_xy (0,i,0,7,7-i,7,1,1);
+                self.box_apeak_xy (0,i,0,7,7-i,7,1,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+                # ~ if (i<7)
+                if (i<7):
+                    # ~ box_apeak_xy (4,4,0,7,7-i,7,1,0);
+                    self.box_apeak_xy (4,4,0,7,7-i,7,1,0);
+        # ~ case 0:
+        elif n == 0:
+            # ~ for (i=0; i<8; i++) {
+            for i in range(8):
+                # ~ box_apeak_xy (7-i,0,0,i,7,7,1,1);
+                self.box_apeak_xy (7-i,0,0,i,7,7,1,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+                # ~ if (i<7)
+                if (i<7):
+                    # ~ box_apeak_xy (4,3,0,7-i,0,7,1,0);
+                    self.box_apeak_xy (4,3,0,7-i,0,7,1,0);
+
+
+
+
+    # ~ void roll_apeak_xy(uchar n,uint speed)
+    def roll_apeak_xy(self, n, speed):
+        # ~ switch(n) {
+        # ~ case 1:
+        if n == 1:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ line(0,i,0,0,i,7,0);
+                self.line(0,i,0,0,i,7,0);
+                # ~ line(i+1,7,0,i+1,7,7,1);
+                self.line(i+1,7,0,i+1,7,7,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 2:
+        elif n == 2:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ line(i,7,0,i,7,7,0);
+                self.line(i,7,0,i,7,7,0);
+                # ~ line(7,6-i,0,7,6-i,7,1);
+                self.line(7,6-i,0,7,6-i,7,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 3:
+        elif n == 3:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ line(7,7-i,0,7,7-i,7,0);
+                self.line(7,7-i,0,7,7-i,7,0);
+                # ~ line(6-i,0,0,6-i,0,7,1);
+                self.line(6-i,0,0,6-i,0,7,1);
+                # ~ delay(speed);
+                time.sleep(speed*0.000005); self.send_display()
+        # ~ case 0:
+        elif n == 0:
+            # ~ for (i=0; i<7; i++) {
+            for i in range(7):
+                # ~ line(7-i,0,0,7-i,0,7,0);
+                self.line(7-i,0,0,7-i,0,7,0);
+                # ~ line(0,i+1,0,0,i+1,7,1);
+                self.line(0,i+1,0,0,i+1,7,1);
+                time.sleep(speed*0.000005); self.send_display()
+
     
     # ~ void max(uchar *a,uchar *b)
     def max(self, a, b):
@@ -486,6 +635,8 @@ class Led_Cube_8x8x8():
         c1=z2-z1;
         # ~ t=maxt(abss(a1),abss(b1),abss(c1));
         t=self.maxt(self.abss(a1),self.abss(b1),self.abss(c1));
+        if t == 0:
+            t=1 # something is wrong with this stupid thing
         # ~ a=x1*10;
         # ~ b=y1*10;
         # ~ c=z1*10;
@@ -511,8 +662,18 @@ class Led_Cube_8x8x8():
         # ~ }
         # ~ point(x2,y2,z2,le);
         self.point(x2,y2,z2,le)
-    # ~ }
 
+
+    # ~ void trans(uchar z,uint speed)
+    def trans(self, z, speed):
+        # ~ for (j=0; j<8; j++) {
+        for j in range(8):
+            # ~ for (i=0; i<8; i++) {
+            for i in range(8):
+                # ~ display[frame][z][i]>>=1;
+                self.display[z*8+i] = self.display[z*8+i] >> 1;
+            # ~ delay(speed);
+            time.sleep(speed*0.000005); self.send_display()
 
 
 
@@ -923,7 +1084,138 @@ class Led_Cube_8x8x8():
 
 
 
+    # ~ __bit flash_6()
+    def flash_6(self):
+        # ~ roll_apeak_yz(1,10000);
+        self.roll_apeak_yz(1,10000);
+        # ~ roll_apeak_yz(2,10000);
+        self.roll_apeak_yz(2,10000);
+        # ~ roll_apeak_yz(3,10000);
+        self.roll_apeak_yz(3,10000);
+        # ~ roll_apeak_yz(0,10000);
+        self.roll_apeak_yz(0,10000);
+        # ~ roll_apeak_yz(1,10000);
+        self.roll_apeak_yz(1,10000);
+        # ~ roll_apeak_yz(2,10000);
+        self.roll_apeak_yz(2,10000);
+        # ~ roll_apeak_yz(3,10000);
+        self.roll_apeak_yz(3,10000);
+        # ~ for (i=0; i<3; i++) {
+        for i in range(3):
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ for (k=0; k<8; k++) {
+                for k in range(8):
+                    # ~ if ((table_3p[i][j]>>k)&1) {
+                    if ((self.table_3p[i][j]>>k)&1):
+                        # ~ for (z=1; z<8; z++) {
+                        for z in range(1,8):
+                            # ~ point (j,7-k,z,1);
+                            self.point (j,7-k,z,1)
+                            # ~ if (z-1)
+                            if (z-1):
+                                # ~ point (j,7-k,z-1,0);
+                                self.point (j,7-k,z-1,0);
+                            # ~ delay(5000);
+                            time.sleep(5000*0.000005); self.send_display()
+                       # ~ }
+                    # ~ }
+                # ~ }
+            # ~ }
+            # ~ trans(7,15000);
+            self.trans(7,15000);
 
+    # ~ __bit flash_7()
+    def flash_7(self):
+
+        # ~ uint a=3000;
+        a=3000;
+        # ~ roll_apeak_yz(0,10000);
+        self.roll_apeak_yz(0,10000);
+        # ~ roll_apeak_yz(1,10000);
+        self.roll_apeak_yz(1,10000);
+        # ~ roll_apeak_yz(2,10000);
+        self.roll_apeak_yz(2,10000);
+        # ~ roll_apeak_yz(3,10000);
+        self.roll_apeak_yz(3,10000);
+        # ~ roll_apeak_yz(0,10000);
+        self.roll_apeak_yz(0,10000);
+        # ~ roll_apeak_yz(1,10000);
+        self.roll_apeak_yz(1,10000);
+        # ~ roll_apeak_yz(2,10000);
+        self.roll_apeak_yz(2,10000);
+        # ~ roll_apeak_yz(3,10000);
+        self.roll_apeak_yz(3,10000);
+        
+        # ~ roll_apeak_yz(0,10000);
+        # ~ roll_apeak_yz(1,10000);
+        # ~ roll_apeak_yz(2,10000);
+        # ~ roll_apeak_xy(0,10000);
+        # ~ roll_apeak_xy(1,10000);
+        # ~ roll_apeak_xy(2,10000);
+        # ~ roll_apeak_xy(3,10000);
+        # ~ roll_apeak_xy(0,10000);
+        # ~ roll_apeak_xy(1,10000);
+        # ~ roll_apeak_xy(2,10000);
+        # ~ roll_apeak_xy(3,10000);
+
+        self.roll_apeak_yz(0,10000);
+        self.roll_apeak_yz(1,10000);
+        self.roll_apeak_yz(2,10000);
+        self.roll_apeak_xy(0,10000);
+        self.roll_apeak_xy(1,10000);
+        self.roll_apeak_xy(2,10000);
+        self.roll_apeak_xy(3,10000);
+        self.roll_apeak_xy(0,10000);
+        self.roll_apeak_xy(1,10000);
+        self.roll_apeak_xy(2,10000);
+        self.roll_apeak_xy(3,10000);
+
+        # ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ box_apeak_xy (0,i,0,7-i,i,7,1,1);
+            self.box_apeak_xy (0,i,0,7-i,i,7,1,1);
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(0,a);
+        self.roll_3_xy(0,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(1,a);
+        self.roll_3_xy(1,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(2,a);
+        self.roll_3_xy(2,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(3,a);
+        self.roll_3_xy(3,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(0,a);
+        self.roll_3_xy(0,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(1,a);
+        self.roll_3_xy(1,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(2,a);
+        self.roll_3_xy(2,a);
+        # ~ delay(30000);
+        time.sleep(30000*0.000005); self.send_display()
+        # ~ roll_3_xy(3,a);
+        self.roll_3_xy(3,a);
+        # ~ for (i=7; i>0; i--) {
+        for i in range(7,0-1,-1):
+            # ~ box_apeak_xy(i,0,0,i,7,7,1,0);
+            self.box_apeak_xy(i,0,0,i,7,7,1,0);
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
 
 
 
@@ -953,6 +1245,10 @@ def main():
         led_Cube_8x8x8.flash_4()
     elif args.canned == '5':
         led_Cube_8x8x8.flash_5()
+    elif args.canned == '6':
+        led_Cube_8x8x8.flash_6()
+    elif args.canned == '7':
+        led_Cube_8x8x8.flash_7()
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
