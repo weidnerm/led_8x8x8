@@ -630,6 +630,74 @@ class Led_Cube_8x8x8():
                 self.box_apeak_xy(0,i,0,7,i,7,1,0)
 
 
+    # ~ __bit flash_4()
+    # ~ {
+        # ~ char i,j,an[8];
+    def flash_4(self):
+        an = [0] *8
+        # ~ for (j=7; j<15; j++)
+        for j in range(7,15):
+            # ~ an[j-7]=j;
+            an[j-7]=j
+        # ~ for (i=0; i<=16; i++) {
+        for i in range(0,17):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if ((an[j]<8)&(an[j]>=0))
+                if ((an[j]<8)&(an[j]>=0)):
+                    # ~ line(0,an[j],j,7,an[j],j,1);
+                    self.line(0,an[j],j,7,an[j],j,1);
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if (((an[j]+1)<8)&(an[j]>=0))
+                if (((an[j]+1)<8)&(an[j]>=0)):
+                    # ~ line(0,an[j]+1,j,7,an[j]+1,j,0);
+                    self.line(0,an[j]+1,j,7,an[j]+1,j,0)
+            for j in range(8):
+                # ~ if (an[j]>0)
+                if (an[j]>0):
+                    # ~ an[j]--;
+                    an[j] = an[j] -1
+            # ~ delay(15000);
+            time.sleep(15000*0.000005); self.send_display()
+
+        # ~ for (j=0; j<8; j++)
+        for j in range(8):
+            # ~ an[j]=1-j;
+            an[j]=1-j
+        # ~ for (i=0; i<=16; i++) {
+        for i in range(0,17):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if ((an[j]<8)&(an[j]>=0))
+                if ((an[j]<8)&(an[j]>=0)):
+                    # ~ line(0,an[j],j,7,an[j],j,1);
+                    self.line(0,an[j],j,7,an[j],j,1)
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if (((an[j]-1)<7)&(an[j]>0))
+                if (((an[j]-1)<7)&(an[j]>0)):
+                    # ~ line(0,an[j]-1,j,7,an[j]-1,j,0);
+                    self.line(0,an[j]-1,j,7,an[j]-1,j,0)
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if (an[j]<7)
+                if (an[j]<7):
+                    # ~ an[j]++;
+                    an[j] = an[j] +1
+            # ~ delay(15000);
+            time.sleep(15000*0.000005); self.send_display()
+        # ~ }
+        # ~ return 0;
+    # ~ }
+
+
+
+
+
+
 
 def main():
     parser = argparse.ArgumentParser(description='Send serial data to 8x8x8 led cube v2.')
@@ -653,6 +721,8 @@ def main():
         led_Cube_8x8x8.flash_2()
     elif args.canned == '3':
         led_Cube_8x8x8.flash_3()
+    elif args.canned == '4':
+        led_Cube_8x8x8.flash_4()
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
