@@ -689,9 +689,237 @@ class Led_Cube_8x8x8():
                     an[j] = an[j] +1
             # ~ delay(15000);
             time.sleep(15000*0.000005); self.send_display()
+
+
+    # ~ __bit flash_5()
+    # ~ {
+    def flash_5(self):
+        # ~ uint a=15000;//a=delay
+        a=15000 # //a=delay
+        # ~ char i=8,j,an[4];
+        i=8
+        an = [0] *4
+        # ~ //1
+        # ~ for (j=7; j<11; j++)
+        for j in range(7,11):
+            # ~ an[j-7]=j;
+            an[j-7]=j
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]<8)
+                if (an[j]<8):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ if (an[j]<7)
+                if (an[j]<7):
+                    # ~ box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0)
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>3)
+                if (an[j]>3):
+                    # ~ an[j]--;
+                    an[j] = an[j] - 1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+            i = i -1
+            
+        # ~ //2
+        # ~ i=3;
+        i=3;
+        # ~ for (j=0; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=5-j;
+            an[j]=5-j
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]<4)
+                if (an[j]<4):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ if (an[j]<3)
+                if (an[j]<3):
+                    # ~ box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0)
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>0)
+                if (an[j]>0):
+                    # ~ an[j]--;
+                    an[j] = an[j] - 1
+
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+            i = i -1
+        # ~ //3
+        # ~ i=3;
+        i=3
+        # ~ for (j=1; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=4-j;
+            an[j]=4-j
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>=0)
+                if (an[j]>=0):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ if (an[j]>0)
+                if (an[j]>0):
+                    # ~ box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0)
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]<3)
+                if (an[j]<3):
+                    # ~ an[j]++;
+                    an[j] = an[j] + 1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+            i = i -1
+        # ~ //4
+        # ~ i=3;
+        i=3;
+        # ~ for (j=0; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=j+1;
+            an[j] = j+1
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>3)
+                if (an[j]>3):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ if (an[j]>3)
+                if (an[j]>3):
+                    # ~ box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+            # ~ for (j=0; j<4; j++)
+            for j in range(4):
+                # ~ an[j]++;
+                an[j] = an[j] + 1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+            i = i -1
+        # ~ //5
+        # ~ i=3;
+        i=3;
+        # ~ for (j=3; j<6; j++)
+        for j in range(3,6):
+            # ~ an[j-2]=j;
+            an[j-2]=j;
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+                self.box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0)
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>3)
+                if (an[j]>3):
+                    # ~ an[j]--;
+                    an[j] = an[j] - 1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+            i = i -1
+        # ~ //6
+        # ~ i=3;
+        i=3;
+        # ~ for (j=0; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=5-j;
+            an[j]=5-j
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=1; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]<4)
+                if (an[j]<4):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1)
+                # ~ if (an[j]<3)
+                if (an[j]<3):
+                    # ~ box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0)
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>0)
+                if (an[j]>0):
+                    # ~ an[j]--;
+                    an[j] = an[j] - 1
+            i = i -1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
+        # ~ //7
+        # ~ i=3;
+        i=3;
+        # ~ for (j=0; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=3-j;
+            an[j]=3-j;
+        # ~ an[0]=2;
+        an[0]=2;
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=0; j<3; j++) {
+            for j in range(3):
+                # ~ if (an[j]>=0)
+                if (an[j]>=0):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                # ~ if (an[j]>=0)
+                if (an[j]>=0):
+                    # ~ box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (j<5-i)
+                if (j<5-i):
+                    # ~ an[j]--;
+                    an[j] = an[j] - 1
+            i = i -1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
         # ~ }
-        # ~ return 0;
-    # ~ }
+        # ~ //8
+        # ~ i=10;
+        i=10;
+        # ~ for (j=0; j<4; j++)
+        for j in range(4):
+            # ~ an[j]=j-2;
+            an[j]=j-2;
+        # ~ while(i--) {
+        while(i>0):
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]>=0)
+                if (an[j]>=0):
+                    # ~ box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                    self.box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+                # ~ if (an[j]>=0)
+                if (an[j]>=0):
+                    # ~ box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+                    self.box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+            # ~ for (j=0; j<4; j++) {
+            for j in range(4):
+                # ~ if (an[j]<7)
+                if (an[j]<7):
+                    # ~ an[j]++;
+                    an[j] = an[j] + 1
+            i = i -1
+            # ~ delay(a);
+            time.sleep(a*0.000005); self.send_display()
 
 
 
@@ -723,6 +951,8 @@ def main():
         led_Cube_8x8x8.flash_3()
     elif args.canned == '4':
         led_Cube_8x8x8.flash_4()
+    elif args.canned == '5':
+        led_Cube_8x8x8.flash_5()
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
