@@ -12,6 +12,15 @@ class Led_Cube_8x8x8():
         self.baudrate = baudrate
         self.port = serial.Serial(self.port, baudrate=self.baudrate, timeout=3.0)
         self.clear()
+        
+        self.dat = [
+        0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,
+        0x1c,0x18,0x14,0x10,0xc,0x8,0x4,0x25,0x45,0x65,0x85,0xa5,0xc5,0xc9,0xcd,0xd1,0xd5,0xd9,0xb9,0x99,0x79,0x59,0x39,0x35,0x31,
+        0x2d,0x29,0x4a,0x6a,0x8a,0xaa,0xae,0xb2,0xb6,0x96,0x76,0x56,0x52,0x4e,0x6f,0x8f,0x93,0x73,0x6f,0x8f,0x93,0x73,0x4a,0x6a,
+        0x8a,0xaa,0xae,0xb2,0xb6,0x96,0x76,0x56,0x52,0x4e,0x25,0x45,0x65,0x85,0xa5,0xc5,0xc9,0xcd,0xd1,0xd5,0xd9,0xb9,0x99,0x79,
+        0x59,0x39,0x35,0x31,0x2d,0x29,0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,
+        0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4
+    ]
 
     def clear(self):
         self.display = []
@@ -217,6 +226,9 @@ class Led_Cube_8x8x8():
         for col in range(cols):
             self.store_pixel(x=pixel_array[0,col], y=pixel_array[1,col], z=pixel_array[2,col], state=1) 
             
+    def point(self, x, y, z, enable):
+        self.store_pixel(x=x, y=y, z=z, state=enable)
+        
     def store_pixel(self, x=0, y=0, z=0, state=0):
         rounded_x = int(x+0.5)
         rounded_y = int(y+0.5)
@@ -333,6 +345,292 @@ class Led_Cube_8x8x8():
         print( self.string_plane_to_xyz_list(grid))
         
 
+# ~ __code uchar dat[128]= { /*railway*/
+
+
+        
+
+
+
+
+
+    # ~ void cirp(char cpp, uchar dir, uchar le)
+    # ~ {
+    def cirp(self, cpp, dir, le):
+        
+        # ~ uchar a, b, c, cp;
+        # ~ // if ((cpp < 128) & (cpp >= 0)) {
+        # ~ if (cpp >= 0) {
+        if (cpp >= 0):
+        
+            # ~ if (dir) {
+            if (dir):
+                # ~ cp = 127 - cpp;
+                cp = 127 - cpp
+                
+            # ~ }
+            # ~ else {
+            else:
+                # ~ cp = cpp;
+                cp = cpp
+            # ~ }
+
+            if (cp >= len(self.dat)-1 or cp<0):
+                return
+
+            # ~ a = (dat[cp] >> 5) & 0x07;
+            a = (self.dat[cp] >> 5) & 0x07;
+            # ~ b = (dat[cp] >> 2) & 0x07;
+            b = (self.dat[cp] >> 2) & 0x07;
+            # ~ c = dat[cp] & 0x03;
+            c = self.dat[cp] & 0x03;
+            # ~ if (cpp > 63) {
+            if (cpp > 63):
+                # ~ c=7-c;
+                c=7-c
+            # ~ }
+            # ~ point(a,b,c,le);
+            self.store_pixel(a,b,c,le);
+        # ~ }
+    # ~ }
+    
+    
+    # ~ void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
+    # ~ {
+        # ~ uchar i;
+    def box_apeak_xy(self, x1, y1, z1, x2, y2, z2, fill, le):
+        # ~ max(&z1,&z2);
+        z1,z2 = self.max(z1,z2)
+        # ~ if (fill) {
+        if (fill):
+            # ~ for (i=z1; i<=z2; i++) {
+            for i in range(z1,z2+1,1):
+                # ~ line (x1,y1,i,x2,y2,i,le);
+                self.line (x1,y1,i,x2,y2,i,le)
+            # ~ }
+        # ~ } else {
+        else:
+            # ~ line (x1,y1,z1,x2,y2,z1,le);
+            self.line (x1,y1,z1,x2,y2,z1,le)
+            # ~ line (x1,y1,z2,x2,y2,z2,le);
+            self.line (x1,y1,z2,x2,y2,z2,le)
+            # ~ line (x2,y2,z1,x2,y2,z2,le);
+            self.line (x2,y2,z1,x2,y2,z2,le)
+            # ~ line (x1,y1,z1,x1,y1,z2,le);
+            self.line (x1,y1,z1,x1,y1,z2,le)
+    
+    
+    # ~ void max(uchar *a,uchar *b)
+    def max(self, a, b):
+        # ~ if ((*a)>(*b)) {
+            # ~ t=(*a);
+            # ~ (*a)=(*b);
+            # ~ (*b)=t;
+        if a>b:
+            return b,a
+        else:
+            return a,b
+
+    
+     # ~ /*The function is to figure out the max number and return it.*/
+    # ~ uchar maxt(uchar a,uchar b,uchar c)
+    def maxt(self, a, b, c):
+        # ~ if (a<b)
+            # ~ a=b;
+        # ~ if (a<c)
+            # ~ a=c;
+        # ~ return a;
+        biggest = a
+        if biggest<b:
+            biggest = b
+        if biggest<c:
+            biggest = c
+        return biggest
+
+    # ~ // /*To figure out the round number*/
+    # ~ uchar abs(uchar a)
+    def abs(self, a):
+        # ~ b=a/10;
+        b=int(a/10);
+        # ~ a=a-b*10;
+        a=a-b*10;
+        # ~ if (a>=5)
+        if (a>=5):
+            # ~ b++;
+            b = b + 1
+        # ~ return b;
+        return b;
+
+
+    # ~ /*To figure out the absolute value*/
+    # ~ uchar abss(char a)
+    def abss(self, a):
+        # ~ if (a<0)
+        if (a<0):
+            # ~ a=-a;
+            a=-a
+        # ~ return a;
+        return a
+    
+    
+    
+    # ~ void line(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar le)
+    # ~ {
+        # ~ char t,a,b,c,a1,b1,c1,i;
+    def line(self, x1, y1, z1, x2, y2, z2, le):
+        # ~ a1=x2-x1;
+        a1=x2-x1;
+        # ~ b1=y2-y1;
+        b1=y2-y1;
+        # ~ c1=z2-z1;
+        c1=z2-z1;
+        # ~ t=maxt(abss(a1),abss(b1),abss(c1));
+        t=self.maxt(self.abss(a1),self.abss(b1),self.abss(c1));
+        # ~ a=x1*10;
+        # ~ b=y1*10;
+        # ~ c=z1*10;
+        # ~ a1=a1*10/t;
+        # ~ b1=b1*10/t;
+        # ~ c1=c1*10/t;
+        a=x1*10
+        b=y1*10
+        c=z1*10
+        a1=a1*10/t
+        b1=b1*10/t
+        c1=c1*10/t
+        # ~ for (i=0; i<t; i++) {
+        for i in range(t):
+            # ~ point(abs(a),abs(b),abs(c),le);
+            self.point(self.abs(a),self.abs(b),self.abs(c),le);
+            # ~ a+=a1;
+            # ~ b+=b1;
+            # ~ c+=c1;
+            a+=a1
+            b+=b1
+            c+=c1
+        # ~ }
+        # ~ point(x2,y2,z2,le);
+        self.point(x2,y2,z2,le)
+    # ~ }
+
+
+
+
+    # ~ ///////////////////////////////////////////////////////////
+    # ~ // default animation included in with the ledcube with some modifications
+    # ~ __bit flash_2()
+    def flash_2(self):
+        # ~ uchar i;
+        # ~ for (i=129; i>0; i--)
+        # ~ {
+        for i in range(129, 0, -1):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ cirp(i-2,0,1);
+            self.cirp(i-2,0,1)
+            
+            # ~ delay(8000);
+            time.sleep(8000*0.000005)
+            self.send_display()
+            # ~ cirp(i-1,0,0);
+            self.cirp(i-1,0,0)
+        # ~ }
+
+        # ~ delay(8000);
+        time.sleep(8000*0.000005)
+        self.send_display()
+
+        # ~ for (i=0; i<136; i++)
+        # ~ {
+        for i in range(136):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ cirp(i,1,1);
+            self.cirp(i,1,1)
+            # ~ delay(8000);
+            time.sleep(8000*0.000005)
+            self.send_display()
+            # ~ cirp(i-8,1,0);
+            self.cirp(i-8,1,0)
+        # ~ }
+
+        # ~ delay(8000);
+        time.sleep(8000*0.000005)
+        self.send_display()
+
+        # ~ for (i=129; i>0; i--)
+        # ~ {
+        for i in range(129, 0, -1):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ cirp(i-2,0,1);
+            self.cirp(i-2,0,1)
+            # ~ delay(8000);
+            time.sleep(8000*0.000005)
+            self.send_display()
+        # ~ }
+
+        # ~ delay(8000);
+        time.sleep(8000*0.000005)
+        self.send_display()
+        self.point(0,0,0,0); self.point(0,1,0,0)
+
+        # ~ for (i=0; i<128; i++)
+        # ~ {
+        for i in range(136):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ cirp(i-8,1,0);
+            self.cirp(i-8,1,0)
+            # ~ delay(8000);
+            time.sleep(8000*0.000005)
+            self.send_display()
+        # ~ }
+
+        # ~ delay(60000);
+        # ~ return 0;
+        time.sleep(8000*0.000005)
+        self.send_display()
+        
+        
+    # ~ __bit flash_3()
+    # ~ {
+        # ~ char i;
+    def flash_3(self):
+	# ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
+            self.box_apeak_xy(0,i,0,7,i,7,1,1)
+            # ~ delay(20000);
+            time.sleep(20000*0.000005); self.send_display()
+            # ~ if (i<7)
+            if (i<7):
+                # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
+                self.box_apeak_xy(0,i,0,7,i,7,1,0)
+    
+        # ~ for (i=7; i>=0; i--) {
+        for i in range(7,0-1, -1):
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
+            self.box_apeak_xy(0,i,0,7,i,7,1,1)
+            # ~ delay(20000);
+            time.sleep(20000*0.000005); self.send_display()
+            # ~ if (i>0)
+            if (i>0):
+                # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
+                self.box_apeak_xy(0,i,0,7,i,7,1,0)
+
+        for i in range(8):
+        # ~ for (i=0; i<8; i++) {
+            # ~ if (rx_in > 0) return 1; // RX command detected
+            # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
+            self.box_apeak_xy(0,i,0,7,i,7,1,1)
+            # ~ delay(20000);
+            time.sleep(20000*0.000005); self.send_display()
+            # ~ if (i<7)
+            if (i<7):
+                # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
+                self.box_apeak_xy(0,i,0,7,i,7,1,0)
+
+
+
 def main():
     parser = argparse.ArgumentParser(description='Send serial data to 8x8x8 led cube v2.')
     parser.add_argument('-p', '--port', default='/dev/ttyUSB0', help='serial port connected to 8x8x8 cube running v2 firmware')
@@ -340,6 +638,7 @@ def main():
     parser.add_argument('-f', '--file', default=None, help='file of bit data to send')
     parser.add_argument('-d', '--delay', default=20, help='delay in msec between each file frame')
     parser.add_argument('-m', '--math', default=0, help='do math stuff')
+    parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
 
     args = parser.parse_args()
 
@@ -350,9 +649,15 @@ def main():
         # ~ led_Cube_8x8x8.math_test()
         led_Cube_8x8x8.test_it2()
 
+    elif args.canned == '2':
+        led_Cube_8x8x8.flash_2()
+    elif args.canned == '3':
+        led_Cube_8x8x8.flash_3()
+
     elif args.file == None:
         led_Cube_8x8x8.test_it()
         led_Cube_8x8x8.send_display()
+        
     else:
         led_Cube_8x8x8.send_file(args.file, args.delay)
     
