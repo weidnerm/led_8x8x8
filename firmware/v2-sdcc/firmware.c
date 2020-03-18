@@ -285,34 +285,34 @@ void cirp(char cpp, uchar dir, uchar le)
 
 // uchar judgebit(uchar num,uchar b)
 // {
-// 	char n;
-// 	num=num&(1<<b);
-// 	if (num)
-// 		n=1;
-// 	else
-// 		n=0;
-// 	return n;
+//  char n;
+//  num=num&(1<<b);
+//  if (num)
+//      n=1;
+//  else
+//      n=0;
+//  return n;
 // }
 
 // /*To figure out the round number*/
 
 uchar abs(uchar a)
 {
-	uchar b;
-	b=a/10;
-	a=a-b*10;
-	if (a>=5)
-		b++;
-	return b;
+    uchar b;
+    b=a/10;
+    a=a-b*10;
+    if (a>=5)
+        b++;
+    return b;
 }
 
 /*To figure out the absolute value*/
 
 uchar abss(char a)
 {
-	if (a<0)
-		a=-a;
-	return a;
+    if (a<0)
+        a=-a;
+    return a;
 }
 
 // /*The function can comparat the character.
@@ -321,67 +321,67 @@ uchar abss(char a)
 
 void max(uchar *a,uchar *b)
 {
-	uchar t;
-	if ((*a)>(*b)) {
-		t=(*a);
-		(*a)=(*b);
-		(*b)=t;
-	}
+    uchar t;
+    if ((*a)>(*b)) {
+        t=(*a);
+        (*a)=(*b);
+        (*b)=t;
+    }
 }
 
 /*The function is to figure out the max number and return it.*/
 
 uchar maxt(uchar a,uchar b,uchar c)
 {
-	if (a<b)
-		a=b;
-	if (a<c)
-		a=c;
-	return a;
+    if (a<b)
+        a=b;
+    if (a<c)
+        a=c;
+    return a;
 }
 
 // void clear(char le)
 // {
-// 	uchar i,j;
-// 	for (j=0; j<8; j++) {
-// 		for (i=0; i<8; i++)
-// 			display[frame][j][i]=le;
-// 	}
+//  uchar i,j;
+//  for (j=0; j<8; j++) {
+//      for (i=0; i<8; i++)
+//          display[frame][j][i]=le;
+//  }
 // }
 
 // void trailler(uint speed)
 // {
-// 	char i,j;
-// 	for (i=6; i>=-3; i--) {
-// 		if (i>=0) {
-// 			for (j=0; j<8; j++)
-// 				display[frame][j][i]=display[frame][j][i+1];
-// 		}
-// 		if (i<4) {
-// 			for (j=0; j<8; j++)
-// 				display[frame][j][i+4]=0;
-// 		}
-// 		delay(speed);
-// 	}
+//  char i,j;
+//  for (i=6; i>=-3; i--) {
+//      if (i>=0) {
+//          for (j=0; j<8; j++)
+//              display[frame][j][i]=display[frame][j][i+1];
+//      }
+//      if (i<4) {
+//          for (j=0; j<8; j++)
+//              display[frame][j][i+4]=0;
+//      }
+//      delay(speed);
+//  }
 // }
 
 // void point(uchar x,uchar y,uchar z,uchar le)
 // {
-// 	uchar ch1,ch0;
-// 	ch1=1<<x;
-// 	ch0=~ch1;
-// 	if (le)
-// 		display[frame][z][y]=display[frame][z][y]|ch1;
-// 	else
-// 		display[frame][z][y]=display[frame][z][y]&ch0;
+//  uchar ch1,ch0;
+//  ch1=1<<x;
+//  ch0=~ch1;
+//  if (le)
+//      display[frame][z][y]=display[frame][z][y]|ch1;
+//  else
+//      display[frame][z][y]=display[frame][z][y]&ch0;
 // }
 
 // void type(uchar cha,uchar y)
 // {
-// 	uchar xx;
-// 	for (xx=0; xx<8; xx++) {
-// 		display[frame][xx][y]=table_cha[cha][xx];
-// 	}
+//  uchar xx;
+//  for (xx=0; xx<8; xx++) {
+//      display[frame][xx][y]=table_cha[cha][xx];
+//  }
 // }
 
 // /*The first variable is the distance from the midpoint.
@@ -394,299 +394,299 @@ uchar maxt(uchar a,uchar b,uchar c)
 
 // void cirp(char cpp,uchar dir,uchar le)
 // {
-// 	uchar a,b,c,cp;
-// 	if ((cpp<128)&(cpp>=0)) {
-// 		if (dir)
-// 			cp=127-cpp;
-// 		else
-// 			cp=cpp;
-// 		a=(dat[cp]>>5)&0x07;
-// 		b=(dat[cp]>>2)&0x07;
-// 		c=dat[cp]&0x03;
-// 		if (cpp>63)
-// 			c=7-c;
-// 		point (a,b,c,le);
-// 	}
+//  uchar a,b,c,cp;
+//  if ((cpp<128)&(cpp>=0)) {
+//      if (dir)
+//          cp=127-cpp;
+//      else
+//          cp=cpp;
+//      a=(dat[cp]>>5)&0x07;
+//      b=(dat[cp]>>2)&0x07;
+//      c=dat[cp]&0x03;
+//      if (cpp>63)
+//          c=7-c;
+//      point (a,b,c,le);
+//  }
 // }
 
 void line(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar le)
 {
-	char t,a,b,c,a1,b1,c1,i;
-	a1=x2-x1;
-	b1=y2-y1;
-	c1=z2-z1;
-	t=maxt(abss(a1),abss(b1),abss(c1));
-	a=x1*10;
-	b=y1*10;
-	c=z1*10;
-	a1=a1*10/t;
-	b1=b1*10/t;
-	c1=c1*10/t;
-	for (i=0; i<t; i++) {
-		point(abs(a),abs(b),abs(c),le);
-		a+=a1;
-		b+=b1;
-		c+=c1;
-	}
-	point(x2,y2,z2,le);
+    char t,a,b,c,a1,b1,c1,i;
+    a1=x2-x1;
+    b1=y2-y1;
+    c1=z2-z1;
+    t=maxt(abss(a1),abss(b1),abss(c1));
+    a=x1*10;
+    b=y1*10;
+    c=z1*10;
+    a1=a1*10/t;
+    b1=b1*10/t;
+    c1=c1*10/t;
+    for (i=0; i<t; i++) {
+        point(abs(a),abs(b),abs(c),le);
+        a+=a1;
+        b+=b1;
+        c+=c1;
+    }
+    point(x2,y2,z2,le);
 }
 
 void box(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
 {
-	uchar i,j,t=0;
-	max(&x1,&x2);
-	max(&y1,&y2);
-	max(&z1,&z2);
-	for (i=x1; i<=x2; i++)
-		t|=1<<i;
-	if (!le)
-		t=~t;
-	if (fill) {
-		if (le) {
-			for (i=z1; i<=z2; i++) {
-				for (j=y1; j<=y2; j++)
-					display[frame][j][i]|=t;
-			}
-		} else {
-			for (i=z1; i<=z2; i++) {
-				for (j=y1; j<=y2; j++)
-					display[frame][j][i]&=t;
-			}
-		}
-	} else {
-		if (le) {
-			display[frame][y1][z1]|=t;
-			display[frame][y2][z1]|=t;
-			display[frame][y1][z2]|=t;
-			display[frame][y2][z2]|=t;
-		} else {
-			display[frame][y1][z1]&=t;
-			display[frame][y2][z1]&=t;
-			display[frame][y1][z2]&=t;
-			display[frame][y2][z2]&=t;
-		}
-		t=(0x01<<x1)|(0x01<<x2);
-		if (!le)
-			t=~t;
-		if (le) {
-			for (j=z1; j<=z2; j+=(z2-z1)) {
-				for (i=y1; i<=y2; i++)
-					display[frame][i][j]|=t;
-			}
-			for (j=y1; j<=y2; j+=(y2-y1)) {
-				for (i=z1; i<=z2; i++)
-					display[frame][j][i]|=t;
-			}
-		} else {
-			for (j=z1; j<=z2; j+=(z2-z1)) {
-				for (i=y1; i<=y2; i++) {
-					display[frame][i][j]&=t;
-				}
-			}
-			for (j=y1; j<=y2; j+=(y2-y1)) {
-				for (i=z1; i<=z2; i++) {
-					display[frame][j][i]&=t;
-				}
-			}
-		}
-	}
+    uchar i,j,t=0;
+    max(&x1,&x2);
+    max(&y1,&y2);
+    max(&z1,&z2);
+    for (i=x1; i<=x2; i++)
+        t|=1<<i;
+    if (!le)
+        t=~t;
+    if (fill) {
+        if (le) {
+            for (i=z1; i<=z2; i++) {
+                for (j=y1; j<=y2; j++)
+                    display[frame][j][i]|=t;
+            }
+        } else {
+            for (i=z1; i<=z2; i++) {
+                for (j=y1; j<=y2; j++)
+                    display[frame][j][i]&=t;
+            }
+        }
+    } else {
+        if (le) {
+            display[frame][y1][z1]|=t;
+            display[frame][y2][z1]|=t;
+            display[frame][y1][z2]|=t;
+            display[frame][y2][z2]|=t;
+        } else {
+            display[frame][y1][z1]&=t;
+            display[frame][y2][z1]&=t;
+            display[frame][y1][z2]&=t;
+            display[frame][y2][z2]&=t;
+        }
+        t=(0x01<<x1)|(0x01<<x2);
+        if (!le)
+            t=~t;
+        if (le) {
+            for (j=z1; j<=z2; j+=(z2-z1)) {
+                for (i=y1; i<=y2; i++)
+                    display[frame][i][j]|=t;
+            }
+            for (j=y1; j<=y2; j+=(y2-y1)) {
+                for (i=z1; i<=z2; i++)
+                    display[frame][j][i]|=t;
+            }
+        } else {
+            for (j=z1; j<=z2; j+=(z2-z1)) {
+                for (i=y1; i<=y2; i++) {
+                    display[frame][i][j]&=t;
+                }
+            }
+            for (j=y1; j<=y2; j+=(y2-y1)) {
+                for (i=z1; i<=z2; i++) {
+                    display[frame][j][i]&=t;
+                }
+            }
+        }
+    }
 }
 
 void box_apeak_xy(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
 {
-	uchar i;
-	max(&z1,&z2);
-	if (fill) {
-		for (i=z1; i<=z2; i++) {
-			line (x1,y1,i,x2,y2,i,le);
-		}
-	} else {
-		line (x1,y1,z1,x2,y2,z1,le);
-		line (x1,y1,z2,x2,y2,z2,le);
-		line (x2,y2,z1,x2,y2,z2,le);
-		line (x1,y1,z1,x1,y1,z2,le);
-	}
+    uchar i;
+    max(&z1,&z2);
+    if (fill) {
+        for (i=z1; i<=z2; i++) {
+            line (x1,y1,i,x2,y2,i,le);
+        }
+    } else {
+        line (x1,y1,z1,x2,y2,z1,le);
+        line (x1,y1,z2,x2,y2,z2,le);
+        line (x2,y2,z1,x2,y2,z2,le);
+        line (x1,y1,z1,x1,y1,z2,le);
+    }
 }
 
 // void poke(uchar n,uchar x,uchar y)
 // {
-// 	uchar i;
-// 	for (i=0; i<8; i++) {
-// 		point(x,y,i,judgebit(n,i));
-// 	}
+//  uchar i;
+//  for (i=0; i<8; i++) {
+//      point(x,y,i,judgebit(n,i));
+//  }
 // }
 
 // void boxtola(char i,uchar n)
 // {
-// 	if ((i>=0)&(i<8)) {
-// 		poke(n,0,7-i);
-// 	}
-// 	if ((i>=8)&(i<16)) {
-// 		poke(n,i-8,0);
-// 	}
-// 	if ((i>=16)&(i<24)) {
-// 		poke(n,7,i-16);
-// 	}
+//  if ((i>=0)&(i<8)) {
+//      poke(n,0,7-i);
+//  }
+//  if ((i>=8)&(i<16)) {
+//      poke(n,i-8,0);
+//  }
+//  if ((i>=16)&(i<24)) {
+//      poke(n,7,i-16);
+//  }
 // }
 
 // void rolldisplay(uint speed)
 // {
-// 	uchar j;
-// 	char i,a;
-// 	for (i=23; i>-40; i--) {
-// 		for (j=0; j<40; j++) {
-// 			a=i+j;
-// 			if ((a>=0)&(a<24))
-// 				boxtola(a,table_id[j]);
-// 		}
-// 		delay(speed);
-// 	}
+//  uchar j;
+//  char i,a;
+//  for (i=23; i>-40; i--) {
+//      for (j=0; j<40; j++) {
+//          a=i+j;
+//          if ((a>=0)&(a<24))
+//              boxtola(a,table_id[j]);
+//      }
+//      delay(speed);
+//  }
 // }
 
 void roll_apeak_yz(uchar n,uint speed)
 {
-	uchar i;
-	switch(n) {
-	case 1:
-		for (i=0; i<7; i++) {
-			display[frame][i][7]=0;
-			display[frame][7][6-i]=255;
-			delay(speed);
-		};
-		break;
-	case 2:
-		for (i=0; i<7; i++) {
-			display[frame][7][7-i]=0;
-			display[frame][6-i][0]=255;
-			delay(speed);
-		};
-		break;
-	case 3:
-		for (i=0; i<7; i++) {
-			display[frame][7-i][0]=0;
-			display[frame][0][i+1]=255;
-			delay(speed);
-		};
-		break;
-	case 0:
-		for (i=0; i<7; i++) {
-			display[frame][0][i]=0;
-			display[frame][i+1][7]=255;
-			delay(speed);
-		};
-	}
+    uchar i;
+    switch(n) {
+    case 1:
+        for (i=0; i<7; i++) {
+            display[frame][i][7]=0;
+            display[frame][7][6-i]=255;
+            delay(speed);
+        };
+        break;
+    case 2:
+        for (i=0; i<7; i++) {
+            display[frame][7][7-i]=0;
+            display[frame][6-i][0]=255;
+            delay(speed);
+        };
+        break;
+    case 3:
+        for (i=0; i<7; i++) {
+            display[frame][7-i][0]=0;
+            display[frame][0][i+1]=255;
+            delay(speed);
+        };
+        break;
+    case 0:
+        for (i=0; i<7; i++) {
+            display[frame][0][i]=0;
+            display[frame][i+1][7]=255;
+            delay(speed);
+        };
+    }
 }
 
 void roll_apeak_xy(uchar n,uint speed)
 {
-	uchar i;
-	switch(n) {
-	case 1:
-		for (i=0; i<7; i++) {
-			line(0,i,0,0,i,7,0);
-			line(i+1,7,0,i+1,7,7,1);
-			delay(speed);
-		};
-		break;
-	case 2:
-		for (i=0; i<7; i++) {
-			line(i,7,0,i,7,7,0);
-			line(7,6-i,0,7,6-i,7,1);
-			delay(speed);
-		};
-		break;
-	case 3:
-		for (i=0; i<7; i++) {
-			line(7,7-i,0,7,7-i,7,0);
-			line(6-i,0,0,6-i,0,7,1);
-			delay(speed);
-		};
-		break;
-	case 0:
-		for (i=0; i<7; i++) {
-			line(7-i,0,0,7-i,0,7,0);
-			line(0,i+1,0,0,i+1,7,1);
-			delay(speed);
-		};
-	}
+    uchar i;
+    switch(n) {
+    case 1:
+        for (i=0; i<7; i++) {
+            line(0,i,0,0,i,7,0);
+            line(i+1,7,0,i+1,7,7,1);
+            delay(speed);
+        };
+        break;
+    case 2:
+        for (i=0; i<7; i++) {
+            line(i,7,0,i,7,7,0);
+            line(7,6-i,0,7,6-i,7,1);
+            delay(speed);
+        };
+        break;
+    case 3:
+        for (i=0; i<7; i++) {
+            line(7,7-i,0,7,7-i,7,0);
+            line(6-i,0,0,6-i,0,7,1);
+            delay(speed);
+        };
+        break;
+    case 0:
+        for (i=0; i<7; i++) {
+            line(7-i,0,0,7-i,0,7,0);
+            line(0,i+1,0,0,i+1,7,1);
+            delay(speed);
+        };
+    }
 }
 
 void roll_3_xy(uchar n,uint speed)
 {
-	uchar i;
-	switch(n) {
-	case 1:
-		for (i=0; i<8; i++) {
-			box_apeak_xy (0,i,0,7,7-i,7,1,1);
-			delay(speed);
-			if (i<7)
-				box_apeak_xy (3,3,0,0,i,7,1,0);
-		};
-		break;
-	case 2:
-		for (i=0; i<8; i++) {
-			box_apeak_xy (7-i,0,0,i,7,7,1,1);
-			delay(speed);
-			if (i<7)
-				box_apeak_xy (3,4,0,i,7,7,1,0);
-		};
-		break;
-	case 3:
-		for (i=0; i<8; i++) {
-			box_apeak_xy (0,i,0,7,7-i,7,1,1);
-			delay(speed);
-			if (i<7)
-				box_apeak_xy (4,4,0,7,7-i,7,1,0);
-		};
-		break;
-	case 0:
-		for (i=0; i<8; i++) {
-			box_apeak_xy (7-i,0,0,i,7,7,1,1);
-			delay(speed);
-			if (i<7)
-				box_apeak_xy (4,3,0,7-i,0,7,1,0);
-		};
-	}
+    uchar i;
+    switch(n) {
+    case 1:
+        for (i=0; i<8; i++) {
+            box_apeak_xy (0,i,0,7,7-i,7,1,1);
+            delay(speed);
+            if (i<7)
+                box_apeak_xy (3,3,0,0,i,7,1,0);
+        };
+        break;
+    case 2:
+        for (i=0; i<8; i++) {
+            box_apeak_xy (7-i,0,0,i,7,7,1,1);
+            delay(speed);
+            if (i<7)
+                box_apeak_xy (3,4,0,i,7,7,1,0);
+        };
+        break;
+    case 3:
+        for (i=0; i<8; i++) {
+            box_apeak_xy (0,i,0,7,7-i,7,1,1);
+            delay(speed);
+            if (i<7)
+                box_apeak_xy (4,4,0,7,7-i,7,1,0);
+        };
+        break;
+    case 0:
+        for (i=0; i<8; i++) {
+            box_apeak_xy (7-i,0,0,i,7,7,1,1);
+            delay(speed);
+            if (i<7)
+                box_apeak_xy (4,3,0,7-i,0,7,1,0);
+        };
+    }
 }
 
 void trans(uchar z,uint speed)
 {
-	uchar i,j;
-	for (j=0; j<8; j++) {
-		for (i=0; i<8; i++) {
-			display[frame][z][i]>>=1;
-		}
-		delay(speed);
-	}
+    uchar i,j;
+    for (j=0; j<8; j++) {
+        for (i=0; i<8; i++) {
+            display[frame][z][i]>>=1;
+        }
+        delay(speed);
+    }
 }
 
 void tranoutchar(uchar c,uint speed)
 {
-	uchar i,j,k,a,i2=0;
-	for (i=0; i<8; i++) {
-		if (i<7)
-			box_apeak_xy (i+1,0,0,i+1,7,7,1,1);
-		box_apeak_xy (i2,0,0,i2,7,7,1,0);
-		a=0;
-		i2=i+1;
-		for (j=0; j<=i; j++) {
-			a=a|(1<<j);
-		}
-		for (k=0; k<8; k++) {
-			display[frame][k][3]|=table_cha[c][k]&a;
-			display[frame][k][4]|=table_cha[c][k]&a;
-		}
-		delay(speed);
-	}
+    uchar i,j,k,a,i2=0;
+    for (i=0; i<8; i++) {
+        if (i<7)
+            box_apeak_xy (i+1,0,0,i+1,7,7,1,1);
+        box_apeak_xy (i2,0,0,i2,7,7,1,0);
+        a=0;
+        i2=i+1;
+        for (j=0; j<=i; j++) {
+            a=a|(1<<j);
+        }
+        for (k=0; k<8; k++) {
+            display[frame][k][3]|=table_cha[c][k]&a;
+            display[frame][k][4]|=table_cha[c][k]&a;
+        }
+        delay(speed);
+    }
 }
 
 void transss()
 {
-	uchar i,j;
-	for (i=0; i<8; i++) {
-		for (j=0; j<8; j++)
-			display[frame][i][j]<<=1;
-	}
+    uchar i,j;
+    for (i=0; i<8; i++) {
+        for (j=0; j<8; j++)
+            display[frame][i][j]<<=1;
+    }
 }
 
 
@@ -741,616 +741,616 @@ __bit flash_2()
 
 __bit flash_3()
 {
-	char i;
-	for (i=0; i<8; i++) {
+    char i;
+    for (i=0; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		box_apeak_xy(0,i,0,7,i,7,1,1);
-		delay(20000);
-		if (i<7)
-			box_apeak_xy(0,i,0,7,i,7,1,0);
-	}
-	for (i=7; i>=0; i--) {
+        box_apeak_xy(0,i,0,7,i,7,1,1);
+        delay(20000);
+        if (i<7)
+            box_apeak_xy(0,i,0,7,i,7,1,0);
+    }
+    for (i=7; i>=0; i--) {
         if (rx_in > 0) return 1; // RX command detected
-		box_apeak_xy(0,i,0,7,i,7,1,1);
-		delay(20000);
-		if (i>0)
-			box_apeak_xy(0,i,0,7,i,7,1,0);
-	}
-	for (i=0; i<8; i++) {
+        box_apeak_xy(0,i,0,7,i,7,1,1);
+        delay(20000);
+        if (i>0)
+            box_apeak_xy(0,i,0,7,i,7,1,0);
+    }
+    for (i=0; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		box_apeak_xy(0,i,0,7,i,7,1,1);
-		delay(20000);
-		if (i<7)
-			box_apeak_xy(0,i,0,7,i,7,1,0);
-	}
+        box_apeak_xy(0,i,0,7,i,7,1,1);
+        delay(20000);
+        if (i<7)
+            box_apeak_xy(0,i,0,7,i,7,1,0);
+    }
     return 0;
 }
 
 __bit flash_4()
 {
-	char i,j,an[8];
-	for (j=7; j<15; j++)
-		an[j-7]=j;
-	for (i=0; i<=16; i++) {
+    char i,j,an[8];
+    for (j=7; j<15; j++)
+        an[j-7]=j;
+    for (i=0; i<=16; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=0; j<8; j++) {
-			if ((an[j]<8)&(an[j]>=0))
-				line(0,an[j],j,7,an[j],j,1);
-		}
-		for (j=0; j<8; j++) {
-			if (((an[j]+1)<8)&(an[j]>=0))
-				line(0,an[j]+1,j,7,an[j]+1,j,0);
-		}
-		for (j=0; j<8; j++) {
-			if (an[j]>0)
-				an[j]--;
-		}
-		delay(15000);
-	}
-	for (j=0; j<8; j++)
-		an[j]=1-j;
-	for (i=0; i<=16; i++) {
+        for (j=0; j<8; j++) {
+            if ((an[j]<8)&(an[j]>=0))
+                line(0,an[j],j,7,an[j],j,1);
+        }
+        for (j=0; j<8; j++) {
+            if (((an[j]+1)<8)&(an[j]>=0))
+                line(0,an[j]+1,j,7,an[j]+1,j,0);
+        }
+        for (j=0; j<8; j++) {
+            if (an[j]>0)
+                an[j]--;
+        }
+        delay(15000);
+    }
+    for (j=0; j<8; j++)
+        an[j]=1-j;
+    for (i=0; i<=16; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=0; j<8; j++) {
-			if ((an[j]<8)&(an[j]>=0))
-				line(0,an[j],j,7,an[j],j,1);
-		}
-		for (j=0; j<8; j++) {
-			if (((an[j]-1)<7)&(an[j]>0))
-				line(0,an[j]-1,j,7,an[j]-1,j,0);
-		}
-		for (j=0; j<8; j++) {
-			if (an[j]<7)
-				an[j]++;
-		}
-		delay(15000);
-	}
+        for (j=0; j<8; j++) {
+            if ((an[j]<8)&(an[j]>=0))
+                line(0,an[j],j,7,an[j],j,1);
+        }
+        for (j=0; j<8; j++) {
+            if (((an[j]-1)<7)&(an[j]>0))
+                line(0,an[j]-1,j,7,an[j]-1,j,0);
+        }
+        for (j=0; j<8; j++) {
+            if (an[j]<7)
+                an[j]++;
+        }
+        delay(15000);
+    }
     return 0;
 }
 
 __bit flash_5()
 {
-	uint a=15000;//a=delay
-	char i=8,j,an[4];
-	//1
-	for (j=7; j<11; j++)
-		an[j-7]=j;
-	while(i--) {
+    uint a=15000;//a=delay
+    char i=8,j,an[4];
+    //1
+    for (j=7; j<11; j++)
+        an[j-7]=j;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=0; j<4; j++) {
-			if (an[j]<8)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]<7)
-				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (an[j]>3)
-				an[j]--;
-		}
-		delay(a);
-	}
-	//2
-	i=3;
-	for (j=0; j<4; j++)
-		an[j]=5-j;
-	while(i--) {
+        for (j=0; j<4; j++) {
+            if (an[j]<8)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]<7)
+                box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (an[j]>3)
+                an[j]--;
+        }
+        delay(a);
+    }
+    //2
+    i=3;
+    for (j=0; j<4; j++)
+        an[j]=5-j;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=1; j<4; j++) {
-			if (an[j]<4)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]<3)
-				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (an[j]>0)
-				an[j]--;
-		}
-		delay(a);
-	}
-	//3
-	i=3;
-	for (j=1; j<4; j++)
-		an[j]=4-j;
-	while(i--) {
+        for (j=1; j<4; j++) {
+            if (an[j]<4)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]<3)
+                box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (an[j]>0)
+                an[j]--;
+        }
+        delay(a);
+    }
+    //3
+    i=3;
+    for (j=1; j<4; j++)
+        an[j]=4-j;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=1; j<4; j++) {
-			if (an[j]>=0)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]>0)
-				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-		}
-		for (j=1; j<4; j++) {
-			if (an[j]<3)
-				an[j]++;
-		}
-		delay(a);
-	}
-	//4
-	i=3;
-	for (j=0; j<4; j++)
-		an[j]=j+1;
-	while(i--) {
+        for (j=1; j<4; j++) {
+            if (an[j]>=0)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]>0)
+                box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+        }
+        for (j=1; j<4; j++) {
+            if (an[j]<3)
+                an[j]++;
+        }
+        delay(a);
+    }
+    //4
+    i=3;
+    for (j=0; j<4; j++)
+        an[j]=j+1;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=1; j<4; j++) {
-			if (an[j]>3)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]>3)
-				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-		}
-		for (j=0; j<4; j++)
-			an[j]++;
-		delay(a);
-	}
-	//5
-	i=3;
-	for (j=3; j<6; j++)
-		an[j-2]=j;
-	while(i--) {
+        for (j=1; j<4; j++) {
+            if (an[j]>3)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]>3)
+                box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+        }
+        for (j=0; j<4; j++)
+            an[j]++;
+        delay(a);
+    }
+    //5
+    i=3;
+    for (j=3; j<6; j++)
+        an[j-2]=j;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=1; j<4; j++) {
-			box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (an[j]>3)
-				an[j]--;
-		}
-		delay(a);
-	}
-	//6
-	i=3;
-	for (j=0; j<4; j++)
-		an[j]=5-j;
-	while(i--) {
+        for (j=1; j<4; j++) {
+            box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (an[j]>3)
+                an[j]--;
+        }
+        delay(a);
+    }
+    //6
+    i=3;
+    for (j=0; j<4; j++)
+        an[j]=5-j;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=1; j<4; j++) {
-			if (an[j]<4)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]<3)
-				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (an[j]>0)
-				an[j]--;
-		}
-		delay(a);
-	}
-	//7
-	i=3;
-	for (j=0; j<4; j++)
-		an[j]=3-j;
-	an[0]=2;
-	while(i--) {
+        for (j=1; j<4; j++) {
+            if (an[j]<4)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]<3)
+                box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (an[j]>0)
+                an[j]--;
+        }
+        delay(a);
+    }
+    //7
+    i=3;
+    for (j=0; j<4; j++)
+        an[j]=3-j;
+    an[0]=2;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=0; j<3; j++) {
-			if (an[j]>=0)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]>=0)
-				box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (j<5-i)
-				an[j]--;
-		}
-		delay(a);
-	}
-	//8
-	i=10;
-	for (j=0; j<4; j++)
-		an[j]=j-2;
-	while(i--) {
+        for (j=0; j<3; j++) {
+            if (an[j]>=0)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]>=0)
+                box_apeak_xy(j,an[j]+1,j,7-j,an[j]+1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (j<5-i)
+                an[j]--;
+        }
+        delay(a);
+    }
+    //8
+    i=10;
+    for (j=0; j<4; j++)
+        an[j]=j-2;
+    while(i--) {
         if (rx_in > 0) return 1; // RX command detected
-		for (j=0; j<4; j++) {
-			if (an[j]>=0)
-				box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
-			if (an[j]>=0)
-				box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
-		}
-		for (j=0; j<4; j++) {
-			if (an[j]<7)
-				an[j]++;
-		}
-		delay(a);
-	}
+        for (j=0; j<4; j++) {
+            if (an[j]>=0)
+                box_apeak_xy(j,an[j],j,7-j,an[j],7-j,0,1);
+            if (an[j]>=0)
+                box_apeak_xy(j,an[j]-1,j,7-j,an[j]-1,7-j,0,0);
+        }
+        for (j=0; j<4; j++) {
+            if (an[j]<7)
+                an[j]++;
+        }
+        delay(a);
+    }
     return 0;
 }
 
 __bit flash_6()
 {
-	uchar i,j,k,z;
+    uchar i,j,k,z;
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(1,10000);
+    roll_apeak_yz(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(2,10000);
+    roll_apeak_yz(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(3,10000);
+    roll_apeak_yz(3,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(0,10000);
+    roll_apeak_yz(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(1,10000);
+    roll_apeak_yz(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(2,10000);
+    roll_apeak_yz(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(3,10000);
+    roll_apeak_yz(3,10000);
     if (rx_in > 0) return 1; // RX command detected
-	for (i=0; i<3; i++) {
-		for (j=0; j<8; j++) {
-			for (k=0; k<8; k++) {
-				if ((table_3p[i][j]>>k)&1) {
-					for (z=1; z<8; z++) {
+    for (i=0; i<3; i++) {
+        for (j=0; j<8; j++) {
+            for (k=0; k<8; k++) {
+                if ((table_3p[i][j]>>k)&1) {
+                    for (z=1; z<8; z++) {
                         if (rx_in > 0) return 1; // RX command detected
-						point (j,7-k,z,1);
-						if (z-1)
-							point (j,7-k,z-1,0);
-						delay(5000);
-					}
-				}
-			}
-		}
-		trans(7,15000);
-	}
+                        point (j,7-k,z,1);
+                        if (z-1)
+                            point (j,7-k,z-1,0);
+                        delay(5000);
+                    }
+                }
+            }
+        }
+        trans(7,15000);
+    }
     return 0;
 }
 
 __bit flash_7()
 {
-	uchar i;
-	uint a=3000;
+    uchar i;
+    uint a=3000;
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(0,10000);
+    roll_apeak_yz(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(1,10000);
+    roll_apeak_yz(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(2,10000);
+    roll_apeak_yz(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(3,10000);
+    roll_apeak_yz(3,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(0,10000);
+    roll_apeak_yz(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(1,10000);
+    roll_apeak_yz(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(2,10000);
+    roll_apeak_yz(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(3,10000);
+    roll_apeak_yz(3,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(0,10000);
+    roll_apeak_yz(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(1,10000);
+    roll_apeak_yz(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_yz(2,10000);
+    roll_apeak_yz(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(0,10000);
+    roll_apeak_xy(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(1,10000);
+    roll_apeak_xy(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(2,10000);
+    roll_apeak_xy(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(3,10000);
+    roll_apeak_xy(3,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(0,10000);
+    roll_apeak_xy(0,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(1,10000);
+    roll_apeak_xy(1,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(2,10000);
+    roll_apeak_xy(2,10000);
     if (rx_in > 0) return 1; // RX command detected
-	roll_apeak_xy(3,10000);
-	for (i=0; i<8; i++) {
-		box_apeak_xy (0,i,0,7-i,i,7,1,1);
-		delay(a);
-	}
+    roll_apeak_xy(3,10000);
+    for (i=0; i<8; i++) {
+        box_apeak_xy (0,i,0,7-i,i,7,1,1);
+        delay(a);
+    }
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(0,a);
+    delay(30000);
+    roll_3_xy(0,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(1,a);
+    delay(30000);
+    roll_3_xy(1,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(2,a);
+    delay(30000);
+    roll_3_xy(2,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(3,a);
+    delay(30000);
+    roll_3_xy(3,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(0,a);
+    delay(30000);
+    roll_3_xy(0,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(1,a);
+    delay(30000);
+    roll_3_xy(1,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(2,a);
+    delay(30000);
+    roll_3_xy(2,a);
     if (rx_in > 0) return 1; // RX command detected
-	delay(30000);
-	roll_3_xy(3,a);
-	for (i=7; i>0; i--) {
-		box_apeak_xy(i,0,0,i,7,7,1,0);
-		delay(a);
-	}
+    delay(30000);
+    roll_3_xy(3,a);
+    for (i=7; i>0; i--) {
+        box_apeak_xy(i,0,0,i,7,7,1,0);
+        delay(a);
+    }
     return 0;
 }
 
 __bit flash_8()
 {
-	uchar i;
-	for (i=5; i<8; i++) {
-		tranoutchar(i,10000);
+    uchar i;
+    for (i=5; i<8; i++) {
+        tranoutchar(i,10000);
         if (rx_in > 0) return 1; // RX command detected
-		delay(60000);
+        delay(60000);
         if (rx_in > 0) return 1; // RX command detected
-		delay(60000);
-	}
+        delay(60000);
+    }
     return 0;
 }
 
 __bit flash_9()
 {
-	char i;
-	uchar j,an[8],x,y,t,x1,y1;
-	for (i=0; i<8; i++) {
+    char i;
+    uchar j,an[8],x,y,t,x1,y1;
+    for (i=0; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		box_apeak_xy (i,0,0,i,7,7,1,1);
-		if (i)
-			box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
-		delay(10000);
-	}
-	roll_apeak_xy(3,10000);
-	roll_apeak_xy(0,10000);
-	roll_apeak_xy(1,10000);
-	for (i=0; i<7; i++) {
+        box_apeak_xy (i,0,0,i,7,7,1,1);
+        if (i)
+            box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
+        delay(10000);
+    }
+    roll_apeak_xy(3,10000);
+    roll_apeak_xy(0,10000);
+    roll_apeak_xy(1,10000);
+    for (i=0; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		line(6-i,6-i,0,6-i,6-i,7,1);
-		line(i,7,0,i,7,7,0);
-		delay(10000);
-	}
-	for (i=0; i<8; i++)
-		an[i]=14;
-	for (i=0; i<85; i++) {
-		clear(frame, 0);
-		for (j=0; j<8; j++) {
-			t=an[j]%28;
-			x=dat2[t]>>5;
-			y=(dat2[t]>>2)&0x07;
-			t=(an[j]-14)%28;
-			x1=dat2[t]>>5;
-			y1=(dat2[t]>>2)&0x07;
-			line(x,y,j,x1,y1,j,1);
-		}
-		for (j=0; j<8; j++) {
-			if ((i>j)&(j>i-71))
-				an[j]++;
-		}
+        line(6-i,6-i,0,6-i,6-i,7,1);
+        line(i,7,0,i,7,7,0);
+        delay(10000);
+    }
+    for (i=0; i<8; i++)
+        an[i]=14;
+    for (i=0; i<85; i++) {
+        clear(frame, 0);
+        for (j=0; j<8; j++) {
+            t=an[j]%28;
+            x=dat2[t]>>5;
+            y=(dat2[t]>>2)&0x07;
+            t=(an[j]-14)%28;
+            x1=dat2[t]>>5;
+            y1=(dat2[t]>>2)&0x07;
+            line(x,y,j,x1,y1,j,1);
+        }
+        for (j=0; j<8; j++) {
+            if ((i>j)&(j>i-71))
+                an[j]++;
+        }
         if (rx_in > 0) return 1; // RX command detected
-		delay(5000);
-	}
-	for (i=0; i<85; i++) {
+        delay(5000);
+    }
+    for (i=0; i<85; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		for (j=0; j<8; j++) {
-			t=an[j]%28;
-			x=dat2[t]>>5;
-			y=(dat2[t]>>2)&0x07;
-			t=(an[j]-14)%28;
-			x1=dat2[t]>>5;
-			y1=(dat2[t]>>2)&0x07;
-			line(x,y,j,x1,y1,j,1);
-		}
-		for (j=0; j<8; j++) {
-			if ((i>j)&(j>i-71))
-				an[j]--;
-		}
-		delay(5000);
-	}
-	for (i=0; i<29; i++) {
+        clear(frame, 0);
+        for (j=0; j<8; j++) {
+            t=an[j]%28;
+            x=dat2[t]>>5;
+            y=(dat2[t]>>2)&0x07;
+            t=(an[j]-14)%28;
+            x1=dat2[t]>>5;
+            y1=(dat2[t]>>2)&0x07;
+            line(x,y,j,x1,y1,j,1);
+        }
+        for (j=0; j<8; j++) {
+            if ((i>j)&(j>i-71))
+                an[j]--;
+        }
+        delay(5000);
+    }
+    for (i=0; i<29; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		t=an[0]%28;
-		x=dat2[t]>>5;
-		y=(dat2[t]>>2)&0x07;
-		t=(an[0]-14)%28;
-		x1=dat2[t]>>5;
-		y1=(dat2[t]>>2)&0x07;
-		box_apeak_xy(x,y,0,x1,y1,7,0,1);
-		box_apeak_xy(x,y,1,x1,y1,6,0,1);
-		an[0]++;
-		delay(5000);
-	}
-	for (i=0; i<16; i++) {
+        clear(frame, 0);
+        t=an[0]%28;
+        x=dat2[t]>>5;
+        y=(dat2[t]>>2)&0x07;
+        t=(an[0]-14)%28;
+        x1=dat2[t]>>5;
+        y1=(dat2[t]>>2)&0x07;
+        box_apeak_xy(x,y,0,x1,y1,7,0,1);
+        box_apeak_xy(x,y,1,x1,y1,6,0,1);
+        an[0]++;
+        delay(5000);
+    }
+    for (i=0; i<16; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		t=an[0]%28;
-		x=dat2[t]>>5;
-		y=(dat2[t]>>2)&0x07;
-		t=(an[0]-14)%28;
-		x1=dat2[t]>>5;
-		y1=(dat2[t]>>2)&0x07;
-		box_apeak_xy(x,y,0,x1,y1,7,1,1);
-		an[0]--;
-		delay(5000);
-	}
-	for (i=0; i<8; i++) {
+        clear(frame, 0);
+        t=an[0]%28;
+        x=dat2[t]>>5;
+        y=(dat2[t]>>2)&0x07;
+        t=(an[0]-14)%28;
+        x1=dat2[t]>>5;
+        y1=(dat2[t]>>2)&0x07;
+        box_apeak_xy(x,y,0,x1,y1,7,1,1);
+        an[0]--;
+        delay(5000);
+    }
+    for (i=0; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		line(i,i,0,0,0,i,0);
-		delay(5000);
-	}
-	for (i=1; i<7; i++) {
+        line(i,i,0,0,0,i,0);
+        delay(5000);
+    }
+    for (i=1; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		line(i,i,7,7,7,i,0);
-		delay(5000);
-	}
-	for (i=1; i<8; i++) {
+        line(i,i,7,7,7,i,0);
+        delay(5000);
+    }
+    for (i=1; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(7,7,7,7-i,7-i,7-i,0,1);
-		delay(10000);
-	}
-	for (i=1; i<7; i++) {
+        clear(frame, 0);
+        box(7,7,7,7-i,7-i,7-i,0,1);
+        delay(10000);
+    }
+    for (i=1; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(0,0,0,7-i,7-i,7-i,0,1);
-		delay(10000);
-	}
-	for (i=1; i<8; i++) {
+        clear(frame, 0);
+        box(0,0,0,7-i,7-i,7-i,0,1);
+        delay(10000);
+    }
+    for (i=1; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(0,0,0,i,i,i,0,1);
-		delay(10000);
-	}
-	for (i=1; i<7; i++) {
+        clear(frame, 0);
+        box(0,0,0,i,i,i,0,1);
+        delay(10000);
+    }
+    for (i=1; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(7,0,0,i,7-i,7-i,0,1);
-		delay(10000);
-	}
-	for (i=1; i<8; i++) {
+        clear(frame, 0);
+        box(7,0,0,i,7-i,7-i,0,1);
+        delay(10000);
+    }
+    for (i=1; i<8; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		box(7,0,0,7-i,i,i,1,1);
-		delay(10000);
-	}
-	for (i=1; i<7; i++) {
+        box(7,0,0,7-i,i,i,1,1);
+        delay(10000);
+    }
+    for (i=1; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(0,7,7,7-i,i,i,1,1);
-		delay(10000);
-	}
+        clear(frame, 0);
+        box(0,7,7,7-i,i,i,1,1);
+        delay(10000);
+    }
     return 0;
 }
 
 __bit flash_10()
 {
-	uchar i,j,an[4],x,y,t;
-	for (i=1; i<7; i++) {
+    uchar i,j,an[4],x,y,t;
+    for (i=1; i<7; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(0,6,6,1,7,7,1,1);
-		box(i,6,6-i,i+1,7,7-i,1,1);
-		box(i,6,6,i+1,7,7,1,1);
-		box(0,6,6-i,1,7,7-i,1,1);
-		box(0,6-i,6,1,7-i,7,1,1);
-		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
-		box(i,6-i,6,i+1,7-i,7,1,1);
-		box(0,6-i,6-i,1,7-i,7-i,1,1);
-		delay(30000);
-	}
-	for (i=0; i<4; i++) {
-		an[i]=6*i;
-	}
-	for (i=0; i<35; i++) {
+        clear(frame, 0);
+        box(0,6,6,1,7,7,1,1);
+        box(i,6,6-i,i+1,7,7-i,1,1);
+        box(i,6,6,i+1,7,7,1,1);
+        box(0,6,6-i,1,7,7-i,1,1);
+        box(0,6-i,6,1,7-i,7,1,1);
+        box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+        box(i,6-i,6,i+1,7-i,7,1,1);
+        box(0,6-i,6-i,1,7-i,7-i,1,1);
+        delay(30000);
+    }
+    for (i=0; i<4; i++) {
+        an[i]=6*i;
+    }
+    for (i=0; i<35; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		for(j=0; j<4; j++) {
-			t=an[j]%24;
-			x=dat3[t]>>4;
-			y=dat3[t]&0x0f;
-			box(x,y,0,x+1,y+1,1,1,1);
-			box(x,y,6,x+1,y+1,7,1,1);
-		}
-		for (j=0; j<4; j++)
-			an[j]++;
-		delay(10000);
-	}
-	for (i=0; i<35; i++) {
+        clear(frame, 0);
+        for(j=0; j<4; j++) {
+            t=an[j]%24;
+            x=dat3[t]>>4;
+            y=dat3[t]&0x0f;
+            box(x,y,0,x+1,y+1,1,1,1);
+            box(x,y,6,x+1,y+1,7,1,1);
+        }
+        for (j=0; j<4; j++)
+            an[j]++;
+        delay(10000);
+    }
+    for (i=0; i<35; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		for(j=0; j<4; j++) {
-			t=an[j]%24;
-			x=dat3[t]>>4;
-			y=dat3[t]&0x0f;
-			box(x,y,0,x+1,y+1,1,1,1);
-			box(x,y,6,x+1,y+1,7,1,1);
-		}
-		for (j=0; j<4; j++)
-			an[j]--;
-		delay(10000);
-	}
-	for (i=0; i<35; i++) {
+        clear(frame, 0);
+        for(j=0; j<4; j++) {
+            t=an[j]%24;
+            x=dat3[t]>>4;
+            y=dat3[t]&0x0f;
+            box(x,y,0,x+1,y+1,1,1,1);
+            box(x,y,6,x+1,y+1,7,1,1);
+        }
+        for (j=0; j<4; j++)
+            an[j]--;
+        delay(10000);
+    }
+    for (i=0; i<35; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		for(j=0; j<4; j++) {
-			t=an[j]%24;
-			x=dat3[t]>>4;
-			y=dat3[t]&0x0f;
-			box(x,0,y,x+1,1,y+1,1,1);
-			box(x,6,y,x+1,7,y+1,1,1);
-		}
-		for (j=0; j<4; j++)
-			an[j]++;
-		delay(10000);
-	}
-	for (i=0; i<36; i++) {
+        clear(frame, 0);
+        for(j=0; j<4; j++) {
+            t=an[j]%24;
+            x=dat3[t]>>4;
+            y=dat3[t]&0x0f;
+            box(x,0,y,x+1,1,y+1,1,1);
+            box(x,6,y,x+1,7,y+1,1,1);
+        }
+        for (j=0; j<4; j++)
+            an[j]++;
+        delay(10000);
+    }
+    for (i=0; i<36; i++) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		for(j=0; j<4; j++) {
-			t=an[j]%24;
-			x=dat3[t]>>4;
-			y=dat3[t]&0x0f;
-			box(x,0,y,x+1,1,y+1,1,1);
-			box(x,6,y,x+1,7,y+1,1,1);
-		}
-		for (j=0; j<4; j++)
-			an[j]--;
-		delay(10000);
-	}
-	for (i=6; i>0; i--) {
+        clear(frame, 0);
+        for(j=0; j<4; j++) {
+            t=an[j]%24;
+            x=dat3[t]>>4;
+            y=dat3[t]&0x0f;
+            box(x,0,y,x+1,1,y+1,1,1);
+            box(x,6,y,x+1,7,y+1,1,1);
+        }
+        for (j=0; j<4; j++)
+            an[j]--;
+        delay(10000);
+    }
+    for (i=6; i>0; i--) {
         if (rx_in > 0) return 1; // RX command detected
-		clear(frame, 0);
-		box(0,6,6,1,7,7,1,1);
-		box(i,6,6-i,i+1,7,7-i,1,1);
-		box(i,6,6,i+1,7,7,1,1);
-		box(0,6,6-i,1,7,7-i,1,1);
-		box(0,6-i,6,1,7-i,7,1,1);
-		box(i,6-i,6-i,i+1,7-i,7-i,1,1);
-		box(i,6-i,6,i+1,7-i,7,1,1);
-		box(0,6-i,6-i,1,7-i,7-i,1,1);
-		delay(30000);
-	}
+        clear(frame, 0);
+        box(0,6,6,1,7,7,1,1);
+        box(i,6,6-i,i+1,7,7-i,1,1);
+        box(i,6,6,i+1,7,7,1,1);
+        box(0,6,6-i,1,7,7-i,1,1);
+        box(0,6-i,6,1,7-i,7,1,1);
+        box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+        box(i,6-i,6,i+1,7-i,7,1,1);
+        box(0,6-i,6-i,1,7-i,7-i,1,1);
+        delay(30000);
+    }
     return 0;
 }
 
 __bit flash_11()
 {
-	uchar i,j,t,x,y;
-	__code uchar daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
-	for (j=0; j<5; j++) {
-		for (i=0; i<13; i++) {
+    uchar i,j,t,x,y;
+    __code uchar daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
+    for (j=0; j<5; j++) {
+        for (i=0; i<13; i++) {
             if (rx_in > 0) return 1; // RX command detected
-			if (daa[i]>>4) {
-				t=daa[i]&0x0f;
-				line (0,0,t+1,0,7,t+1,1);
-			} else
-				t=daa[i];
-			line (0,0,t,0,7,t,1);
-			transss();
-			delay(10000);
-		}
-	}
-	for (j=1; j<8; j++) {
-		if (j>3)
-			t=4;
-		else
-			t=j;
-		for (i=0; i<24; i+=j) {
+            if (daa[i]>>4) {
+                t=daa[i]&0x0f;
+                line (0,0,t+1,0,7,t+1,1);
+            } else
+                t=daa[i];
+            line (0,0,t,0,7,t,1);
+            transss();
+            delay(10000);
+        }
+    }
+    for (j=1; j<8; j++) {
+        if (j>3)
+            t=4;
+        else
+            t=j;
+        for (i=0; i<24; i+=j) {
             if (rx_in > 0) return 1; // RX command detected
-			x=dat3[i]>>4;
-			y=dat3[i]&0x0f;
-			box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
-			transss();
-			delay(10000);
-		}
-	}
-	for (j=1; j<8; j++) {
-		if (j>3)
-			t=4;
-		else
-			t=j;
-		for (i=0; i<24; i+=j) {
+            x=dat3[i]>>4;
+            y=dat3[i]&0x0f;
+            box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
+            transss();
+            delay(10000);
+        }
+    }
+    for (j=1; j<8; j++) {
+        if (j>3)
+            t=4;
+        else
+            t=j;
+        for (i=0; i<24; i+=j) {
             if (rx_in > 0) return 1; // RX command detected
-			x=dat3[i]>>4;
-			y=dat3[i]&0x0f;
-			point (0,x,y,1);
-			transss();
-			delay(10000);
-		}
-	}
+            x=dat3[i]>>4;
+            y=dat3[i]&0x0f;
+            point (0,x,y,1);
+            transss();
+            delay(10000);
+        }
+    }
     return 0;
 }
 

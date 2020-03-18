@@ -5,6 +5,7 @@ import time
 import argparse
 import numpy as np
 import math
+import random
 
 class Led_Cube_8x8x8():
     def __init__(self, port=None, baudrate=9600):
@@ -40,6 +41,47 @@ class Led_Cube_8x8x8():
 
         self.dat3 = [0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10]
 
+        self.seq_list = [
+            "0000.dat" ,
+            # ~ "0001.dat" , # block of blue with varying brightness.  doesnt work.
+            "0002.dat" ,
+            "0003.dat" ,
+            "0004.dat" ,
+            "0005.dat" ,
+            "0006.dat" ,
+            "0007.dat" ,
+            "0008.dat" , # random rising dots
+            "0009.dat" ,
+            "0010.dat" , # random rising dots
+            "0011.dat" ,
+            "0012.dat" ,
+            "0013.dat" , # raining dots and rising dots. like red rover
+            "0014.dat" ,
+            "0015.dat" ,
+            "0016.dat" ,
+            "0017.dat" ,
+            "0018.dat" ,
+            "0019.dat" ,
+            "0020.dat" ,
+            "0021.dat" ,
+            "0022.dat" ,
+            "0023.dat" ,
+            "0024.dat" , # falling streamer
+            "0025.dat" ,
+            "0026.dat" ,
+            "0027.dat" , # I heart U - rotating
+            "0028.dat" ,
+            'flash_2'  , # hourglass pyramid stuff
+            'flash_3'  ,
+            'flash_4'  ,
+            'flash_5'  , # sideways pulsing pyramid plane
+            'flash_6'  , # rains asian words maybe
+            'flash_7'  ,
+            'flash_8'  ,
+            'flash_9'  ,
+            'flash_10' ,
+            'flash_11' ,
+        ]
 
     def clear(self):
         self.display = []
@@ -720,6 +762,17 @@ class Led_Cube_8x8x8():
                 self.display[z*8+i] = self.display[z*8+i] >> 1;
             # ~ delay(speed);
             time.sleep(speed*0.000005); self.send_display()
+
+
+    # ~ void transss()
+    def transss(self):
+        # ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ for (j=0; j<8; j++)
+            for j in range(8):
+                # ~ display[frame][i][j]<<=1;
+                self.display[i*8+j] = self.display[i*8+j] << 1;
+
 
 
     # ~ void box(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
@@ -1717,8 +1770,107 @@ class Led_Cube_8x8x8():
         self.clear();
         time.sleep(30000*0.000005); self.send_display()
 
+    # ~ __bit flash_11()
+    def flash_11(self):
+        # ~ uchar i,j,t,x,y;
+        # ~ __code uchar daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
+        daa = [0,1,2,0x23,5,6,7,6,5,0x23,2,1,0]
+        # ~ for (j=0; j<5; j++) {
+        for j in range(5):
+            # ~ for (i=0; i<13; i++) {
+            for i in range(13):
+                # ~ if (daa[i]>>4) {
+                if (daa[i]>>4):
+                    # ~ t=daa[i]&0x0f;
+                    t=daa[i]&0x0f;
+                    # ~ line (0,0,t+1,0,7,t+1,1);
+                    self.line (0,0,t+1,0,7,t+1,1);
+                # ~ } else
+                else:
+                    # ~ t=daa[i];
+                    t=daa[i];
+                # ~ line (0,0,t,0,7,t,1);
+                self.line (0,0,t,0,7,t,1);
+                # ~ transss();
+                self.transss();
+                # ~ delay(10000);
+                time.sleep(10000*0.000005); self.send_display()
+        # ~ for (j=1; j<8; j++) {
+        for j in range(1,8):
+            # ~ if (j>3)
+            if (j>3):
+                # ~ t=4;
+                t=4;
+            # ~ else
+            else:
+                # ~ t=j;
+                t=j;
+            # ~ for (i=0; i<24; i+=j) {
+            for i in range(24):
+                # ~ x=dat3[i]>>4;
+                x=self.dat3[i]>>4;
+                # ~ y=dat3[i]&0x0f;
+                y=self.dat3[i]&0x0f;
+                # ~ box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
+                self.box_apeak_xy(0,x,y,0,x+1,y+1,1,1);
+                # ~ transss();
+                self.transss();
+                # ~ delay(10000);
+                time.sleep(10000*0.000005); self.send_display()
+        # ~ for (j=1; j<8; j++) {
+        for j in range(1,8):
+            # ~ if (j>3)
+            if (j>3):
+                # ~ t=4;
+                t=4;
+            # ~ else
+            else:
+                # ~ t=j;
+                t=j;
+            # ~ for (i=0; i<24; i+=j) {
+            for i in range(24):
+                # ~ x=dat3[i]>>4;
+                x=self.dat3[i]>>4;
+                # ~ y=dat3[i]&0x0f;
+                y=self.dat3[i]&0x0f;
+                # ~ point (0,x,y,1);
+                self.point (0,x,y,1);
+                # ~ transss();
+                self.transss();
+                # ~ delay(10000);
+                time.sleep(10000*0.000005); self.send_display()
+            
+            
+    def run_sequence(self, seq, delay):
 
+        print('Running sequence %s' % (seq))
+        # handle data files
+        if seq.endswith('.dat'):
+            self.send_file("../../DotMatrixJava/examples/" + seq, delay)
+        
+        # handle code sequences
+        elif seq == 'flash_2':
+            self.flash_2()
+        elif seq == 'flash_3':
+            self.flash_3()
+        elif seq == 'flash_4':
+            self.flash_4()
+        elif seq == 'flash_5':
+            self.flash_5()
+        elif seq == 'flash_6':
+            self.flash_6()
+        elif seq == 'flash_7':
+            self.flash_7()
+        elif seq == 'flash_8':
+            self.flash_8()
+        elif seq == 'flash_9':
+            self.flash_9()
+        elif seq == 'flash_10':
+            self.flash_10()
+        elif seq == 'flash_11':
+            self.flash_11()
 
+    
 def main():
     parser = argparse.ArgumentParser(description='Send serial data to 8x8x8 led cube v2.')
     parser.add_argument('-p', '--port', default='/dev/ttyUSB0', help='serial port connected to 8x8x8 cube running v2 firmware')
@@ -1727,6 +1879,7 @@ def main():
     parser.add_argument('-d', '--delay', default=20, help='delay in msec between each file frame')
     parser.add_argument('-m', '--math', default=0, help='do math stuff')
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
+    parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
 
     args = parser.parse_args()
 
@@ -1737,24 +1890,16 @@ def main():
         # ~ led_Cube_8x8x8.math_test()
         led_Cube_8x8x8.test_it2()
 
-    elif args.canned == '2':
-        led_Cube_8x8x8.flash_2()
-    elif args.canned == '3':
-        led_Cube_8x8x8.flash_3()
-    elif args.canned == '4':
-        led_Cube_8x8x8.flash_4()
-    elif args.canned == '5':
-        led_Cube_8x8x8.flash_5()
-    elif args.canned == '6':
-        led_Cube_8x8x8.flash_6()
-    elif args.canned == '7':
-        led_Cube_8x8x8.flash_7()
-    elif args.canned == '8':
-        led_Cube_8x8x8.flash_8()
-    elif args.canned == '9':
-        led_Cube_8x8x8.flash_9()
-    elif args.canned == '10':
-        led_Cube_8x8x8.flash_10()
+    elif args.random != 0:
+        for index in range(int(args.random)):
+            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list), args.delay)
+            time.sleep(0.5)
+            led_Cube_8x8x8.clear()
+            led_Cube_8x8x8.send_display()
+            time.sleep(0.5)
+   
+    elif args.canned != 0:
+        led_Cube_8x8x8.run_sequence(args.canned, args.delay)
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
