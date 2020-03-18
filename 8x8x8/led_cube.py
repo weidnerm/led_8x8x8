@@ -27,6 +27,20 @@ class Led_Cube_8x8x8():
                         [0x18,0x3c,0x7e,0xff,0x18,0x18,0x18,0x18]];
 
 
+        self.table_cha = [  [0x51,0x51,0x51,0x4a,0x4a,0x4a,0x44,0x44],
+                            [0x18,0x1c,0x18,0x18,0x18,0x18,0x18,0x3c],
+                            [0x3c,0x66,0x66,0x30,0x18,0x0c,0x06,0xf6],
+                            [0x3c,0x66,0x60,0x38,0x60,0x60,0x66,0x3c],
+                            [0x30,0x38,0x3c,0x3e,0x36,0x7e,0x30,0x30],
+                            [0x3c,0x3c,0x18,0x18,0x18,0x18,0x3c,0x3c],
+                            [0x66,0xff,0xff,0xff,0x7e,0x3c,0x18,0x18],
+                            [0x66,0x66,0x66,0x66,0x66,0x66,0x7e,0x3c]];
+
+        self.dat2 = [0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4]
+
+        self.dat3 = [0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10]
+
+
     def clear(self):
         self.display = []
         for x in range(64):
@@ -196,7 +210,10 @@ class Led_Cube_8x8x8():
             time.sleep(0.025)
         
     def send_display(self):
-        
+        for i in range(len(self.display)):
+            # ~ if self.display[i] < 0:
+                # ~ print(self.display[i])
+            self.display[i] = self.display[i] & 0xff
         format = '>' + 'B'*65
         msg = struct.pack(format, 0xf2, *self.display)
         self.port.write(msg)
@@ -567,7 +584,36 @@ class Led_Cube_8x8x8():
                 # ~ line(0,i+1,0,0,i+1,7,1);
                 self.line(0,i+1,0,0,i+1,7,1);
                 time.sleep(speed*0.000005); self.send_display()
+                
+    # ~ void tranoutchar(uchar c,uint speed)
+    def tranoutchar(self, c, speed):
+        # ~ uchar i,j,k,a,i2=0;
+        i2=0;
+        # ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ if (i<7)
+            if (i<7):
+                # ~ box_apeak_xy (i+1,0,0,i+1,7,7,1,1);
+                self.box_apeak_xy (i+1,0,0,i+1,7,7,1,1);
+            # ~ box_apeak_xy (i2,0,0,i2,7,7,1,0);
+            self.box_apeak_xy (i2,0,0,i2,7,7,1,0);
+            # ~ a=0;
+            a=0;
+            # ~ i2=i+1;
+            i2=i+1;
+            # ~ for (j=0; j<=i; j++) {
+            for j in range(i+1):
+                # ~ a=a|(1<<j);
+                a=a|(1<<j);
 
+            # ~ for (k=0; k<8; k++) {
+            for k in range(8):
+                # ~ display[frame][k][3]|=table_cha[c][k]&a;
+                self.display[k*8+3] = self.display[k*8+3] | self.table_cha[c][k]&a;
+                # ~ display[frame][k][4]|=table_cha[c][k]&a;
+                self.display[k*8+4] = self.display[k*8+4] | self.table_cha[c][k]&a;
+            # ~ delay(speed);
+            time.sleep(speed*0.000005); self.send_display()
     
     # ~ void max(uchar *a,uchar *b)
     def max(self, a, b):
@@ -674,6 +720,100 @@ class Led_Cube_8x8x8():
                 self.display[z*8+i] = self.display[z*8+i] >> 1;
             # ~ delay(speed);
             time.sleep(speed*0.000005); self.send_display()
+
+
+    # ~ void box(uchar x1,uchar y1,uchar z1,uchar x2,uchar y2,uchar z2,uchar fill,uchar le)
+    def box(self, x1, y1, z1, x2, y2, z2, fill, le):
+        # ~ uchar i,j,t=0;
+        t=0;
+        # ~ max(&x1,&x2);
+        x1,x2 = self.max(x1,x2);
+        # ~ max(&y1,&y2);
+        y1,y2 = self.max(y1,y2);
+        # ~ max(&z1,&z2);
+        z1,z2 = self.max(z1,z2);
+        # ~ for (i=x1; i<=x2; i++)
+        for i in range(x1,x2+1):
+            # ~ t|=1<<i;
+            t = t | (1<<i);
+        # ~ if (!le)
+        if (le != 0):
+            # ~ t=~t;
+            t=(~t)& 0xff;
+        # ~ if (fill) {
+        if (fill):
+            # ~ if (le) {
+            if (le):
+                # ~ for (i=z1; i<=z2; i++) {
+                for i in range(z1,z2+1):
+                    # ~ for (j=y1; j<=y2; j++)
+                    for j in range(y1, y2+1):
+                        # ~ display[frame][j][i]|=t;
+                        self.display[j*8+i] = self.display[j*8+i] | t;
+            # ~ } else {
+            else:
+                # ~ for (i=z1; i<=z2; i++) {
+                for i in range(z1, z2+1):
+                    # ~ for (j=y1; j<=y2; j++)
+                    for j in range(y1,y2+1):
+                        # ~ display[frame][j][i]&=t;
+                        self.display[j*8+i] = self.display[j*8+i] & t;
+        # ~ } else {
+        else:
+            # ~ if (le) {
+            if (le):
+                # ~ display[frame][y1][z1]|=t;
+                self.display[y1*8+z1] = self.display[y1*8+z1] | t;
+                # ~ display[frame][y2][z1]|=t;
+                self.display[y2*8+z1] = self.display[y2*8+z1] | t;
+                # ~ display[frame][y1][z2]|=t;
+                self.display[y1*8+z2] = self.display[y1*8+z2] | t;
+                # ~ display[frame][y2][z2]|=t;
+                self.display[y2*8+z2] = self.display[y2*8+z2] | t;
+            # ~ } else {
+            else:
+                # ~ display[frame][y1][z1]&=t;
+                self.display[y1*8+z1] = self.display[y1*8+z1] & t;
+                # ~ display[frame][y2][z1]&=t;
+                self.display[y2*8+z1] = self.display[y2*8+z1] & t;
+                # ~ display[frame][y1][z2]&=t;
+                self.display[y1*8+z2] = self.display[y1*8+z2] & t;
+                # ~ display[frame][y2][z2]&=t;
+                self.display[y2*8+z2] = self.display[y2*8+z2] & t;
+            # ~ }
+            # ~ t=(0x01<<x1)|(0x01<<x2);
+            t=(0x01<<x1)|(0x01<<x2);
+            # ~ if (!le)
+            if (le != 0):
+                # ~ t=~t;
+                t=(~t)&0xff
+            # ~ if (le) {
+            if (le):
+                # ~ for (j=z1; j<=z2; j+=(z2-z1)) {
+                for j in range(z1,z2+1,(z2-z1)):
+                    # ~ for (i=y1; i<=y2; i++)
+                    for i in range(y1,y2+1):
+                        # ~ display[frame][i][j]|=t;
+                        self.display[i*8+j] = self.display[i*8+j] + t;
+                # ~ for (j=y1; j<=y2; j+=(y2-y1)) {
+                for j in range(y1,y2+1, y2-y1):
+                    # ~ for (i=z1; i<=z2; i++)
+                    for i in range(z1, z2+1):
+                        # ~ display[frame][j][i]|=t;
+                        self.display[j*8+i] = self.display[j*8+i] | t;
+            else:
+                # ~ for (j=z1; j<=z2; j+=(z2-z1)) {
+                for j in range(z1,z2+1,z2-z1):
+                    # ~ for (i=y1; i<=y2; i++) {
+                    for i in range(y1,y2+1):
+                        # ~ display[frame][i][j]&=t;
+                        self.display[i*8+j] = self.display[i*8+j] & t;
+                # ~ for (j=y1; j<=y2; j+=(y2-y1)) {
+                for j in range(y1,y2+1,(y2-y1)):
+                    # ~ for (i=z1; i<=z2; i++) {
+                    for i in range(z1,z2+1):
+                        # ~ display[frame][j][i]&=t;
+                        self.display[j*8+i] = self.display[j*8+i] & t;
 
 
 
@@ -1217,6 +1357,366 @@ class Led_Cube_8x8x8():
             # ~ delay(a);
             time.sleep(a*0.000005); self.send_display()
 
+    # ~ __bit flash_8()
+    def flash_8(self):
+        # ~ for (i=5; i<8; i++) {
+        for i in range(5,8):
+            # ~ tranoutchar(i,10000);
+            self.tranoutchar(i,10000);
+            # ~ delay(60000);
+            time.sleep(60000*0.000005); self.send_display()
+            # ~ delay(60000);
+            time.sleep(60000*0.000005); self.send_display()
+
+    # ~ __bit flash_9()
+    def flash_9(self):
+        # ~ uchar j,an[8],x,y,t,x1,y1;
+        an = [0]*8
+        # ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ box_apeak_xy (i,0,0,i,7,7,1,1);
+            self.box_apeak_xy (i,0,0,i,7,7,1,1);
+            # ~ if (i)
+            if (i):
+                # ~ box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
+                self.box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+
+        # ~ roll_apeak_xy(3,10000);
+        self.roll_apeak_xy(3,10000);
+        # ~ roll_apeak_xy(0,10000);
+        self.roll_apeak_xy(0,10000);
+        # ~ roll_apeak_xy(1,10000);
+        self.roll_apeak_xy(1,10000);
+        # ~ for (i=0; i<7; i++) {
+        for i in range(7):
+            # ~ line(6-i,6-i,0,6-i,6-i,7,1);
+            self.line(6-i,6-i,0,6-i,6-i,7,1);
+            # ~ line(i,7,0,i,7,7,0);
+            self.line(i,7,0,i,7,7,0);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+
+        # ~ for (i=0; i<8; i++)
+        for i in range(8):
+            # ~ an[i]=14;
+            an[i]=14;
+        # ~ for (i=0; i<85; i++) {
+        for i in range(85):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ t=an[j]%28;
+                t=an[j]%28;
+                # ~ x=dat2[t]>>5;
+                x=self.dat2[t]>>5;
+                # ~ y=(dat2[t]>>2)&0x07;
+                y=(self.dat2[t]>>2)&0x07;
+                # ~ t=(an[j]-14)%28;
+                t=(an[j]-14)%28;
+                # ~ x1=dat2[t]>>5;
+                x1=self.dat2[t]>>5;
+                # ~ y1=(dat2[t]>>2)&0x07;
+                y1=(self.dat2[t]>>2)&0x07;
+                # ~ line(x,y,j,x1,y1,j,1);
+                self.line(x,y,j,x1,y1,j,1);
+
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if ((i>j)&(j>i-71))
+                if ((i>j)&(j>i-71)):
+                    # ~ an[j]++;
+                    an[j] = an[j] + 1
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+
+        # ~ for (i=0; i<85; i++) {
+        for i in range(85):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ t=an[j]%28;
+                t=an[j]%28;
+                # ~ x=dat2[t]>>5;
+                x=self.dat2[t]>>5;
+                # ~ y=(dat2[t]>>2)&0x07;
+                y=(self.dat2[t]>>2)&0x07;
+                # ~ t=(an[j]-14)%28;
+                t=(an[j]-14)%28;
+                # ~ x1=dat2[t]>>5;
+                x1=self.dat2[t]>>5;
+                # ~ y1=(dat2[t]>>2)&0x07;
+                y1=(self.dat2[t]>>2)&0x07;
+                # ~ line(x,y,j,x1,y1,j,1);
+                self.line(x,y,j,x1,y1,j,1);
+            # ~ for (j=0; j<8; j++) {
+            for j in range(8):
+                # ~ if ((i>j)&(j>i-71))
+                if ((i>j)&(j>i-71)):
+                    # ~ an[j]--;
+                    an[j] = an[j] -1
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+        # ~ for (i=0; i<29; i++) {
+        for i in range(29):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ t=an[0]%28;
+            t=an[0]%28;
+            # ~ x=dat2[t]>>5;
+            x=self.dat2[t]>>5;
+            # ~ y=(dat2[t]>>2)&0x07;
+            y=(self.dat2[t]>>2)&0x07;
+            # ~ t=(an[0]-14)%28;
+            t=(an[0]-14)%28;
+            # ~ x1=dat2[t]>>5;
+            x1=self.dat2[t]>>5;
+            # ~ y1=(dat2[t]>>2)&0x07;
+            y1=(self.dat2[t]>>2)&0x07;
+            # ~ box_apeak_xy(x,y,0,x1,y1,7,0,1);
+            self.box_apeak_xy(x,y,0,x1,y1,7,0,1);
+            # ~ box_apeak_xy(x,y,1,x1,y1,6,0,1);
+            self.box_apeak_xy(x,y,1,x1,y1,6,0,1);
+            # ~ an[0]++;
+            an[0] = an[0] + 1
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+        # ~ for (i=0; i<16; i++) {
+        for i in range(16):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ t=an[0]%28;
+            t=an[0]%28;
+            # ~ x=dat2[t]>>5;
+            x=self.dat2[t]>>5;
+            # ~ y=(dat2[t]>>2)&0x07;
+            y=(self.dat2[t]>>2)&0x07;
+            # ~ t=(an[0]-14)%28;
+            t=(an[0]-14)%28;
+            # ~ x1=dat2[t]>>5;
+            x1=self.dat2[t]>>5;
+            # ~ y1=(dat2[t]>>2)&0x07;
+            y1=(self.dat2[t]>>2)&0x07;
+            # ~ box_apeak_xy(x,y,0,x1,y1,7,1,1);
+            self.box_apeak_xy(x,y,0,x1,y1,7,1,1);
+            # ~ an[0]--;
+            an[0] = an[0] - 1
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+        # ~ for (i=0; i<8; i++) {
+        for i in range(8):
+            # ~ line(i,i,0,0,0,i,0);
+            self.line(i,i,0,0,0,i,0);
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+        # ~ for (i=1; i<7; i++) {
+        for i in range(1,7):
+            # ~ line(i,i,7,7,7,i,0);
+            self.line(i,i,7,7,7,i,0);
+            # ~ delay(5000);
+            time.sleep(5000*0.000005); self.send_display()
+            self.clear();
+            time.sleep(5000*0.000005); self.send_display()
+    def flash_9x_drop_this(self):
+        an = [0]*8
+        # ~ for (i=1; i<8; i++) {
+        for i in range(1,8): # fixme fixme fixme
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(7,7,7,7-i,7-i,7-i,0,1);
+            self.box(7,7,7,7-i,7-i,7-i,0,1);
+            # ~ delay(10000);
+            time.sleep(5000*0.000005); self.send_display()
+    # ~ def flash_9y(self):
+        # ~ for (i=1; i<7; i++) {
+        for i in range(1,7):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(0,0,0,7-i,7-i,7-i,0,1);
+            self.box(0,0,0,7-i,7-i,7-i,0,1);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=1; i<8; i++) {
+        for i in range(1,8):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(0,0,0,i,i,i,0,1);
+            self.box(0,0,0,i,i,i,0,1);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=1; i<7; i++) {
+        for i in range(1,7):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(7,0,0,i,7-i,7-i,0,1);
+            self.box(7,0,0,i,7-i,7-i,0,1);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=1; i<8; i++) {
+        for i in range(1,8):
+            # ~ box(7,0,0,7-i,i,i,1,1);
+            self.box(7,0,0,7-i,i,i,1,1);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=1; i<7; i++) {
+        for i in range(1,7):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(0,7,7,7-i,i,i,1,1);
+            self.box(0,7,7,7-i,i,i,1,1);
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+
+    # ~ __bit flash_10()
+    def flash_10(self):
+    # ~ {
+        # ~ uchar i,j,an[4],x,y,t;
+        an = [0] *4
+        # ~ for (i=1; i<7; i++) {
+        for i in range(1,7):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(0,6,6,1,7,7,1,1);
+            self.box(0,6,6,1,7,7,1,1);
+            # ~ box(i,6,6-i,i+1,7,7-i,1,1);
+            self.box(i,6,6-i,i+1,7,7-i,1,1);
+            # ~ box(i,6,6,i+1,7,7,1,1);
+            self.box(i,6,6,i+1,7,7,1,1);
+            # ~ box(0,6,6-i,1,7,7-i,1,1);
+            self.box(0,6,6-i,1,7,7-i,1,1);
+            # ~ box(0,6-i,6,1,7-i,7,1,1);
+            self.box(0,6-i,6,1,7-i,7,1,1);
+            # ~ box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+            self.box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+            # ~ box(i,6-i,6,i+1,7-i,7,1,1);
+            self.box(i,6-i,6,i+1,7-i,7,1,1);
+            # ~ box(0,6-i,6-i,1,7-i,7-i,1,1);
+            self.box(0,6-i,6-i,1,7-i,7-i,1,1);
+            # ~ delay(30000);
+            time.sleep(30000*0.000005); self.send_display()
+        # ~ }
+        # ~ for (i=0; i<4; i++) {
+        for i in range(4):
+            # ~ an[i]=6*i;
+            an[i]=6*i;
+        # ~ for (i=0; i<35; i++) {
+        for i in range(35):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for(j=0; j<4; j++) {
+            for j in range(4):
+                # ~ t=an[j]%24;
+                t=an[j]%24;
+                # ~ x=dat3[t]>>4;
+                x=self.dat3[t]>>4;
+                # ~ y=dat3[t]&0x0f;
+                y=self.dat3[t]&0x0f;
+                # ~ box(x,y,0,x+1,y+1,1,1,1);
+                self.box(x,y,0,x+1,y+1,1,1,1);
+                # ~ box(x,y,6,x+1,y+1,7,1,1);
+                self.box(x,y,6,x+1,y+1,7,1,1);
+
+            # ~ for (j=0; j<4; j++)
+            for j in range(4):
+                # ~ an[j]++;
+                an[j] = an[j] + 1
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ }
+        # ~ for (i=0; i<35; i++) {
+        for i in range(35):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for(j=0; j<4; j++) {
+            for j in range(4):
+                # ~ t=an[j]%24;
+                t=an[j]%24;
+                # ~ x=dat3[t]>>4;
+                x=self.dat3[t]>>4;
+                # ~ y=dat3[t]&0x0f;
+                y=self.dat3[t]&0x0f;
+                # ~ box(x,y,0,x+1,y+1,1,1,1);
+                self.box(x,y,0,x+1,y+1,1,1,1);
+                # ~ box(x,y,6,x+1,y+1,7,1,1);
+                self.box(x,y,6,x+1,y+1,7,1,1);
+            # ~ }
+            # ~ for (j=0; j<4; j++)
+            for j in range(4):
+                # ~ an[j]--;
+                an[j] = an[j] - 1
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=0; i<35; i++) {
+        for i in range(35):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for(j=0; j<4; j++) {
+            for j in range(4):
+                # ~ t=an[j]%24;
+                t=an[j]%24;
+                # ~ x=dat3[t]>>4;
+                x=self.dat3[t]>>4;
+                # ~ y=dat3[t]&0x0f;
+                y=self.dat3[t]&0x0f;
+                # ~ box(x,0,y,x+1,1,y+1,1,1);
+                self.box(x,0,y,x+1,1,y+1,1,1);
+                # ~ box(x,6,y,x+1,7,y+1,1,1);
+                self.box(x,6,y,x+1,7,y+1,1,1);
+            # ~ for (j=0; j<4; j++)
+            for j in range(4):
+                # ~ an[j]++;
+                an[j] = an[j] - 1
+            # ~ delay(10000);
+            time.sleep(10000*0.000005); self.send_display()
+
+        # ~ for (i=0; i<36; i++) {
+        for i in range(36):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ for(j=0; j<4; j++) {
+            for j in range(4):
+                # ~ t=an[j]%24;
+                t=an[j]%24;
+                # ~ x=dat3[t]>>4;
+                x=self.dat3[t]>>4;
+                # ~ y=dat3[t]&0x0f;
+                y=self.dat3[t]&0x0f;
+                # ~ box(x,0,y,x+1,1,y+1,1,1);
+                self.box(x,0,y,x+1,1,y+1,1,1);
+                # ~ box(x,6,y,x+1,7,y+1,1,1);
+                self.box(x,6,y,x+1,7,y+1,1,1);
+            # ~ for (j=0; j<4; j++)
+            for j in range(4):
+                an[j] = an[j] - 1
+            time.sleep(10000*0.000005); self.send_display()
+        # ~ for (i=6; i>0; i--) {
+        for i in range(6,0,-1):
+            # ~ clear(frame, 0);
+            self.clear();
+            # ~ box(0,6,6,1,7,7,1,1);
+            self.box(0,6,6,1,7,7,1,1);
+            # ~ box(i,6,6-i,i+1,7,7-i,1,1);
+            self.box(i,6,6-i,i+1,7,7-i,1,1);
+            # ~ box(i,6,6,i+1,7,7,1,1);
+            self.box(i,6,6,i+1,7,7,1,1);
+            # ~ box(0,6,6-i,1,7,7-i,1,1);
+            self.box(0,6,6-i,1,7,7-i,1,1);
+            # ~ box(0,6-i,6,1,7-i,7,1,1);
+            self.box(0,6-i,6,1,7-i,7,1,1);
+            # ~ box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+            self.box(i,6-i,6-i,i+1,7-i,7-i,1,1);
+            # ~ box(i,6-i,6,i+1,7-i,7,1,1);
+            self.box(i,6-i,6,i+1,7-i,7,1,1);
+            # ~ box(0,6-i,6-i,1,7-i,7-i,1,1);
+            self.box(0,6-i,6-i,1,7-i,7-i,1,1);
+            # ~ delay(30000);
+            time.sleep(30000*0.000005); self.send_display()
+        self.clear();
+        time.sleep(30000*0.000005); self.send_display()
+
 
 
 def main():
@@ -1249,6 +1749,12 @@ def main():
         led_Cube_8x8x8.flash_6()
     elif args.canned == '7':
         led_Cube_8x8x8.flash_7()
+    elif args.canned == '8':
+        led_Cube_8x8x8.flash_8()
+    elif args.canned == '9':
+        led_Cube_8x8x8.flash_9()
+    elif args.canned == '10':
+        led_Cube_8x8x8.flash_10()
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
