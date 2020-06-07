@@ -81,6 +81,9 @@ class Led_Cube_8x8x8():
             'flash_9'  ,
             'flash_10' ,
             'flash_11' ,
+            'flash_12' ,
+            'flash_13' ,
+            'flash_14' ,
         ]
 
     def clear(self):
@@ -251,6 +254,282 @@ class Led_Cube_8x8x8():
             self.send_display()
             time.sleep(0.025)
         
+    def flash_12(self):
+        self.clear()
+        
+        img =  ['..XXX...',
+                '.X.X.X..',
+                'XX.X.XX.',
+                'X.X.X.X.',
+                'X.X.X.X.',
+                '.XXXXX..',
+                '..XXX...',
+                '........']
+        img_inv=['........',
+                 '..X.X...',
+                 '..X.X...',
+                 '.X.X.X..',
+                 '.X.X.X..',
+                 '........',
+                 '........',
+                 '........']
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_Mot = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
+
+        img_pixels_raw_inv = self.string_plane_to_xyz_list(img_inv, plane='xz')
+        img_pixels_Mot_inv = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw_inv)
+        
+        self.clear();self.send_display()
+        
+        # ~ v_init = 0.4
+        # ~ a = -.01
+        v_init = 0.8
+        a = -.02*2
+        v = v_init
+        d = 0.0
+        for index in range(181):
+            
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_translate_matrix(  3.0,   4.0,   4.0-d).dot(transform)
+            new_pixels = transform.dot(img_pixels_Mot); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            time.sleep(0.025)
+            d = d + v
+            v = v + a
+            if d < 0:
+                d = 0
+                v = -v
+            # ~ v = v * (1-.01)
+            print('d=%.3f' % (d) )
+       
+        
+        
+        for index in range(8):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_translate_matrix(  3.0,   4.0,   4.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_Mot); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            time.sleep(0.25)
+            new_pixels = transform.dot(img_pixels_Mot_inv); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            time.sleep(0.25)
+
+
+            
+        for angle_index in range(16*2+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   4.0,   4.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_Mot)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*2+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   4.0,   4.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_Mot)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*2+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   4.0,   4.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_Mot)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+    def flash_13(self):
+        self.clear()
+        
+        img =  ['..XXX...',
+                '.X...X..',
+                'X.....X.',
+                'X.....X.',
+                'X.....X.',
+                '.X...X..',
+                '..XXX...',
+                '........']
+        # ~ img =  ['XXXXXXX.',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ 'XXXXXXX.',
+                # ~ '........']
+
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_1 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw_1)
+        img_pixels_raw_2 = self.string_plane_to_xyz_list(img, plane='yz')
+        img_pixels_2 = self.get_translate_matrix( 3,  0,  0).dot(img_pixels_raw_2)
+        img_pixels_raw_3 = self.string_plane_to_xyz_list(img, plane='xy')
+        img_pixels_3 = self.get_translate_matrix( 0,  0,  3).dot(img_pixels_raw_3)
+
+        img_pixels_123 = np.append(img_pixels_1, img_pixels_2, axis=1)
+        img_pixels_123 = np.append(img_pixels_123, img_pixels_3, axis=1)
+
+        # ~ transform = self.get_translate_matrix( -0.0,  -0.0,  -0.0)
+
+        # ~ self.clear();self.send_display()
+        # ~ new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+
+
+        v_init = 0.8
+        a = -.02*2
+        v = v_init
+        d = 0.0
+        for index in range(165):
+            
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0-d).dot(transform)
+            new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            time.sleep(0.025)
+            print('d=%.3f' % (d) )
+            d = d + v
+            v = v + a
+            if d < 0:
+                d = 0
+                v = v_init
+       
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_123)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_123)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_123)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+    def flash_14(self):
+        self.clear()
+        
+        # ~ img =  ['..XXX...',
+                # ~ '.X...X..',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ 'X.....X.',
+                # ~ '.X...X..',
+                # ~ '..XXX...',
+                # ~ '........']
+        img =  ['........',
+                '.XXXXXX.',
+                '.X....X.',
+                '.X....X.',
+                '.X....X.',
+                '.X....X.',
+                '.XXXXXX.',
+                '........']
+
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_1 = self.get_translate_matrix( 0,  3.5,  0).dot(img_pixels_raw_1)
+        # ~ img_pixels_raw_2 = self.string_plane_to_xyz_list(img, plane='yz')
+        # ~ img_pixels_2 = self.get_translate_matrix( 3,  0,  0).dot(img_pixels_raw_2)
+        # ~ img_pixels_raw_3 = self.string_plane_to_xyz_list(img, plane='xy')
+        # ~ img_pixels_3 = self.get_translate_matrix( 0,  0,  3).dot(img_pixels_raw_3)
+
+        # ~ img_pixels_123 = np.append(img_pixels_1, img_pixels_2, axis=1)
+        # ~ img_pixels_123 = np.append(img_pixels_123, img_pixels_3, axis=1)
+
+        # ~ transform = self.get_translate_matrix( -0.0,  -0.0,  -0.0)
+
+        # ~ self.clear();self.send_display()
+        # ~ new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+
+
+        # ~ v_init = 0.8
+        # ~ a = -.02*2
+        # ~ v = v_init
+        # ~ d = 0.0
+        # ~ for index in range(165):
+            
+            # ~ transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            # ~ transform = self.get_translate_matrix(  3.0,   3.0,   3.0-d).dot(transform)
+            # ~ new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            # ~ time.sleep(0.025)
+            # ~ print('d=%.3f' % (d) )
+            # ~ d = d + v
+            # ~ v = v + a
+            # ~ if d < 0:
+                # ~ d = 0
+                # ~ v = v_init
+       
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+            
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+        
+
+        
+
     def send_display(self):
         for i in range(len(self.display)):
             # ~ if self.display[i] < 0:
@@ -1839,8 +2118,7 @@ class Led_Cube_8x8x8():
                 self.transss();
                 # ~ delay(10000);
                 time.sleep(10000*0.000005); self.send_display()
-            
-            
+                    
     def run_sequence(self, seq, delay):
 
         print('Running sequence %s' % (seq))
@@ -1869,6 +2147,12 @@ class Led_Cube_8x8x8():
             self.flash_10()
         elif seq == 'flash_11':
             self.flash_11()
+        elif seq == 'flash_12':
+            self.flash_12()
+        elif seq == 'flash_13':
+            self.flash_13()
+        elif seq == 'flash_14':
+            self.flash_14()
 
     
 def main():
