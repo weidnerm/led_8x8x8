@@ -86,6 +86,9 @@ class Led_Cube_8x8x8():
             'flash_14' ,
             'flash_15' ,
             'flash_16' ,
+            'flash_17' ,
+            'flash_18' ,
+            'flash_19' ,
         ]
 
     def clear(self):
@@ -626,7 +629,337 @@ class Led_Cube_8x8x8():
             time.sleep(0.025)
             angle += 22.5
 
+    def flash_17(self):
+        self.clear()
 
+        img =  ['..XXX...',
+                '.X...X..',
+                'X.....X.',
+                'X.....X.',
+                'X.....X.',
+                '.X...X..',
+                '..XXX...',
+                '........']
+
+        point =  ['XXXXX']
+
+
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_1 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw_1)
+        
+        img_pixels_raw_point = self.string_plane_to_xyz_list(point, plane='xz')
+        img_pixels_point = self.get_translate_matrix( 0,  0,  0).dot(img_pixels_raw_point)
+
+
+
+        for angle_index in range(16*1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_z_matrix( 90)
+            transform2 = self.get_translate_matrix( 3,  3-2-angle_index*2+16,  3).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(4*1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.125)
+
+        for angle_index in range(16*1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 90).dot(transform)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_y_matrix( -90)
+            transform2 = self.get_translate_matrix( 3,  3,  3-2-angle_index*2+16).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(4*1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 90).dot(transform)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(16*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_z_matrix( 90).dot(transform)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_y_matrix( 0)
+            transform2 = self.get_translate_matrix( 3-2-angle_index*2+16,  3,  3).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+
+
+
+    def flash_18(self):
+        self.clear()
+
+        img =  ['..XXX...',
+                '.X.X.X..',
+                'X.....X.',
+                'X.....X.',
+                'X.....X.',
+                '.X.X.X..',
+                '..XXX...',
+                '........']
+
+        point =  ['XXXXX']
+
+
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_1 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw_1)
+        
+        img_pixels_raw_point = self.string_plane_to_xyz_list(point, plane='xz')
+        img_pixels_point = self.get_translate_matrix( 0,  0,  0).dot(img_pixels_raw_point)
+
+
+
+        for angle_index in range(16*1+4+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_z_matrix( 90)
+            transform2 = self.get_translate_matrix( 3,  3-2-angle_index*2+16,  3).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(4*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_y_matrix( 90).dot(transform)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.125)
+
+        for angle_index in range(16*1+4+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_y_matrix( 90).dot(transform)
+            transform = self.get_rotate_x_matrix( 90).dot(transform)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_y_matrix( -90)
+            transform2 = self.get_translate_matrix( 3,  3,  3-2-angle_index*2+16).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(4*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_x_matrix( 90).dot(transform)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.125)
+
+        for angle_index in range(16*1+4+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_z_matrix( 90).dot(transform)
+            transform = self.get_rotate_x_matrix( 90).dot(transform)
+            transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            transform2 = self.get_rotate_y_matrix( 0)
+            transform2 = self.get_translate_matrix( 3-2-angle_index*2+16,  3,  3).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        for angle_index in range(4*1+1):
+            transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
+            transform = self.get_rotate_z_matrix( 90).dot(transform)
+            transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.125)
+
+
+    def flash_19(self):
+        self.clear()
+
+        img =  ['..XXXX..',
+                '.X.XX.X.',
+                'X......X',
+                'X......X',
+                'X......X',
+                'X......X',
+                '.X.XX.X.',
+                '..XXXX..']
+
+        point =  ['XXXXXX',
+                  'XXXXXX']
+
+
+            # (left/right;  front/back;   up/down)
+
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels0 = self.get_translate_matrix(-3.5, -0.5, -3.5).dot(img_pixels_raw_1)
+        img_pixels1 = self.get_translate_matrix(-3.5,  0.5, -3.5).dot(img_pixels_raw_1)
+        img_pixels_1 = np.append(img_pixels0, img_pixels1, axis=1)
+        
+        img_pixels_raw_point = self.string_plane_to_xyz_list(point, plane='xz')
+        img_pixels_point0 = self.get_translate_matrix(-2.5, -0.5, -0.5).dot(img_pixels_raw_point)
+        img_pixels_point1 = self.get_translate_matrix(-2.5,  0.5, -0.5).dot(img_pixels_raw_point)
+        img_pixels_point = np.append(img_pixels_point0, img_pixels_point1, axis=1)
+
+
+        for angle_index in range(16*1+4+1):
+            transform = self.get_translate_matrix( 0,0,0)
+            transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            transform2 = self.get_rotate_z_matrix( 90)
+            transform2 = self.get_translate_matrix( 3.5,  3.5-2-angle_index*2+16,  3.5).dot(transform2)
+
+            new_pixels = transform.dot(img_pixels_1)
+            new_pixels2 = transform2.dot(img_pixels_point)
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.store_pixel_array(new_pixels2)
+            self.send_display()
+            time.sleep(0.025)
+
+        # ~ for angle_index in range(4*1+1):
+            # ~ transform = self.get_translate_matrix( 0,0,0)
+            # ~ transform = self.get_rotate_y_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            # ~ transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            # ~ new_pixels = transform.dot(img_pixels_1)
+            # ~ self.clear()
+            # ~ self.store_pixel_array(new_pixels)
+            # ~ self.send_display()
+            # ~ time.sleep(0.125)
+
+        # ~ for angle_index in range(16*1+4+1):
+            # ~ transform = self.get_translate_matrix( 0,0,0)
+            # ~ transform = self.get_rotate_y_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_x_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            # ~ transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            # ~ transform2 = self.get_rotate_y_matrix( -90)
+            # ~ transform2 = self.get_translate_matrix( 3.5,  3.5,  3.5-2-angle_index*2+16).dot(transform2)
+
+            # ~ new_pixels = transform.dot(img_pixels_1)
+            # ~ new_pixels2 = transform2.dot(img_pixels_point)
+            # ~ self.clear()
+            # ~ self.store_pixel_array(new_pixels)
+            # ~ self.store_pixel_array(new_pixels2)
+            # ~ self.send_display()
+            # ~ time.sleep(0.025)
+
+        # ~ for angle_index in range(4*1+1):
+            # ~ transform = self.get_translate_matrix( 0,0,0)
+            # ~ transform = self.get_rotate_x_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
+            # ~ transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            # ~ new_pixels = transform.dot(img_pixels_1)
+            # ~ self.clear()
+            # ~ self.store_pixel_array(new_pixels)
+            # ~ self.send_display()
+            # ~ time.sleep(0.125)
+
+        # ~ for angle_index in range(16*1+4+1):
+            # ~ transform = self.get_translate_matrix( 0,0,0)
+            # ~ transform = self.get_rotate_z_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_x_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
+            # ~ transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            # ~ transform2 = self.get_rotate_y_matrix( 0)
+            # ~ transform2 = self.get_translate_matrix( 3.5-2-angle_index*2+16,  3.5,  3.5).dot(transform2)
+
+            # ~ new_pixels = transform.dot(img_pixels_1)
+            # ~ new_pixels2 = transform2.dot(img_pixels_point)
+            # ~ self.clear()
+            # ~ self.store_pixel_array(new_pixels)
+            # ~ self.store_pixel_array(new_pixels2)
+            # ~ self.send_display()
+            # ~ time.sleep(0.025)
+
+        # ~ for angle_index in range(4*1+1):
+            # ~ transform = self.get_translate_matrix( 0,0,0)
+            # ~ transform = self.get_rotate_z_matrix( 90).dot(transform)
+            # ~ transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
+            # ~ transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            # ~ new_pixels = transform.dot(img_pixels_1)
+            # ~ self.clear()
+            # ~ self.store_pixel_array(new_pixels)
+            # ~ self.send_display()
+            # ~ time.sleep(0.125)
 
 
 
@@ -2265,6 +2598,12 @@ class Led_Cube_8x8x8():
             self.flash_15()
         elif seq == 'flash_16':
             self.flash_16()
+        elif seq == 'flash_17':
+            self.flash_17()
+        elif seq == 'flash_18':
+            self.flash_18()
+        elif seq == 'flash_19':
+            self.flash_19()
 
 
 def main():
@@ -2276,6 +2615,7 @@ def main():
     parser.add_argument('-m', '--math', default=0, help='do math stuff')
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
+    parser.add_argument('--reps', default=1, help='repetitions')
 
     args = parser.parse_args()
 
@@ -2296,7 +2636,8 @@ def main():
             time.sleep(0.5)
 
     elif args.canned != 0:
-        led_Cube_8x8x8.run_sequence(args.canned, args.delay)
+        for index in range(int(args.reps)):
+            led_Cube_8x8x8.run_sequence(args.canned, args.delay)
 
     elif args.file == None:
         led_Cube_8x8x8.test_it()
