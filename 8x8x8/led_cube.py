@@ -265,11 +265,12 @@ class Led_Cube_8x8x8():
         # ~ new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
 
 
-        v_init = 0.8
-        a = -.02*2
+        v_init = 0.8*1.4
+        a = -.02*2*2
         v = v_init
         d = 0.0
-        for index in range(165):
+        bounces = 5
+        for index in range(1720):
 
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_translate_matrix(  3.0,   3.0,   3.0-d).dot(transform)
@@ -280,6 +281,10 @@ class Led_Cube_8x8x8():
             if d < 0:
                 d = 0
                 v = v_init
+                bounces = bounces -1
+                if bounces <= 0:
+                    break
+                    
 
 
         for angle_index in range(16*1+1):
@@ -1038,6 +1043,20 @@ class Led_Cube_8x8x8():
         img_pixels_point = np.append(img_pixels_point0, img_pixels_point1, axis=1)
 
 
+        # grow in circle
+        for angle_index in range(3,-1,-1):
+            transform = self.get_scale_matrix( (4.0-angle_index)/4, (4.0-angle_index)/4, (4.0-angle_index)/4 )
+            # transform = self.get_rotate_y_matrix( 22.5*3).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1[self.get_pac_man_phase(0)])
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.25)
+
+
+
         for angle_index in range(8*4+1):
             transform = self.get_translate_matrix( 0,0,0)
             # transform = self.get_rotate_y_matrix( 22.5*3).dot(transform)
@@ -1125,6 +1144,18 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.send_display()
             time.sleep(0.125)
+
+        # shrink out circle
+        for angle_index in range(0,4):
+            transform = self.get_scale_matrix( (4.0-angle_index)/4, (4.0-angle_index)/4, (4.0-angle_index)/4 )
+            # transform = self.get_rotate_y_matrix( 22.5*3).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform)
+
+            new_pixels = transform.dot(img_pixels_1[self.get_pac_man_phase(0)])
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display()
+            time.sleep(0.25)
 
 
     def flash_21(self):
