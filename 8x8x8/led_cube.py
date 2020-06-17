@@ -661,13 +661,13 @@ class Led_Cube_8x8x8():
 
 
 
-        for angle_index in range(16*1):
+        for angle_index in range(16*4):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_rotate_x_matrix( 22.5*angle_index).dot(transform)
             transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
 
             transform2 = self.get_rotate_z_matrix( 90)
-            transform2 = self.get_translate_matrix( 3,  3-2-angle_index*2+16,  3).dot(transform2)
+            transform2 = self.get_translate_matrix( 3,  3-2-((angle_index*2)%32)+16,  3).dot(transform2)
 
             new_pixels = transform.dot(img_pixels_1)
             new_pixels2 = transform2.dot(img_pixels_point)
@@ -688,14 +688,14 @@ class Led_Cube_8x8x8():
             self.send_display()
             time.sleep(0.125)
 
-        for angle_index in range(16*1):
+        for angle_index in range(16*4):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_rotate_x_matrix( 90).dot(transform)
             transform = self.get_rotate_y_matrix( 22.5*angle_index).dot(transform)
             transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
 
             transform2 = self.get_rotate_y_matrix( -90)
-            transform2 = self.get_translate_matrix( 3,  3,  3-2-angle_index*2+16).dot(transform2)
+            transform2 = self.get_translate_matrix( 3,  3,  3-2-((angle_index*2)%32)+16).dot(transform2)
 
             new_pixels = transform.dot(img_pixels_1)
             new_pixels2 = transform2.dot(img_pixels_point)
@@ -717,14 +717,14 @@ class Led_Cube_8x8x8():
             self.send_display()
             time.sleep(0.025)
 
-        for angle_index in range(16*1+1):
+        for angle_index in range(16*4+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_rotate_z_matrix( 90).dot(transform)
             transform = self.get_rotate_z_matrix( 22.5*angle_index).dot(transform)
             transform = self.get_translate_matrix(  3.0,   3.0,   3.0).dot(transform)
 
             transform2 = self.get_rotate_y_matrix( 0)
-            transform2 = self.get_translate_matrix( 3-2-angle_index*2+16,  3,  3).dot(transform2)
+            transform2 = self.get_translate_matrix( 3-2-((angle_index*2)%32)+16,  3,  3).dot(transform2)
 
             new_pixels = transform.dot(img_pixels_1)
             new_pixels2 = transform2.dot(img_pixels_point)
