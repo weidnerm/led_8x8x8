@@ -285,7 +285,7 @@ class Led_Cube_8x8x8():
                 bounces = bounces -1
                 if bounces <= 0:
                     break
-                    
+
 
 
         for angle_index in range(16*1+1):
@@ -606,7 +606,7 @@ class Led_Cube_8x8x8():
             transform = self.get_rotate_z_matrix(0).dot(transform)
             transform = self.get_translate_matrix( 28-pos,  7,  0).dot(transform)
             new_pixels = transform.dot(img_pixels_msg);self.store_pixel_array(new_pixels)
-            
+
             self.send_display()
 
 
@@ -1239,6 +1239,82 @@ class Led_Cube_8x8x8():
                 '........',
                 '........']
 
+        guy = [
+               ['...XX...',
+                '...XX...',
+                '..XXXX..',
+                '.X.XX.X.',
+                '.X.XX.X.',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX...',
+                '..XXXXX.',
+                '.X.XX..X',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX...',
+                '..XXXXXX',
+                '.X.XX...',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX..X',
+                '..XXXXX.',
+                '.X.XX...',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX..X',
+                '...XX..X',
+                '..XXXXX.',
+                '.X.XX...',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX...',
+                '..XXXXXX',
+                '.X.XX...',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX...',
+                '..XXXXX.',
+                '.X.XX..X',
+                '.X.XX...',
+                '...XX...',
+                '...XX...'],
+
+               ['...XX...',
+                '...XX...',
+                '..XXXX..',
+                '.X.XX.X.',
+                '.X.XX.X.',
+                '...XX...',
+                '...XX...'],
+                ]
+
+
+
+
+            # (left/right;  front/back;   up/down)
+        img_pixels_guy = []
+        for frame_index in range(len(guy)):
+            img_pixels_raw_1 = self.string_plane_to_xyz_list(guy[frame_index], plane='xz')
+            img_pixels_guy.append( img_pixels_raw_1 )
+
+
 
             # (left/right;  front/back;   up/down)
 
@@ -1266,197 +1342,290 @@ class Led_Cube_8x8x8():
 
 
 
-        
-        # no rings.  bring in next
-        for pos in range(0,8,2):
-            self.clear()
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+        for which_half in range(2):
+            # no rings.  bring in next
+            for pos in range(0,8,2):
+                self.clear()
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
 
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels);self.send_display()
+                if which_half: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
-
-        # one rings.  bring in next
-        for pos in range(0,6,2):
-            self.clear()
-
-            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-            new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
-
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
-
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
-
-
-
-        # two rings.  bring in next
-        for pos in range(0,4,2):
-            self.clear()
+                self.send_display()
+                
+            self.clear() ;
+            if which_half: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
             transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-            new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
+
+
+            # one rings.  bring in next
+            for pos in range(0,6,2):
+                self.clear()
+
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+
+                if which_half: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+
+            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
+            transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
+
+
+
+            # two rings.  bring in next
+            for pos in range(0,4,2):
+                self.clear()
+
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+
+                if which_half: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+
+            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
             transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
             new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
-
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
-
-
-        # three rings.  bring in next
-        for pos in range(0,2,2):
-            self.clear()
-
-            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-            new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
-            transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
 
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
 
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
+            # three rings.  bring in next
+            for pos in range(0,2,2):
+                self.clear()
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   5.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
-
-        time.sleep(1)
-        
-        # 4 rings present.  do flash the energy core
-        for index in range(8):
-            self.clear() ; 
-            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-            transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-            transform = self.get_translate_matrix(  3.5,   3.5,   5.5)
-            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
-
-            if (index % 2) == 0:
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
                 transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-                new_pixels = transform.dot(img_pixels_point); self.store_pixel_array(new_pixels)
-            self.send_display()
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-        time.sleep(1)
-        
-        
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
 
-        # 3 static rings.  one going out
-        for pos in range(0,2,2):
-            self.clear()
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+                
+                if which_half: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
             transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
             new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+
             transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
             new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
             new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   5.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
 
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
+            time.sleep(1)
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels)
+            # 4 rings present.  do flash the energy core
+            for index in range(8):
+                self.clear() ;
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   5.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+                if (index/4)^which_half: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
+                if (index % 2) == 0:
+                    transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+                    new_pixels = transform.dot(img_pixels_point); self.store_pixel_array(new_pixels)
+                self.send_display()
 
 
-        # two static rings.  next going out
-        for pos in range(2,-2,-2):
-            self.clear()
+
+
+            time.sleep(1)
+
+
+
+            # 3 static rings.  one going out
+            for pos in range(0,2,2):
+                self.clear()
+
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+                
+                if which_half^1: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half^1: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
             transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
             new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+
             transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
             new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
-
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0);self.clear() ; self.store_pixel_array(new_pixels)
-
-        transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
-        new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
 
 
-        # one static rings.  next going out
-        for pos in range(4,-2,-2):
-            self.clear()
+            # two static rings.  next going out
+            for pos in range(2,-2,-2):
+                self.clear()
+
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+                transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+                new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
+
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+                if which_half^1: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half^1: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
             transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
             new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
 
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+            transform = self.get_translate_matrix(  3.5,   3.5,   1.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
 
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+
+            # one static rings.  next going out
+            for pos in range(4,-2,-2):
+                self.clear()
+
+                transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+                new_pixels = transform.dot(img_pixels0);self.store_pixel_array(new_pixels)
+
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+
+                if which_half^1: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half^1: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+
+            transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
+            new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels);self.send_display()
+
+
+            # no static rings.  take out next
+            for pos in range(6,-2,-2):
+                self.clear()
+                transform = self.get_translate_matrix( 0,0,0)
+                transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+
+                new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
+
+                if which_half^1: # draw guy
+                    transform = self.get_translate_matrix( 0,   3.5,   1)
+                    new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
+                self.send_display()
+
+            self.clear() ;
+            if which_half^1: # draw guy
+                transform = self.get_translate_matrix( 0,   3.5,   1)
+                new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
             self.send_display()
 
-        transform = self.get_translate_matrix(  3.5,   3.5,   -0.5)
-        new_pixels = transform.dot(img_pixels0); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
+            time.sleep(1)
 
+            # guy waving
+            if which_half^1:
+                for index in range(64+1):
+                    self.clear() ;
+                    # ~ transform = self.get_translate_matrix( 0,   3.5,   1)
+                    transform = self.get_translate_matrix( -3.5,0,0)
+                    transform = self.get_rotate_z_matrix( 5.625*index).dot(transform)
+                    transform = self.get_translate_matrix(  3.5,   4,   1).dot(transform)
+                    
+                    
+                    new_pixels = transform.dot(img_pixels_guy[index%len(img_pixels_guy)]); self.store_pixel_array(new_pixels)
 
-        # no static rings.  take out next
-        for pos in range(6,-2,-2):
-            self.clear()
-            transform = self.get_translate_matrix( 0,0,0)
-            transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
+                    self.send_display()
 
-            new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-            self.send_display()
-
-        self.clear() ;self.send_display()
-
-        time.sleep(1)
-
+            time.sleep(1)
 
 
 
