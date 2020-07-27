@@ -40,58 +40,58 @@ class Led_Cube_8x8x8():
         self.dat2 = [0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,0x1c,0x18,0x14,0x10,0xc,0x8,0x4]
 
         self.dat3 = [0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x16,0x26,0x36,0x46,0x56,0x66,0x65,0x64,0x63,0x62,0x61,0x60,0x50,0x40,0x30,0x20,0x10]
+            # ~ "0001.dat" , # block of blue with varying brightness.  doesnt work.
 
         self.seq_list = [
-            "0000.dat" ,
-            # ~ "0001.dat" , # block of blue with varying brightness.  doesnt work.
-            "0002.dat" ,
-            "0003.dat" ,
-            "0004.dat" ,
-            "0005.dat" ,
-            "0006.dat" ,
-            "0007.dat" ,
-            "0008.dat" , # random rising dots
-            "0009.dat" ,
-            "0010.dat" , # random rising dots
-            "0011.dat" ,
-            "0012.dat" ,
-            "0013.dat" , # raining dots and rising dots. like red rover
-            "0014.dat" ,
-            "0015.dat" ,
-            "0016.dat" ,
-            "0017.dat" ,
-            "0018.dat" ,
-            "0019.dat" ,
-            "0020.dat" ,
-            "0021.dat" ,
-            "0022.dat" ,
-            "0023.dat" ,
-            "0024.dat" , # falling streamer
-            "0025.dat" ,
-            "0026.dat" ,
-            "0027.dat" , # I heart U - rotating
-            "0028.dat" ,
-            'flash_2'  , # hourglass pyramid stuff
-            'flash_3'  ,
-            'flash_4'  ,
-            'flash_5'  , # sideways pulsing pyramid plane
-            'flash_6'  , # rains asian words maybe
-            'flash_7'  ,
-            'flash_8'  ,
-            'flash_9'  ,
-            'flash_10' ,
-            'flash_11' ,
-            'flash_12' ,
-            'flash_13' ,
-            'flash_14' ,
-            'flash_15' ,
-            'flash_16' ,
-            'flash_17' ,
-            'flash_18' ,
-            'flash_19' ,
-            'flash_20' ,
-            'flash_21' ,
-            'flash_22' ,
+            ("0000.dat" , 'all LEDs on'),
+            ("0002.dat" , 'flat plane falling down once'),
+            ("0003.dat" , 'flat plane falling down once'),
+            ("0004.dat" , 'flat plane falling down once'),
+            ("0005.dat" , 'full cube fill in from top'),
+            ("0006.dat" , 'full cube fill in from top'),
+            ("0007.dat" , 'full cube fill in from top'),
+            ("0008.dat" , 'random rising dots'), # 
+            ("0009.dat" , 'random rising dots'),
+            ("0010.dat" , 'random rising dots'), # random rising dots
+            ("0011.dat" , 'raining dots and rising dots. like red rover'),
+            ("0012.dat" , 'raining dots and rising dots. like red rover'),
+            ("0013.dat" , 'raining dots and rising dots. like red rover'), # raining dots and rising dots. like red rover
+            ("0014.dat" , 'full sheet crumbling and falling quickly'),
+            ("0015.dat" , 'full sheet crumbling and falling quickly'),
+            ("0016.dat" , 'full sheet crumbling and falling quickly'),
+            ("0017.dat" , 'vertical waving sheet'),
+            ("0018.dat" , 'vertical waving sheet'),
+            ("0019.dat" , 'vertical waving sheet'),
+            ("0020.dat" , 'up and down plane from corner'),
+            ("0021.dat" , 'back and forth twisting plane'),
+            ("0022.dat" , 'twisting rotating sheet'),
+            ("0023.dat" , 'twisting rotating sheet'),
+            ("0024.dat" , 'falling streamer'), # falling streamer
+            ("0025.dat" , 'Open arrow around edge'),
+            ("0026.dat" , 'Open arrow around edge'),
+            ("0027.dat" , 'I heart U - rotating'), # I heart U - rotating
+            ("0028.dat" , 'random activation of all leds slowly'),
+            ('flash_2'  , 'hourglass pyramid stuff'), # hourglass pyramid stuff
+            ('flash_3'  , 'vertical plane sweeping sideways'),
+            ('flash_4'  , 'vertical plane waving sideways'),
+            ('flash_5'  , 'sideways pulsing pyramid plane'), # sideways pulsing pyramid plane
+            ('flash_6'  , 'rains asian words maybe'), # rains asian words maybe
+            ('flash_7'  , 'rotating edge and corner volumes'),
+            ('flash_8'  , 'swiped in I heart U'),
+            ('flash_9'  , 'twisting planes and other sequences'),
+            ('flash_10' , 'corner pulses'),
+            ('flash_11' , 'up and down sheet waves'),
+            ('flash_12' , 'bouncing moto logo'),
+            ('flash_13' , 'bouncing spehere'),
+            ('flash_14' , 'multi-axis rotating I heart U. ends off'),
+            ('flash_15' , 'Stretching in rotating I heart U'),
+            ('flash_16' , 'I heart U around edge'),
+            ('flash_17' , 'multi-axis flipping ring with axis pulses, thin'),
+            ('flash_18' , 'multi-axis rotating ring with axis shafts, thin'),
+            ('flash_19' , 'multi-axis rotating ring with axis shafts, thick'),
+            ('flash_20' , 'multi-axis pac man'),
+            ('flash_21' , 'rotating biting pacman'),
+            ('flash_22' , 'stargate transport guy'),
         ]
 
     def clear(self):
@@ -3291,6 +3291,7 @@ def main():
     parser.add_argument('-m', '--math', default=0, help='do math stuff')
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
+    parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
     parser.add_argument('--reps', default=1, help='repetitions')
 
     args = parser.parse_args()
@@ -3305,7 +3306,7 @@ def main():
 
     elif args.random != 0:
         for index in range(int(args.random)):
-            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list), args.delay)
+            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list[0]), args.delay)
             time.sleep(0.5)
             led_Cube_8x8x8.clear()
             led_Cube_8x8x8.send_display()
@@ -3314,6 +3315,10 @@ def main():
     elif args.canned != 0:
         for index in range(int(args.reps)):
             led_Cube_8x8x8.run_sequence(args.canned, args.delay)
+
+    elif args.list == True:
+        for index in range(len(led_Cube_8x8x8.seq_list)):
+            print('%-15s   %s' % (led_Cube_8x8x8.seq_list[index][0], led_Cube_8x8x8.seq_list[index][1]))
 
     elif args.file == None:
         for index in range(int(args.reps)):
