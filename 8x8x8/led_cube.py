@@ -3306,7 +3306,7 @@ def main():
 
     elif args.random != 0:
         for index in range(int(args.random)):
-            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list[0]), args.delay)
+            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay)
             time.sleep(0.5)
             led_Cube_8x8x8.clear()
             led_Cube_8x8x8.send_display()
