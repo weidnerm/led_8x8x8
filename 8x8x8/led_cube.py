@@ -6,6 +6,7 @@ import argparse
 import numpy as np
 import math
 import random
+from scipy.special import jn, jn_zeros
 
 class Led_Cube_8x8x8():
     def __init__(self, port=None, baudrate=9600):
@@ -92,8 +93,12 @@ class Led_Cube_8x8x8():
             ('flash_20' , 'multi-axis pac man'),
             ('flash_21' , 'rotating biting pacman'),
             ('flash_22' , 'stargate transport guy'),
+            ('drum_1'   , 'drum surface pulsing'),
         ]
-
+        
+        self.u_last = -10000000
+        self.zero_cross_count = 0
+        
     def clear(self):
         self.display = []
         for x in range(64):
@@ -3280,7 +3285,195 @@ class Led_Cube_8x8x8():
             self.flash_21()
         elif seq == 'flash_22':
             self.flash_22()
+        elif seq == 'drum_1':
+            self.drum_1()
 
+    def drum_1(self):
+
+        img =  ['XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX']
+
+
+            # (left/right;  front/back;   up/down)
+
+        #
+        # start with a plane
+        #
+        img_flat_plane = self.string_plane_to_xyz_list(img, plane='xy')
+        transform = self.get_translate_matrix( 0,0,4)
+        flat_pane_pixels = transform.dot(img_flat_plane)
+        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        
+        time.sleep(1)
+
+        #
+        # do the vibration mode 0,0
+        #
+        self.zero_cross_count = 0
+        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':0, 'c':0.2}
+        for time_index in range(1000):
+            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+            
+            if self.zero_cross_count > 20:
+                break
+                
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+            new_pixels = transform.dot(points_raw)
+            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+
+        #
+        # flip the plane
+        #
+        time.sleep(1)
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            flat_pane_pixels = transform.dot(img_flat_plane)
+            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        time.sleep(1)
+
+        #
+        # do the vibration mode 1,0
+        #
+        self.zero_cross_count = 0
+        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1}
+        for time_index in range(1000):
+            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+            
+            if self.zero_cross_count > 20:
+                break
+                
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+            new_pixels = transform.dot(points_raw)
+            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+
+        #
+        # flip the plane
+        #
+        time.sleep(1)
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            flat_pane_pixels = transform.dot(img_flat_plane)
+            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        time.sleep(1)
+
+        #
+        # do the vibration mode 0,1
+        #
+        self.zero_cross_count = 0
+        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1}
+        for time_index in range(1000):
+            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+            
+            if self.zero_cross_count > 20:
+                break
+                
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+            new_pixels = transform.dot(points_raw)
+            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+
+
+        #
+        # flip the plane
+        #
+        time.sleep(1)
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            flat_pane_pixels = transform.dot(img_flat_plane)
+            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        time.sleep(1)
+
+
+        
+        # a=radius; A - this times sqrt(2) seems to be the height
+        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':2, 'n':0, 'c':0.05}
+
+
+    def calc_drum_x_y(self, x_offset, y_offset, z_offset, t, parms):
+        
+        mmax = 2
+        # ~ a = 4 # radius of drum. center to corner of 8x8
+        # ~ A = 2.8  # this times sqrt(2) seems to be the height
+        # ~ B = A
+        # ~ C = 1
+        # ~ D = 1
+        
+        # ~ m = 0
+        # ~ n = 0
+        # ~ c = .2
+
+
+        a = parms['a']
+        A = parms['A']
+        B = parms['B']
+        C = parms['C']
+        D = parms['D']
+        
+        m = parms['m']
+        n = parms['n']
+        c = parms['c']
+
+        k = jn_zeros(n, mmax+1)[m]
+        c_k_t = c*k*t - np.pi/4 
+
+        sin_cos_t = A*np.cos(c_k_t) + B*np.sin(c_k_t)
+
+        pixel_coords = np.array([[],[],[],[]])
+        for y_index in range(8):
+            y_base = y_index-3.5 
+            y      = y_index-3.5 + y_offset
+            
+            x_temp = ['c_k_t=%.4f  sincos=%.3f  ' % (c_k_t, sin_cos_t)]
+            x_temp = []
+            for x_index in range(8):
+                x_base = x_index-3.5 
+                x      = x_index-3.5 + x_offset
+                
+                r = np.sqrt(x*x + y*y)
+                
+                if r > a:  # make sure we are in the circle
+                    u = 0
+                else:
+                    theta = np.arctan2(x,y)
+
+                    Jn = jn(n, r*k/a)
+        
+                    u = (sin_cos_t)*Jn*(C*math.cos(n*theta)+D*math.sin(n*theta))
+        
+                new_pixel = np.array([[x_base], [y_base], [u], [1]])
+                pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
+                
+                if y_index == 3 and x_index == 3:
+                    if self.u_last * u < 1: 
+                        self.zero_cross_count += 1
+                    self.u_last = u
+                    
+                    
+                if y_index == 3:
+                    x_temp.append('%0.3f' % (u))
+                    
+            if len(x_temp) != 0:
+                print(','.join(x_temp))
+
+        return pixel_coords
+        
 
 def main():
     parser = argparse.ArgumentParser(description='Send serial data to 8x8x8 led cube v2.')
@@ -3300,7 +3493,6 @@ def main():
     led_Cube_8x8x8 = Led_Cube_8x8x8(port=args.port, baudrate=args.baud)
 
     if args.math != 0:
-        # ~ led_Cube_8x8x8.math_test()
         # ~ led_Cube_8x8x8.test_it2()
         pass
 
