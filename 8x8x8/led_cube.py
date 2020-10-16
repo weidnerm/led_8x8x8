@@ -3370,6 +3370,9 @@ class Led_Cube_8x8x8():
             self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         time.sleep(1)
 
+
+
+
         #
         # do the vibration mode 0,1
         #
@@ -3386,6 +3389,38 @@ class Led_Cube_8x8x8():
             self.clear();  self.store_pixel_array(new_pixels); self.send_display()
         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
 
+
+        #
+        # flip the plane
+        #
+        time.sleep(1)
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            flat_pane_pixels = transform.dot(img_flat_plane)
+            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        time.sleep(1)
+
+
+
+
+        #
+        # do the vibration mode 0,2
+        #
+        self.zero_cross_count = 0
+        parms={'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}
+        for time_index in range(1000):
+            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+            
+            if self.zero_cross_count > 100:
+                break
+                
+            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+            new_pixels = transform.dot(points_raw)
+            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
 
         #
         # flip the plane
