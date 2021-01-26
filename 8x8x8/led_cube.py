@@ -1773,6 +1773,92 @@ class Led_Cube_8x8x8():
         return matrix
 
 
+    def get_4d_translate_matrix(self, tx, ty, tz, tw):
+        translate_matrix = np.array([
+            [ 1.0 ,0   ,0   ,0   ,tx  ],
+            [ 0   ,1.0 ,0   ,0   ,ty  ],
+            [ 0   ,0   ,1.0 ,0   ,tz  ],
+            [ 0   ,0   ,0   ,1.0 ,tw  ],
+            [ 0   ,0   ,0   ,0   ,1.0 ]])
+        return translate_matrix
+
+    def get_4d_scale_matrix(self, sx, sy, sz, sw):
+        translate_matrix = np.array([
+            [ sx  ,0   ,0   ,0   ,0   ],
+            [ 0   ,sy  ,0   ,0   ,0   ],
+            [ 0   ,0   ,sz  ,0   ,0   ],
+            [ 0   ,0   ,0   ,sw  ,0   ],
+            [ 0   ,0   ,0   ,0   ,1.0 ]])
+        return translate_matrix
+
+    def get_4d_rotate_zw_matrix(self, rotate_degrees):
+        thetaX = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ math.cos(thetaZ), -math.sin(thetaZ),0  ,0  ,0],
+            [ math.sin(thetaZ),  math.cos(thetaZ),0  ,0  ,0],
+            [ 0               ,  0               ,1  ,0  ,0],
+            [ 0               ,  0               ,0  ,1  ,0],
+            [ 0               ,  0               ,0  ,0  ,1]])
+
+
+        return matrix
+
+    def get_4d_rotate_yw_matrix(self, rotate_degrees):
+        thetaY = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ math.cos(thetaY),0  ,-math.sin(thetaY),0 ,0],
+            [ 0               ,1  ,  0              ,0 ,0],
+            [ math.sin(thetaY),0  , math.cos(thetaY),0 ,0],
+            [ 0               ,0  ,  0              ,1 ,0],
+            [ 0               ,0  ,  0              ,0 ,1]])
+
+        return matrix
+
+    def get_4d_rotate_yz_matrix(self, rotate_degrees):
+        thetaZ = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ math.cos(thetaZ),0 ,0 , -math.sin(thetaZ) ,0],
+            [ 0               ,1 ,0 ,  0                ,0],
+            [ 0               ,0 ,1 ,  0                ,0],
+            [ math.sin(thetaZ),0 ,0 ,  math.cos(thetaZ) ,0],
+            [ 0               ,0 ,0 ,  0                ,1]])
+
+        return matrix
+
+    def get_4d_rotate_xw_matrix(self, rotate_degrees):
+        thetaZ = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ 1 ,0               ,  0               ,0  ,0],
+            [ 0 ,math.cos(thetaZ), -math.sin(thetaZ),0  ,0],
+            [ 0 ,math.sin(thetaZ),  math.cos(thetaZ),0  ,0],
+            [ 0 ,0               ,  0               ,1  ,0],
+            [ 0 ,0               ,  0               ,0  ,1]])
+
+        return matrix
+
+    def get_4d_rotate_xz_matrix(self, rotate_degrees):
+        thetaZ = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ 1 ,0               ,0 ,  0                ,0],
+            [ 0 ,math.cos(thetaZ),0 , -math.sin(thetaZ) ,0],
+            [ 0 ,0               ,1 ,  0                ,0],
+            [ 0 ,math.sin(thetaZ),0 ,  math.cos(thetaZ) ,0],
+            [ 0 ,0               ,0 ,  0                ,1]])
+
+        return matrix
+
+    def get_4d_rotate_xy_matrix(self, rotate_degrees):
+        thetaZ = rotate_degrees * 2.0 * np.pi / 360.0
+        matrix = np.array([
+            [ 1 ,0 ,0               ,  0                ,0],
+            [ 0 ,1 ,0               ,  0                ,0],
+            [ 0 ,0 ,math.cos(thetaZ), -math.sin(thetaZ) ,0],
+            [ 0 ,0 ,math.sin(thetaZ),  math.cos(thetaZ) ,0],
+            [ 0 ,0 ,0               ,  0                ,1]])
+
+        return matrix
+
+
     def math_test(self):
         # ~ orig = np.array( [[1],[1],[1],[1]])
         orig = np.array( [[0,1],[0,1],[0,1],[1,1]])
@@ -3331,15 +3417,17 @@ class Led_Cube_8x8x8():
         #
         # flip the plane
         #
-        time.sleep(1)
+        # ~ time.sleep(1)
         for index in range(10+1):
             transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_z_matrix( -45.0).dot(transform)
             transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_rotate_z_matrix( 45.0).dot(transform)
             transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
             transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
             flat_pane_pixels = transform.dot(img_flat_plane)
             self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        time.sleep(1)
+        # ~ time.sleep(1)
 
         #
         # do the vibration mode 1,0
@@ -3360,7 +3448,7 @@ class Led_Cube_8x8x8():
         #
         # flip the plane
         #
-        time.sleep(1)
+        # ~ time.sleep(1)
         for index in range(10+1):
             transform = self.get_translate_matrix( -3.5,-3.5,0)
             transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
@@ -3368,7 +3456,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
             flat_pane_pixels = transform.dot(img_flat_plane)
             self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        time.sleep(1)
+        # ~ time.sleep(1)
 
 
 
@@ -3393,15 +3481,16 @@ class Led_Cube_8x8x8():
         #
         # flip the plane
         #
-        time.sleep(1)
+        # ~ time.sleep(1)
         for index in range(10+1):
             transform = self.get_translate_matrix( -3.5,-3.5,0)
-            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_rotate_x_matrix( -index/10.0*180.0).dot(transform)
+            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
             transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
             transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
             flat_pane_pixels = transform.dot(img_flat_plane)
             self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        time.sleep(1)
+        # ~ time.sleep(1)
 
 
 
@@ -3425,7 +3514,7 @@ class Led_Cube_8x8x8():
         #
         # flip the plane
         #
-        time.sleep(1)
+        # ~ time.sleep(1)
         for index in range(10+1):
             transform = self.get_translate_matrix( -3.5,-3.5,0)
             transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
