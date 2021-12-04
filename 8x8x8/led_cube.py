@@ -3321,9 +3321,9 @@ class Led_Cube_8x8x8():
                 # ~ delay(10000);
                 time.sleep(10000*0.000005); self.send_display()
 
-    def run_sequence(self, seq, delay):
+    def run_sequence(self, seq, delay, index=0, total=1):
 
-        print('Running sequence %s' % (seq))
+        print('Running sequence %d/%d %s' % (index+1, total, seq))
         # handle data files
         if seq.endswith('.dat'):
             self.send_file("../../DotMatrixJava/examples/" + seq, delay)
@@ -3622,7 +3622,7 @@ def main():
 
     elif args.random != 0:
         for index in range(int(args.random)):
-            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay)
+            led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay, index, int(args.random))
             time.sleep(0.5)
             led_Cube_8x8x8.clear()
             led_Cube_8x8x8.send_display()
@@ -3648,3 +3648,12 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# new ideas
+# jump rope of some kind
+# vu meter 
+# plasma cube sort of like plasma globe
+# diagonal line sweeping out a cone without filling it in then filling it in. 
+# speed up the full cube led dropout animation.
+
