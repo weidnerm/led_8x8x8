@@ -3656,4 +3656,6 @@ if __name__ == "__main__":
 # plasma cube sort of like plasma globe
 # diagonal line sweeping out a cone without filling it in then filling it in. 
 # speed up the full cube led dropout animation.
+# 3 rings rotating on 3 separate axes like contact wormhole generator (same size rings; different size rings)
+# 
 
