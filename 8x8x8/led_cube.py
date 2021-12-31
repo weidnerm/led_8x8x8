@@ -7,7 +7,8 @@ import numpy as np
 import math
 import random
 import sys
-# ~ from scipy.special import jn, jn_zeros
+import os
+from scipy.special import jn, jn_zeros
 from CommandRunner import CommandRunner, CommandResult
 
 class Led_Cube_8x8x8():
@@ -15,7 +16,7 @@ class Led_Cube_8x8x8():
         self.portname = port
         self.baudrate = baudrate
         
-        self.color = '0000ff' # default color
+        self.color = '00ff00' # default color
 
         self.hostname = self.get_hostname()
         if 'rgb' in self.hostname:
@@ -27,9 +28,6 @@ class Led_Cube_8x8x8():
         self.outfile = []
         if self.rgb == False:
             self.port = serial.Serial(self.portname, baudrate=self.baudrate, timeout=3.0)
-        else:
-            self.outfile.append('setup channel_1_count=512')
-            self.outfile.append('brightness 1,64')
 
         self.clear()
 
@@ -147,6 +145,19 @@ class Led_Cube_8x8x8():
             z = z_temp - 8
         
         return x,y,z
+        
+    def get_color_from_wheel(self, wheel_pos):
+        if (wheel_pos < 85):
+            return_val =  '%02x%02x%02x' % (255 - wheel_pos * 3,wheel_pos * 3 , 0)
+        elif (wheel_pos < 170):
+            wheel_pos -= 85
+            return_val =  '%02x%02x%02x' % (0, 255 - wheel_pos * 3, wheel_pos * 3)
+        else:
+            wheel_pos -= 170;
+            return_val =  '%02x%02x%02x' % (wheel_pos * 3, 0, 255 - wheel_pos * 3)
+            
+        return return_val
+
         
     def display_buffer_to_rgb_commands(self):
         outline = []
@@ -1707,7 +1718,7 @@ class Led_Cube_8x8x8():
             self.display[i] = self.display[i] & 0xff
         format = '>' + 'B'*65
         msg = struct.pack(format, 0xf2, *self.display)
-        if self.port != None:
+        if self.rgb == False:
             self.port.write(msg)
         else:
             if delay > 0:
@@ -1724,13 +1735,13 @@ class Led_Cube_8x8x8():
             if len(data) == 0:
                 break;
 
-            if ord(data[0]) == 0xf2:
+            if data[0] == 0xf2:
                 # ~ print('found start f2')
                 data = data[8:]
 
                 intdata = []
                 for index in range(64):
-                    intdata.append(ord(data[index]))
+                    intdata.append(data[index])
 
                 self.clear()
                 pixel_list = self.correct_orientation(intdata)
@@ -3393,11 +3404,16 @@ class Led_Cube_8x8x8():
                 self.sleep(10000*0.000005); self.send_display()
 
     def run_sequence(self, seq, delay, index=0, total=1):
+        self.outfile = []
+        self.outfile.append('setup channel_1_count=512')
+        self.outfile.append('brightness 1,32')
+
+        self.color = self.get_color_from_wheel(random.randint(0,255))
 
         print('Running sequence %d/%d %s' % (index+1, total, seq))
         # handle data files
         if seq.endswith('.dat'):
-            self.send_file("../../DotMatrixJava/examples/" + seq, delay)
+            self.send_file("examples/" + seq, delay)
 
         # handle code sequences
         elif seq == 'flash_2':
@@ -3447,11 +3463,13 @@ class Led_Cube_8x8x8():
             
         
         if self.rgb == True:
-            fh = open('led_rgb_temp.txt', 'w')
+            filename = 'led_rgb_temp.txt'
+            
+            fh = open(filename, 'w')
             fh.write('\n'.join(self.outfile)+'\n')
             fh.close()
             
-            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f led_rgb_temp.txt'
+            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s' % (filename)
             
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
@@ -3707,10 +3725,10 @@ def main():
     elif args.random != 0:
         for index in range(int(args.random)):
             led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay, index, int(args.random))
-            self.sleep(0.5)
+            time.sleep(0.5)
             led_Cube_8x8x8.clear()
             led_Cube_8x8x8.send_display()
-            self.sleep(0.5)
+            time.sleep(0.5)
 
     elif args.canned != 0:
         for index in range(int(args.reps)):
