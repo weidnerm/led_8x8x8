@@ -179,6 +179,7 @@ class Led_Cube_8x8x8():
         return rgb_index
 
     def get_color_from_wheel(self, wheel_pos):
+        wheel_pos = (wheel_pos + 256) % 256
         # set up for led cube with color pattern GRB
         if (wheel_pos < 85):
             return_val =  '%02x%02x%02x' % (wheel_pos * 3 ,255 - wheel_pos * 3, 0)
@@ -3556,6 +3557,7 @@ class Led_Cube_8x8x8():
 
         # self.sleep(5)
         colors = []
+        polar = []
         pixel_coords = np.array([[],[],[],[]])
 
         for x_index in range(8):
@@ -3570,21 +3572,32 @@ class Led_Cube_8x8x8():
                         new_pixel = np.array([[x], [y], [z], [1]])
                         pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
 
-                        if x < -3.5:
-                            color_wheel_pos = 0
-                        elif x >=3.5:
-                            color_wheel_pos = 170
-                        else:
-                            color_wheel_pos = int((x+3.5)/7*170)
+                        entry = {}
+                        entry['rho'] = math.sqrt(x**2 + y**2 + z**2)
+                        entry['phi'] = math.atan2(math.sqrt(x**2+y**2), z)
+                        entry['theta'] = math.atan2(y, x)
+                        polar.append(entry)
+
+                        color_wheel_pos = (int(entry['theta'] * 256/2/math.pi) + 256 ) % 256
 
                         pixel_color = self.get_color_from_wheel(color_wheel_pos)
                         colors.append(pixel_color)
 
-                        print(x,y,z,r, pixel_color)
-
+                        print(x,y,z,r, entry, pixel_color)
 
         transform = self.get_translate_matrix( 3.5, 3.5, 3.5)
         sphere_pixel_list = transform.dot(pixel_coords)
+
+        for rotation_index in range(1024):
+            colors = []
+            for pixel_index in range(len(polar)):
+                color_wheel_pos = (int(polar[pixel_index]['theta'] * 256/2/math.pi) + 256 + rotation_index*2 ) % 256
+                pixel_color = self.get_color_from_wheel(color_wheel_pos)
+                colors.append(pixel_color)
+
+            self.clear();  self.send_pixel_array_to_rgb_commands(sphere_pixel_list, colors=colors)
+
+
 
         self.clear();  self.send_pixel_array_to_rgb_commands(sphere_pixel_list, colors=colors)
 
