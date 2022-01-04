@@ -12,11 +12,11 @@ from scipy.special import jn, jn_zeros
 from CommandRunner import CommandRunner, CommandResult
 
 class Led_Cube_8x8x8():
-    def __init__(self, port=None, baudrate=9600):
-        self.portname = port
-        self.baudrate = baudrate
-        
-        self.color = '00ff00' # default color
+    def __init__(self, args):
+        self.portname = args.port
+        self.baudrate = args.baud
+
+        self.color = '0000ff' # default color
 
         self.hostname = self.get_hostname()
         if 'rgb' in self.hostname:
@@ -114,6 +114,7 @@ class Led_Cube_8x8x8():
         
         self.u_last = -10000000
         self.zero_cross_count = 0
+        self.generate = args.generate
         
         
     def get_hostname(self):
@@ -146,12 +147,25 @@ class Led_Cube_8x8x8():
         
         return x,y,z
         
+    def serial_xyz_to_rgb_index(self, x, y, z):
+        
+        rgb_index = 0
+        rgb_index += y*64
+        rgb_index += x*8
+        if (x & 0x01 == 0):
+            rgb_index += 7-z # even rows go up
+        else:
+            rgb_index += z # odd rows go down
+               
+        return rgb_index
+        
     def get_color_from_wheel(self, wheel_pos):
+        # set up for led cube with color pattern GRB
         if (wheel_pos < 85):
-            return_val =  '%02x%02x%02x' % (255 - wheel_pos * 3,wheel_pos * 3 , 0)
+            return_val =  '%02x%02x%02x' % (wheel_pos * 3 ,255 - wheel_pos * 3, 0)
         elif (wheel_pos < 170):
             wheel_pos -= 85
-            return_val =  '%02x%02x%02x' % (0, 255 - wheel_pos * 3, wheel_pos * 3)
+            return_val =  '%02x%02x%02x' % (255 - wheel_pos * 3, 0, wheel_pos * 3)
         else:
             wheel_pos -= 170;
             return_val =  '%02x%02x%02x' % (wheel_pos * 3, 0, 255 - wheel_pos * 3)
@@ -175,7 +189,27 @@ class Led_Cube_8x8x8():
         line_text = '; '.join(outline)
                 
         return line_text
-            
+        
+    def send_pixel_array_to_rgb_commands(self, pixel_array):
+        outline = []
+        outline.append('fill 1')  # clear output
+
+        cols = np.size(pixel_array,1)
+        # ~ print(pixel_array)
+        for col in range(cols):
+            x=pixel_array[0,col], y=pixel_array[1,col], z=pixel_array[2,col]
+            rounded_x = int(math.floor(x+0.5))
+            rounded_y = int(math.floor(y+0.5))
+            rounded_z = int(math.floor(z+0.5))
+
+            if (rounded_x>=0 and rounded_x<8 and rounded_y>=0 and rounded_y<8 and rounded_z>=0 and rounded_z<8):
+                      outline.append('fill 1,%s,%d,1' % (self.color, rgb_index))
+ 
+        outline.append('render')  # draw output
+               
+        line_text = '; '.join(outline)
+        self.outfile.append(line_text)
+        
 
     def test_it(self):
         msg = 'f2' \
@@ -1563,11 +1597,11 @@ class Led_Cube_8x8x8():
                 transform = self.get_translate_matrix(  3.5,   3.5,   5.5)
                 new_pixels = transform.dot(img_pixels0); self.store_pixel_array(new_pixels)
 
-                if (index/4)^which_half: # draw guy
+                if int(index/4)^which_half: # draw guy
                     transform = self.get_translate_matrix( 0,   3.5,   1)
                     new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
-                if (index % 2) == 0:
+                if int(index % 2) == 0:
                     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
                     new_pixels = transform.dot(img_pixels_point); self.store_pixel_array(new_pixels)
                 self.send_display()
@@ -1718,13 +1752,13 @@ class Led_Cube_8x8x8():
             self.display[i] = self.display[i] & 0xff
         format = '>' + 'B'*65
         msg = struct.pack(format, 0xf2, *self.display)
-        if self.rgb == False:
-            self.port.write(msg)
-        else:
+        if self.rgb == True or self.generate != '':
             if delay > 0:
                 self.outfile.append('delay %d' % (delay) )
             line_text = self.display_buffer_to_rgb_commands()
             self.outfile.append(line_text)
+        else:
+            self.port.write(msg)
 
     def send_file(self, filename, delay):
         fh = open(filename, 'rb')
@@ -3408,7 +3442,8 @@ class Led_Cube_8x8x8():
         self.outfile.append('setup channel_1_count=512')
         self.outfile.append('brightness 1,32')
 
-        self.color = self.get_color_from_wheel(random.randint(0,255))
+        if self.rgb == True:
+            self.color = self.get_color_from_wheel(random.randint(0,255))
 
         print('Running sequence %d/%d %s' % (index+1, total, seq))
         # handle data files
@@ -3461,14 +3496,19 @@ class Led_Cube_8x8x8():
         elif seq == 'drum_1':
             self.drum_1()
             
+        self.sleep(0.5)
+        self.clear()
+        self.send_display()
         
-        if self.rgb == True:
-            filename = 'led_rgb_temp.txt'
+        if self.rgb == True or self.generate != '':
+            # ~ filename = 'led_rgb_temp.txt'
+            filename = 'seq_%s.txt' % (seq)
             
             fh = open(filename, 'w')
             fh.write('\n'.join(self.outfile)+'\n')
             fh.close()
             
+        if self.rgb == True:
             cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s' % (filename)
             
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
@@ -3707,27 +3747,36 @@ def main():
     parser.add_argument('-b', '--baud', default=9600, help='serial port baud rate')
     parser.add_argument('-f', '--file', default=None, help='file of bit data to send')
     parser.add_argument('-d', '--delay', default=20, help='delay in msec between each file frame')
-    parser.add_argument('-m', '--math', default=0, help='do math stuff')
+    # ~ parser.add_argument('-m', '--math', default=0, help='do math stuff for testing.')
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
+    parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
     parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
     parser.add_argument('--reps', default=1, help='repetitions')
 
     args = parser.parse_args()
 
 
-    led_Cube_8x8x8 = Led_Cube_8x8x8(port=args.port, baudrate=args.baud)
+    led_Cube_8x8x8 = Led_Cube_8x8x8(args)
 
-    if args.math != 0:
+    # ~ if args.math != 0:
         # ~ led_Cube_8x8x8.test_it2()
-        pass
+        # ~ pass
+
+    if args.generate != '':
+        list_to_run = []
+        if args.generate == 'all':
+            for entry in led_Cube_8x8x8.seq_list:
+                list_to_run.append(entry[0])
+        else:
+            list_to_run = args.generate.split(',')
+            
+        for index in range(len(list_to_run)):
+            led_Cube_8x8x8.run_sequence(list_to_run[index], args.delay, index, len(list_to_run))
 
     elif args.random != 0:
         for index in range(int(args.random)):
             led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay, index, int(args.random))
-            time.sleep(0.5)
-            led_Cube_8x8x8.clear()
-            led_Cube_8x8x8.send_display()
             time.sleep(0.5)
 
     elif args.canned != 0:
