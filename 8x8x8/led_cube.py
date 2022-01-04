@@ -1,4 +1,7 @@
-import serial
+try:
+    import serial
+except Exception as e:
+    pass
 import binascii
 import struct
 import time
@@ -8,7 +11,8 @@ import math
 import random
 import sys
 import os
-from scipy.special import jn, jn_zeros
+# ~ from scipy.special import jn, jn_zeros
+
 from CommandRunner import CommandRunner, CommandResult
 
 class Led_Cube_8x8x8():
@@ -26,10 +30,12 @@ class Led_Cube_8x8x8():
 
         self.port = None
         self.outfile = []
-        if self.rgb == False:
+        if self.rgb == False and self.port != None:
             self.port = serial.Serial(self.portname, baudrate=self.baudrate, timeout=3.0)
 
-        self.clear()
+        self.clear
+
+        self.pre_made_filenames = self.get_pre_made_filenames()
 
         self.dat = [
             0x0,0x20,0x40,0x60,0x80,0xa0,0xc0,0xe0,0xe4,0xe8,0xec,0xf0,0xf4,0xf8,0xfc,0xdc,0xbc,0x9c,0x7c,0x5c,0x3c,
@@ -67,7 +73,7 @@ class Led_Cube_8x8x8():
             ("0005.dat" , 'full cube fill in from top'),
             ("0006.dat" , 'full cube fill in from top'),
             ("0007.dat" , 'full cube fill in from top'),
-            ("0008.dat" , 'random rising dots'), # 
+            ("0008.dat" , 'random rising dots'), #
             ("0009.dat" , 'random rising dots'),
             ("0010.dat" , 'random rising dots'), # random rising dots
             ("0011.dat" , 'raining dots and rising dots. like red rover'),
@@ -111,32 +117,41 @@ class Led_Cube_8x8x8():
             ('flash_22' , 'stargate transport guy'),
             ('drum_1'   , 'drum surface pulsing'),
         ]
-        
+
         self.u_last = -10000000
         self.zero_cross_count = 0
         self.generate = args.generate
-        
-        
+
+    def get_pre_made_filenames(self):
+        pre_made_files = []
+
+        files = os.listdir('pre_made')
+        for filename in files:
+            if filename.startswith('seq_') and filename.endswith('.txt'):
+                pre_made_files.append(filename)
+
+        return pre_made_files
+
     def get_hostname(self):
         result = CommandRunner(echoCommand=True).runCommand('hostname', CommandRunner.NO_LOG)
         print('host=%s' % (result.out[0]))
-        
+
         return result.out[0]
-        
+
     def sleep(self, delay):
         if self.rgb == True:
             time.sleep(delay)
         else:
             self.outfile.append('delay %d' % (int(delay*1000.0)))
-            
-        
+
+
     def clear(self):
         self.display = []
         for x in range(64):
             self.display.append(0)
-            
+
     def rgb_index_to_serial_xyz(self, rgb_index):
-        
+
         y = int(rgb_index/64)
         x = int((rgb_index%64)/8)
         z_temp = rgb_index & 0x0f
@@ -144,9 +159,9 @@ class Led_Cube_8x8x8():
             z = 7 - z_temp
         else:
             z = z_temp - 8
-        
+
         return x,y,z
-        
+
     def serial_xyz_to_rgb_index(self, x, y, z):
         
         rgb_index = 0
@@ -169,25 +184,25 @@ class Led_Cube_8x8x8():
         else:
             wheel_pos -= 170;
             return_val =  '%02x%02x%02x' % (wheel_pos * 3, 0, 255 - wheel_pos * 3)
-            
+
         return return_val
 
-        
+
     def display_buffer_to_rgb_commands(self):
         outline = []
         outline.append('fill 1')  # clear output
-        
+
         for rgb_index in range(512):
             x,y,z = self.rgb_index_to_serial_xyz(rgb_index)
-        
+
             temp = self.display[z*8 + y] & 0xff
             if ((temp & (1<<x)) != 0):
                 outline.append('fill 1,%s,%d,1' % (self.color, rgb_index))
- 
+
         outline.append('render')  # draw output
-               
+
         line_text = '; '.join(outline)
-                
+
         return line_text
         
     def send_pixel_array_to_rgb_commands(self, pixel_array):
@@ -1471,7 +1486,7 @@ class Led_Cube_8x8x8():
                     new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
 
                 self.send_display()
-                
+
             self.clear() ;
             if which_half: # draw guy
                 transform = self.get_translate_matrix( 0,   3.5,   1)
@@ -1560,7 +1575,7 @@ class Led_Cube_8x8x8():
                 transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
 
                 new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-                
+
                 if which_half: # draw guy
                     transform = self.get_translate_matrix( 0,   3.5,   1)
                     new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
@@ -1628,7 +1643,7 @@ class Led_Cube_8x8x8():
                 transform = self.get_translate_matrix(  3.5,   3.5,   6.5-pos).dot(transform)
 
                 new_pixels = transform.dot(img_pixels_1); self.store_pixel_array(new_pixels)
-                
+
                 if which_half^1: # draw guy
                     transform = self.get_translate_matrix( 0,   3.5,   1)
                     new_pixels = transform.dot(img_pixels_guy[0]); self.store_pixel_array(new_pixels)
@@ -1734,8 +1749,8 @@ class Led_Cube_8x8x8():
                     transform = self.get_translate_matrix( -3.5,0,0)
                     transform = self.get_rotate_z_matrix( 5.625*index).dot(transform)
                     transform = self.get_translate_matrix(  3.5,   4,   1).dot(transform)
-                    
-                    
+
+
                     new_pixels = transform.dot(img_pixels_guy[index%len(img_pixels_guy)]); self.store_pixel_array(new_pixels)
 
                     self.send_display()
@@ -3495,26 +3510,26 @@ class Led_Cube_8x8x8():
             self.flash_22()
         elif seq == 'drum_1':
             self.drum_1()
-            
+
         self.sleep(0.5)
         self.clear()
         self.send_display()
-        
+
         if self.rgb == True or self.generate != '':
             # ~ filename = 'led_rgb_temp.txt'
             filename = 'seq_%s.txt' % (seq)
-            
+
             fh = open(filename, 'w')
             fh.write('\n'.join(self.outfile)+'\n')
             fh.close()
-            
+
         if self.rgb == True:
             cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s' % (filename)
-            
+
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
-            
-            
+
+
 
     def drum_1(self):
 
@@ -3537,7 +3552,7 @@ class Led_Cube_8x8x8():
         transform = self.get_translate_matrix( 0,0,4)
         flat_pane_pixels = transform.dot(img_flat_plane)
         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        
+
         self.sleep(1)
 
         #
@@ -3547,10 +3562,10 @@ class Led_Cube_8x8x8():
         parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':0, 'c':0.2}
         for time_index in range(1000):
             points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
-            
+
             if self.zero_cross_count > 20:
                 break
-                
+
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
             new_pixels = transform.dot(points_raw)
             self.clear();  self.store_pixel_array(new_pixels); self.send_display()
@@ -3578,10 +3593,10 @@ class Led_Cube_8x8x8():
         parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1}
         for time_index in range(1000):
             points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
-            
+
             if self.zero_cross_count > 20:
                 break
-                
+
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
             new_pixels = transform.dot(points_raw)
             self.clear();  self.store_pixel_array(new_pixels); self.send_display()
@@ -3610,10 +3625,10 @@ class Led_Cube_8x8x8():
         parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1}
         for time_index in range(1000):
             points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
-            
+
             if self.zero_cross_count > 20:
                 break
-                
+
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
             new_pixels = transform.dot(points_raw)
             self.clear();  self.store_pixel_array(new_pixels); self.send_display()
@@ -3644,10 +3659,10 @@ class Led_Cube_8x8x8():
         parms={'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}
         for time_index in range(1000):
             points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
-            
+
             if self.zero_cross_count > 100:
                 break
-                
+
             transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
             new_pixels = transform.dot(points_raw)
             self.clear();  self.store_pixel_array(new_pixels); self.send_display()
@@ -3667,20 +3682,20 @@ class Led_Cube_8x8x8():
         self.sleep(1)
 
 
-        
+
         # a=radius; A - this times sqrt(2) seems to be the height
         parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':2, 'n':0, 'c':0.05}
 
 
     def calc_drum_x_y(self, x_offset, y_offset, z_offset, t, parms):
-        
+
         mmax = 2
         # ~ a = 4 # radius of drum. center to corner of 8x8
         # ~ A = 2.8  # this times sqrt(2) seems to be the height
         # ~ B = A
         # ~ C = 1
         # ~ D = 1
-        
+
         # ~ m = 0
         # ~ n = 0
         # ~ c = .2
@@ -3691,55 +3706,57 @@ class Led_Cube_8x8x8():
         B = parms['B']
         C = parms['C']
         D = parms['D']
-        
+
         m = parms['m']
         n = parms['n']
         c = parms['c']
 
         k = jn_zeros(n, mmax+1)[m]
-        c_k_t = c*k*t - np.pi/4 
+        c_k_t = c*k*t - np.pi/4
 
         sin_cos_t = A*np.cos(c_k_t) + B*np.sin(c_k_t)
 
         pixel_coords = np.array([[],[],[],[]])
         for y_index in range(8):
-            y_base = y_index-3.5 
+            y_base = y_index-3.5
             y      = y_index-3.5 + y_offset
-            
+
             x_temp = ['c_k_t=%.4f  sincos=%.3f  ' % (c_k_t, sin_cos_t)]
             x_temp = []
             for x_index in range(8):
-                x_base = x_index-3.5 
+                x_base = x_index-3.5
                 x      = x_index-3.5 + x_offset
-                
+
                 r = np.sqrt(x*x + y*y)
-                
+
                 if r > a:  # make sure we are in the circle
                     u = 0
                 else:
                     theta = np.arctan2(x,y)
 
                     Jn = jn(n, r*k/a)
-        
+
                     u = (sin_cos_t)*Jn*(C*math.cos(n*theta)+D*math.sin(n*theta))
-        
+
                 new_pixel = np.array([[x_base], [y_base], [u], [1]])
                 pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
-                
+
                 if y_index == 3 and x_index == 3:
-                    if self.u_last * u < 1: 
+                    if self.u_last * u < 1:
                         self.zero_cross_count += 1
                     self.u_last = u
-                    
-                    
+
+
                 if y_index == 3:
                     x_temp.append('%0.3f' % (u))
-                    
+
             if len(x_temp) != 0:
                 print(','.join(x_temp))
 
         return pixel_coords
-        
+
+    def math_test(self):
+        print('got here.')
 
 def main():
     parser = argparse.ArgumentParser(description='Send serial data to 8x8x8 led cube v2.')
@@ -3751,6 +3768,7 @@ def main():
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
+    parser.add_argument('-rp', '--random_pre', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
     parser.add_argument('--reps', default=1, help='repetitions')
 
@@ -3760,7 +3778,7 @@ def main():
     led_Cube_8x8x8 = Led_Cube_8x8x8(args)
 
     # ~ if args.math != 0:
-        # ~ led_Cube_8x8x8.test_it2()
+        led_Cube_8x8x8.math_test()
         # ~ pass
 
     if args.generate != '':
@@ -3777,6 +3795,22 @@ def main():
     elif args.random != 0:
         for index in range(int(args.random)):
             led_Cube_8x8x8.run_sequence(random.choice(led_Cube_8x8x8.seq_list)[0], args.delay, index, int(args.random))
+            time.sleep(0.5)
+
+    elif args.random_pre != 0:
+        for index in range(int(args.random_pre)):
+            color = led_Cube_8x8x8.get_color_from_wheel(random.randint(0,255))
+            cmd = 'cat pre_made/%s | sed -e "s:0000ff:%s:g" > pre_made/temp.txt' % (
+                random.choice(led_Cube_8x8x8.pre_made_filenames), color)
+
+            result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
+            print('\n'.join(result.out))
+
+            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f pre_made/temp.txt'
+
+            result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
+            print('\n'.join(result.out))
+
             time.sleep(0.5)
 
     elif args.canned != 0:
@@ -3803,10 +3837,10 @@ if __name__ == "__main__":
 
 # new ideas
 # jump rope of some kind
-# vu meter 
+# vu meter
 # plasma cube sort of like plasma globe
-# diagonal line sweeping out a cone without filling it in then filling it in. 
+# diagonal line sweeping out a cone without filling it in then filling it in.
 # speed up the full cube led dropout animation.
 # 3 rings rotating on 3 separate axes like contact wormhole generator (same size rings; different size rings)
-# 
+#
 
