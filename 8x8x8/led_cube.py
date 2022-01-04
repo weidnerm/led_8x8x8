@@ -11,7 +11,10 @@ import math
 import random
 import sys
 import os
-# ~ from scipy.special import jn, jn_zeros
+try:
+    from scipy.special import jn, jn_zeros
+except Exception as e:
+    pass
 
 from CommandRunner import CommandRunner, CommandResult
 
@@ -139,7 +142,7 @@ class Led_Cube_8x8x8():
         return result.out[0]
 
     def sleep(self, delay):
-        if self.rgb == True:
+        if self.rgb == False and self.generate == False:
             time.sleep(delay)
         else:
             self.outfile.append('delay %d' % (int(delay*1000.0)))
@@ -163,7 +166,7 @@ class Led_Cube_8x8x8():
         return x,y,z
 
     def serial_xyz_to_rgb_index(self, x, y, z):
-        
+
         rgb_index = 0
         rgb_index += y*64
         rgb_index += x*8
@@ -171,9 +174,9 @@ class Led_Cube_8x8x8():
             rgb_index += 7-z # even rows go up
         else:
             rgb_index += z # odd rows go down
-               
+
         return rgb_index
-        
+
     def get_color_from_wheel(self, wheel_pos):
         # set up for led cube with color pattern GRB
         if (wheel_pos < 85):
@@ -204,27 +207,44 @@ class Led_Cube_8x8x8():
         line_text = '; '.join(outline)
 
         return line_text
-        
-    def send_pixel_array_to_rgb_commands(self, pixel_array):
+
+    def send_pixel_array_to_rgb_commands(self, pixel_array, colors=None, color=None):
         outline = []
         outline.append('fill 1')  # clear output
 
         cols = np.size(pixel_array,1)
         # ~ print(pixel_array)
         for col in range(cols):
-            x=pixel_array[0,col], y=pixel_array[1,col], z=pixel_array[2,col]
+            x=pixel_array[0,col]
+            y=pixel_array[1,col]
+            z=pixel_array[2,col]
             rounded_x = int(math.floor(x+0.5))
             rounded_y = int(math.floor(y+0.5))
             rounded_z = int(math.floor(z+0.5))
 
             if (rounded_x>=0 and rounded_x<8 and rounded_y>=0 and rounded_y<8 and rounded_z>=0 and rounded_z<8):
-                      outline.append('fill 1,%s,%d,1' % (self.color, rgb_index))
- 
+
+                if color != None:
+                    pixel_color = color
+                elif colors != None:
+                    pass
+                else:
+                    if z < 0:
+                        color_wheel_pos = 0
+                    elif z >=7:
+                        color_wheel_pos = 170
+                    else:
+                        color_wheel_pos = int(z/7*170)
+                    pixel_color = self.get_color_from_wheel(color_wheel_pos)
+
+                rgb_index = self.serial_xyz_to_rgb_index(rounded_x,rounded_y, rounded_z)
+                outline.append('fill 1,%s,%d,1' % (pixel_color, rgb_index))
+
         outline.append('render')  # draw output
-               
+
         line_text = '; '.join(outline)
         self.outfile.append(line_text)
-        
+
 
     def test_it(self):
         msg = 'f2' \
@@ -3532,6 +3552,65 @@ class Led_Cube_8x8x8():
 
 
     def drum_1(self):
+        if self.generate == False:
+            time_scale_factor = 1.0
+            calc_points = 1000
+        else:
+            time_scale_factor = .25
+            calc_points = 5000
+
+        parms_list = [
+            {'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':0, 'c':0.2},  # do the vibration mode 0,0
+            {'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1},  # do the vibration mode 1,0
+            {'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1},  # do the vibration mode 0,1
+            {'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}  # do the vibration mode 0,2
+        ]
+
+        plane_flips = []
+        transforms = []
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_z_matrix( -45.0).dot(transform)
+            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_rotate_z_matrix( 45.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            transforms.append(transform)
+        plane_flips.append(transforms)
+
+        transforms = []
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            transforms.append(transform)
+        plane_flips.append(transforms)
+
+        transforms = []
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_x_matrix( -index/10.0*180.0).dot(transform)
+            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            transforms.append(transform)
+        plane_flips.append(transforms)
+
+        transforms = []
+        for index in range(10+1):
+            transform = self.get_translate_matrix( -3.5,-3.5,0)
+            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+            transforms.append(transform)
+        plane_flips.append(transforms)
+
+        zero_cross_limits = [30, 40, 60, 100]
+
+
+
+
 
         img =  ['XXXXXXXX',
                 'XXXXXXXX',
@@ -3551,140 +3630,174 @@ class Led_Cube_8x8x8():
         img_flat_plane = self.string_plane_to_xyz_list(img, plane='xy')
         transform = self.get_translate_matrix( 0,0,4)
         flat_pane_pixels = transform.dot(img_flat_plane)
-        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        if self.generate == False:
+            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        else:
+            self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
 
         self.sleep(1)
 
-        #
-        # do the vibration mode 0,0
-        #
-        self.zero_cross_count = 0
-        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':0, 'c':0.2}
-        for time_index in range(1000):
-            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+        for mode_index in range(len(parms_list)):
+            parms = parms_list[mode_index]
 
-            if self.zero_cross_count > 20:
-                break
+            self.zero_cross_count = 0
+            # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':0, 'c':0.2}
+            for time_index in range(calc_points):
+                points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
 
-            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(points_raw)
-            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+                if self.zero_cross_count > zero_cross_limits[mode_index]:
+                    break
 
-        #
-        # flip the plane
-        #
-        # ~ self.sleep(1)
-        for index in range(10+1):
-            transform = self.get_translate_matrix( -3.5,-3.5,0)
-            transform = self.get_rotate_z_matrix( -45.0).dot(transform)
-            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
-            transform = self.get_rotate_z_matrix( 45.0).dot(transform)
-            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-            flat_pane_pixels = transform.dot(img_flat_plane)
-            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # ~ self.sleep(1)
+                transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+                new_pixels = transform.dot(points_raw)
+                if self.generate == False:
+                    self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+                else:
+                    self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
+            if self.generate == False:
+                self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+            else:
+                self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels, color='ff0000')
 
-        #
-        # do the vibration mode 1,0
-        #
-        self.zero_cross_count = 0
-        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1}
-        for time_index in range(1000):
-            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+            #
+            # flip the plane
+            #
+            self.sleep(1)
+            for index in range(len(plane_flips[mode_index])):
 
-            if self.zero_cross_count > 20:
-                break
+                flat_pane_pixels = plane_flips[mode_index][index].dot(img_flat_plane)
+                if self.generate == False:
+                    self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+                else:
+                    self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels, color='ff0000')
+            self.sleep(1)
 
-            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(points_raw)
-            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        # #
+        # # do the vibration mode 1,0
+        # #
+        # self.zero_cross_count = 0
+        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1}
+        # for time_index in range(calc_points):
+        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
 
-        #
-        # flip the plane
-        #
-        # ~ self.sleep(1)
-        for index in range(10+1):
-            transform = self.get_translate_matrix( -3.5,-3.5,0)
-            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
-            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-            flat_pane_pixels = transform.dot(img_flat_plane)
-            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # ~ self.sleep(1)
+        #     if self.zero_cross_count > 20:
+        #         break
 
+        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+        #     new_pixels = transform.dot(points_raw)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
+        # if self.generate == False:
+        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        # else:
+        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
 
-
-
-        #
-        # do the vibration mode 0,1
-        #
-        self.zero_cross_count = 0
-        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1}
-        for time_index in range(1000):
-            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
-
-            if self.zero_cross_count > 20:
-                break
-
-            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(points_raw)
-            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-
-
-        #
-        # flip the plane
-        #
-        # ~ self.sleep(1)
-        for index in range(10+1):
-            transform = self.get_translate_matrix( -3.5,-3.5,0)
-            transform = self.get_rotate_x_matrix( -index/10.0*180.0).dot(transform)
-            transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
-            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-            flat_pane_pixels = transform.dot(img_flat_plane)
-            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # ~ self.sleep(1)
+        # #
+        # # flip the plane
+        # #
+        # self.sleep(1)
+        # for index in range(10+1):
+        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
+        #     transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
+        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+        #     flat_pane_pixels = transform.dot(img_flat_plane)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
+        # self.sleep(1)
 
 
 
 
-        #
-        # do the vibration mode 0,2
-        #
-        self.zero_cross_count = 0
-        parms={'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}
-        for time_index in range(1000):
-            points_raw = self.calc_drum_x_y(0, 0, 0, time_index*1.0, parms)
+        # #
+        # # do the vibration mode 0,1
+        # #
+        # self.zero_cross_count = 0
+        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1}
+        # for time_index in range(calc_points):
+        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
 
-            if self.zero_cross_count > 100:
-                break
+        #     if self.zero_cross_count > 20:
+        #         break
 
-            transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-            new_pixels = transform.dot(points_raw)
-            self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-
-        #
-        # flip the plane
-        #
-        # ~ self.sleep(1)
-        for index in range(10+1):
-            transform = self.get_translate_matrix( -3.5,-3.5,0)
-            transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
-            transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-            transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-            flat_pane_pixels = transform.dot(img_flat_plane)
-            self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        self.sleep(1)
+        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+        #     new_pixels = transform.dot(points_raw)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
+        # if self.generate == False:
+        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        # else:
+        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
 
 
+        # #
+        # # flip the plane
+        # #
+        # self.sleep(1)
+        # for index in range(10+1):
+        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
+        #     transform = self.get_rotate_x_matrix( -index/10.0*180.0).dot(transform)
+        #     transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
+        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+        #     flat_pane_pixels = transform.dot(img_flat_plane)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
+        # self.sleep(1)
 
-        # a=radius; A - this times sqrt(2) seems to be the height
-        parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':2, 'n':0, 'c':0.05}
+
+
+
+        # #
+        # # do the vibration mode 0,2
+        # #
+        # self.zero_cross_count = 0
+        # parms={'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}
+        # for time_index in range(calc_points):
+        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
+
+        #     if self.zero_cross_count > 100:
+        #         break
+
+        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
+        #     new_pixels = transform.dot(points_raw)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
+        # if self.generate == False:
+        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        # else:
+        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
+
+        # #
+        # # flip the plane
+        # #
+        # self.sleep(1)
+        # for index in range(10+1):
+        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
+        #     transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
+        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
+        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
+        #     flat_pane_pixels = transform.dot(img_flat_plane)
+        #     if self.generate == False:
+        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
+        #     else:
+        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
+        # self.sleep(1)
+
+
+
+        # # a=radius; A - this times sqrt(2) seems to be the height
+        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':2, 'n':0, 'c':0.05}
 
 
     def calc_drum_x_y(self, x_offset, y_offset, z_offset, t, parms):
@@ -3764,7 +3877,7 @@ def main():
     parser.add_argument('-b', '--baud', default=9600, help='serial port baud rate')
     parser.add_argument('-f', '--file', default=None, help='file of bit data to send')
     parser.add_argument('-d', '--delay', default=20, help='delay in msec between each file frame')
-    # ~ parser.add_argument('-m', '--math', default=0, help='do math stuff for testing.')
+    parser.add_argument('-m', '--math', default=0, help='do math stuff for testing.')
     parser.add_argument('-c', '--canned', default=0, help='run one of the original canned sequences')
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
@@ -3777,18 +3890,18 @@ def main():
 
     led_Cube_8x8x8 = Led_Cube_8x8x8(args)
 
-    # ~ if args.math != 0:
+    if args.math != 0:
         led_Cube_8x8x8.math_test()
         # ~ pass
 
-    if args.generate != '':
+    elif args.generate != '':
         list_to_run = []
         if args.generate == 'all':
             for entry in led_Cube_8x8x8.seq_list:
                 list_to_run.append(entry[0])
         else:
             list_to_run = args.generate.split(',')
-            
+
         for index in range(len(list_to_run)):
             led_Cube_8x8x8.run_sequence(list_to_run[index], args.delay, index, len(list_to_run))
 
