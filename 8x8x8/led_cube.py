@@ -119,6 +119,7 @@ class Led_Cube_8x8x8():
             ('flash_21' , 'rotating biting pacman'),
             ('flash_22' , 'stargate transport guy'),
             ('drum_1'   , 'drum surface pulsing'),
+            ('earth_1'   , 'rotating earth'),
         ]
 
         self.u_last = -10000000
@@ -227,7 +228,7 @@ class Led_Cube_8x8x8():
                 if color != None:
                     pixel_color = color
                 elif colors != None:
-                    pass
+                    pixel_color = colors[col]
                 else:
                     if z < 0:
                         color_wheel_pos = 0
@@ -3530,6 +3531,8 @@ class Led_Cube_8x8x8():
             self.flash_22()
         elif seq == 'drum_1':
             self.drum_1()
+        elif seq == 'earth_1':
+            self.earth_1()
 
         self.sleep(0.5)
         self.clear()
@@ -3549,6 +3552,43 @@ class Led_Cube_8x8x8():
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
 
+    def earth_1(self):
+
+        # self.sleep(5)
+        colors = []
+        pixel_coords = np.array([[],[],[],[]])
+
+        for x_index in range(8):
+            x = x_index*1.0 - 3.5
+            for y_index in range(8):
+                y = y_index*1.0 - 3.5
+                for z_index in range(8):
+                    z = z_index*1.0 - 3.5
+
+                    r = math.sqrt(x*x + y*y + z*z)
+                    if r >= 3 -.1 and r <= 4:
+                        new_pixel = np.array([[x], [y], [z], [1]])
+                        pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
+
+                        if x < -3.5:
+                            color_wheel_pos = 0
+                        elif x >=3.5:
+                            color_wheel_pos = 170
+                        else:
+                            color_wheel_pos = int((x+3.5)/7*170)
+
+                        pixel_color = self.get_color_from_wheel(color_wheel_pos)
+                        colors.append(pixel_color)
+
+                        print(x,y,z,r, pixel_color)
+
+
+        transform = self.get_translate_matrix( 3.5, 3.5, 3.5)
+        sphere_pixel_list = transform.dot(pixel_coords)
+
+        self.clear();  self.send_pixel_array_to_rgb_commands(sphere_pixel_list, colors=colors)
+
+        self.sleep(10)
 
 
     def drum_1(self):
