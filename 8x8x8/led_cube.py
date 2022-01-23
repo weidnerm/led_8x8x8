@@ -15,6 +15,10 @@ try:
     from scipy.special import jn, jn_zeros
 except Exception as e:
     pass
+try:
+    from PIL import Image
+except Exception as e:
+    pass
 
 from CommandRunner import CommandRunner, CommandResult
 
@@ -70,6 +74,7 @@ class Led_Cube_8x8x8():
 
         self.seq_list = [
             ("0000.dat" , 'all LEDs on'),
+#            ("0001.dat" , 'all LEDs on for '),
             ("0002.dat" , 'flat plane falling down once'),
             ("0003.dat" , 'flat plane falling down once'),
             ("0004.dat" , 'flat plane falling down once'),
@@ -118,6 +123,7 @@ class Led_Cube_8x8x8():
             ('flash_20' , 'multi-axis pac man'),
             ('flash_21' , 'rotating biting pacman'),
             ('flash_22' , 'stargate transport guy'),
+            ('flash_23' , 'rotating concentric rings like contact wormhole generator'),
             ('drum_1'   , 'drum surface pulsing'),
             ('earth_1'   , 'rotating earth'),
         ]
@@ -125,6 +131,12 @@ class Led_Cube_8x8x8():
         self.u_last = -10000000
         self.zero_cross_count = 0
         self.generate = args.generate
+        self.earth_image = None
+
+        self.delay_index = 0
+        if self.generate != '':
+            self.delay_index = 1
+        print('self.delay_index=%d' % (self.delay_index))
 
     def get_pre_made_filenames(self):
         pre_made_files = []
@@ -143,10 +155,16 @@ class Led_Cube_8x8x8():
         return result.out[0]
 
     def sleep(self, delay):
-        if self.rgb == False and self.generate == False:
-            time.sleep(delay)
-        else:
-            self.outfile.append('delay %d' % (int(delay*1000.0)))
+
+        if delay > 0:
+            if self.rgb == False and self.generate == '':
+                # print('actual delay=%f' % (delay))
+                time.sleep(delay)
+            else:
+                self.outfile.append('delay %d' % (int(delay*1000.0)))
+                # print('virtual delay=%f' % (delay))
+        # else:
+        #     print('zero delay=%f' % (delay))
 
 
     def clear(self):
@@ -325,7 +343,7 @@ class Led_Cube_8x8x8():
         # ~ v_init = 0.4
         # ~ a = -.01
         v_init = 0.8
-        a = -.02*2
+        a = -.08*2
         v = v_init
         d = 0.0
         for index in range(181):
@@ -333,7 +351,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_translate_matrix(  3.0,   4.0,   4.0-d).dot(transform)
             new_pixels = transform.dot(img_pixels_Mot); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             d = d + v
             v = v + a
             if d < 0:
@@ -348,9 +366,9 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix(  3.0,   4.0,   4.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_Mot); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.25)
+            self.sleep([0.25,0][self.delay_index])
             new_pixels = transform.dot(img_pixels_Mot_inv); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.25)
+            self.sleep([0.25,0][self.delay_index])
 
 
 
@@ -363,7 +381,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16*2+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -374,7 +392,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16*2+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -385,7 +403,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
     def flash_13(self):
         self.clear()
@@ -428,7 +446,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
             transform = self.get_translate_matrix(  3.0,   3.0,   3.0-d).dot(transform)
             new_pixels = transform.dot(img_pixels_123); self.clear(); self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             d = d + v
             v = v + a
             if d < 0:
@@ -449,7 +467,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16*1+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -460,7 +478,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16*1+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -471,7 +489,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
     def flash_14(self):
         self.clear()
@@ -509,8 +527,8 @@ class Led_Cube_8x8x8():
                 '.XX..XX.',
                 '.XX..XX.',
                 '.XX..XX.',
-                '..XXXX..',
-                '........']
+                '.XXXXXX.',
+                '..XXXX..']
         img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
         img_pixels0 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
         img_pixels1 = self.get_translate_matrix( 0,  4,  0).dot(img_pixels_raw)
@@ -525,7 +543,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16):
             transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
@@ -536,7 +554,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(16):
             transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
@@ -547,7 +565,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(64+1):
             transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
@@ -558,7 +576,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(64+1):
             transform = self.get_translate_matrix( -3.5,  -3.5,  -3.5)
@@ -569,7 +587,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
     def flash_15(self):
         self.clear()
@@ -607,8 +625,8 @@ class Led_Cube_8x8x8():
                 '.XX..XX.',
                 '.XX..XX.',
                 '.XX..XX.',
-                '..XXXX..',
-                '........']
+                '.XXXXXX.',
+                '..XXXX..']
         img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
         img_pixels0 = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
         img_pixels1 = self.get_translate_matrix( 0,  4,  0).dot(img_pixels_raw)
@@ -625,7 +643,7 @@ class Led_Cube_8x8x8():
 
             new_pixels = transform.dot(img_pixels_I);self.clear();self.store_pixel_array(new_pixels);self.send_display()
             angle += 22.5
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for scale in range(32):
             transform = self.get_translate_matrix( -3.5,  -3.5,  0.0)
@@ -633,7 +651,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  0.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_I);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
         # ~ for scale in range(32,-1,-1):
@@ -644,7 +662,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  7.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_I);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
         for scale in range(32,-1,-1):
@@ -657,7 +675,7 @@ class Led_Cube_8x8x8():
 
             new_pixels = transform.dot(img_pixels_heart);self.clear();self.store_pixel_array(new_pixels);self.send_display()
             angle += 22.5
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for scale in range(32):
             transform = self.get_translate_matrix( -3.5,  -3.5,  0.0)
@@ -665,7 +683,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  0.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_heart);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
         # ~ for scale in range(32,-1,-1):
@@ -676,7 +694,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  7.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_heart);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
 
@@ -691,7 +709,7 @@ class Led_Cube_8x8x8():
 
             new_pixels = transform.dot(img_pixels_U);self.clear();self.store_pixel_array(new_pixels);self.send_display()
             angle += 22.5
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for scale in range(32):
             transform = self.get_translate_matrix( -3.5,  -3.5,  0.0)
@@ -699,7 +717,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  0.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_U);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
         # ~ for scale in range(32,-1,-1):
@@ -710,7 +728,7 @@ class Led_Cube_8x8x8():
             transform = self.get_translate_matrix( 3.5,  3.5,  7.0).dot(transform)
 
             new_pixels = transform.dot(img_pixels_U);self.clear();self.store_pixel_array(new_pixels);self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
             angle += 22.5
 
     def flash_16(self):
@@ -724,39 +742,41 @@ class Led_Cube_8x8x8():
                 # ~ 'X...X.X.....X.....X.....X...X.',
                 # ~ 'X...X.XXXXX.XXXXX.XXXXX..XXX..',
                 # ~ '..............................']
-        img =  ['.........XX..XX...........',
-                'XXXXXX..XXX..XXX...XX..XX.',
-                '..XX....XXXXXXXX...XX..XX.',
-                '..XX....XXXXXXXX...XX..XX.',
-                '..XX.....XXXXXX....XX..XX.',
-                '..XX.....XXXXXX....XX..XX.',
-                'XXXXXX....XXXX......XXXX..',
-                '...........XX.............']
+        img =  ['.........XX..XX.......................XX..XX..................',
+                'XXXXXX..XXX..XXX...XX..XX....XXXXXX..XXX..XXX...XX..XX........',
+                '..XX....XXXXXXXX...XX..XX......XX....XXXXXXXX...XX..XX........',
+                '..XX....XXXXXXXX...XX..XX......XX....XXXXXXXX...XX..XX........',
+                '..XX.....XXXXXX....XX..XX......XX.....XXXXXX....XX..XX........',
+                '..XX.....XXXXXX....XX..XX......XX.....XXXXXX....XX..XX........',
+                'XXXXXX....XXXX......XXXX.....XXXXXX....XXXX......XXXX.........',
+                '...........XX...........................XX....................']
         img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
         img_pixels_msg = self.get_translate_matrix( 0,  0,  0).dot(img_pixels_raw)
 
         angle = -0.0
-        for pos in range(6*5+28):
+        image_len = len(img[0])
+        for pos in range(image_len+28):
         # ~ for pos in range(0,):
             self.clear();
+            img_pos = pos
             transform = self.get_scale_matrix( 1,  1,  1)
             transform = self.get_rotate_z_matrix(90).dot(transform)
-            transform = self.get_translate_matrix( 0,  7-pos,  0).dot(transform)
+            transform = self.get_translate_matrix( 0,  7-img_pos,  0).dot(transform)
             new_pixels = transform.dot(img_pixels_msg);self.store_pixel_array(new_pixels)
 
             transform = self.get_scale_matrix( 1.0,  1.0,  1.0)
             transform = self.get_rotate_z_matrix(180).dot(transform)
-            transform = self.get_translate_matrix( -7+pos,  0,  0).dot(transform)
+            transform = self.get_translate_matrix( -7+img_pos,  0,  0).dot(transform)
             new_pixels = transform.dot(img_pixels_msg);self.store_pixel_array(new_pixels)
 
             transform = self.get_scale_matrix( 1,  1,  1)
             transform = self.get_rotate_z_matrix(270).dot(transform)
-            transform = self.get_translate_matrix( 7,  pos-14,  0).dot(transform)
+            transform = self.get_translate_matrix( 7,  img_pos-14,  0).dot(transform)
             new_pixels = transform.dot(img_pixels_msg);self.store_pixel_array(new_pixels)
 
             transform = self.get_scale_matrix( 1,  1,  1)
             transform = self.get_rotate_z_matrix(0).dot(transform)
-            transform = self.get_translate_matrix( 28-pos,  7,  0).dot(transform)
+            transform = self.get_translate_matrix( 28-img_pos,  7,  0).dot(transform)
             new_pixels = transform.dot(img_pixels_msg);self.store_pixel_array(new_pixels)
 
             self.send_display()
@@ -801,7 +821,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            # ~ self.sleep(0.025)
+            # ~ self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -812,7 +832,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -829,7 +849,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            # ~ self.sleep(0.025)
+            # ~ self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -841,7 +861,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -858,7 +878,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            # ~ self.sleep(0.025)
+            # ~ self.sleep([0.025,0][self.delay_index])
 
 
 
@@ -902,7 +922,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -914,7 +934,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4+4+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -932,7 +952,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -944,7 +964,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4+4+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -962,7 +982,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( -3.0,  -3.0,  -3.0)
@@ -974,7 +994,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
 
     def flash_19(self):
@@ -1020,7 +1040,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1032,7 +1052,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4+4+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1050,7 +1070,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1062,7 +1082,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(16*4+4+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1080,7 +1100,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1092,7 +1112,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
     def get_pac_man_phase(self, raw_phase):
         local_phase = raw_phase % 8
@@ -1179,7 +1199,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.25)
+            self.sleep([0.25,0][self.delay_index])
 
 
 
@@ -1197,7 +1217,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             # self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1209,7 +1229,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(8*4+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1227,7 +1247,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             # self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1239,7 +1259,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         for angle_index in range(8*4+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1257,7 +1277,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             #self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
         for angle_index in range(4*1+1):
             transform = self.get_translate_matrix( 0,0,0)
@@ -1269,7 +1289,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.125)
+            self.sleep([0.125,0][self.delay_index])
 
         # shrink out circle
         for angle_index in range(0,4):
@@ -1281,7 +1301,7 @@ class Led_Cube_8x8x8():
             self.clear()
             self.store_pixel_array(new_pixels)
             self.send_display()
-            self.sleep(0.25)
+            self.sleep([0.25,0][self.delay_index])
 
 
     def flash_21(self):
@@ -1367,7 +1387,7 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             # self.store_pixel_array(new_pixels2)
             self.send_display()
-            self.sleep(0.025)
+            self.sleep([0.025,0][self.delay_index])
 
 
     def flash_22(self):
@@ -1779,6 +1799,58 @@ class Led_Cube_8x8x8():
 
             self.sleep(1)
 
+    def flash_23(self):
+        self.clear()
+
+        img0 = ['..XXXX..',
+                '.X....X.',
+                'X......X',
+                'X......X',
+                'X......X',
+                'X......X',
+                '.X....X.',
+                '..XXXX..']
+
+        # generate outer ring = 0
+        img_pixels_raw_0 = self.string_plane_to_xyz_list(img0, plane='xz')
+        img_pixels0 = self.get_translate_matrix(-3.5, 0, -3.5).dot(img_pixels_raw_0)
+
+        x0_angle = 0.0
+        y0_angle = 0.0
+        z0_angle = 0.0
+        for angle_index in range(16*20+4+1):
+            transform0 = self.get_translate_matrix( 0,0,0)
+            transform0 = self.get_rotate_x_matrix( x0_angle ).dot(transform0)
+            transform0 = self.get_rotate_z_matrix( z0_angle ).dot(transform0)
+            transform0 = self.get_rotate_y_matrix( y0_angle ).dot(transform0)
+            transform0 = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform0)
+            new_pixels0 = transform0.dot(img_pixels0)
+
+            new_pixels = new_pixels0
+
+            # do single axis rotations
+            if ((angle_index >= 0) and (angle_index < 32)) :
+                x0_angle += 22.5/2
+            if ((angle_index >= 32) and (angle_index < 64+8)) :
+                z0_angle += 22.5/2
+            if ((angle_index >= 64+8) and (angle_index < 64+8+32)) :
+                y0_angle += 22.5/2
+
+
+            # expand to multi axis rotations
+            if ((angle_index >= 64+8+32) and (angle_index < 9999999)):
+                x0_angle += 22.5/4
+            if ((angle_index >= 64+8+32+16) and (angle_index < 9999999)):
+                z0_angle += 22.5/8
+            if ((angle_index >= 64+8+32+16+16) and (angle_index < 9999999)):
+                y0_angle += 22.5/10
+
+
+            self.clear()
+            self.store_pixel_array(new_pixels)
+            self.send_display(delay=0)
+            self.sleep([0,0.010][self.delay_index])
+
 
 
 
@@ -2129,7 +2201,7 @@ class Led_Cube_8x8x8():
                 # ~ display[frame][7][6-i]=255;
                 self.display[7*8+ 6-i]=255;
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 2:
         elif n == 2:
             # ~ for (i=0; i<7; i++) {
@@ -2139,7 +2211,7 @@ class Led_Cube_8x8x8():
                 # ~ display[frame][6-i][0]=255;
                 self.display[(6-i)*8+0]=255;
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 3:
         elif n == 3:
             # ~ for (i=0; i<7; i++) {
@@ -2149,7 +2221,7 @@ class Led_Cube_8x8x8():
                 # ~ display[frame][0][i+1]=255;
                 self.display[0*8+i+1]=255;
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 0:
         elif n == 0:
             # ~ for (i=0; i<7; i++) {
@@ -2159,7 +2231,7 @@ class Led_Cube_8x8x8():
                 # ~ display[frame][i+1][7]=255;
                 self.display[(i+1)*8+7]=255;
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
 
 
     # ~ void roll_3_xy(uchar n,uint speed)
@@ -2173,7 +2245,7 @@ class Led_Cube_8x8x8():
                 # ~ box_apeak_xy (0,i,0,7,7-i,7,1,1);
                 self.box_apeak_xy (0,i,0,7,7-i,7,1,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
                 # ~ if (i<7)
                 if (i<7):
                     # ~ box_apeak_xy (3,3,0,0,i,7,1,0);
@@ -2185,7 +2257,7 @@ class Led_Cube_8x8x8():
                 # ~ box_apeak_xy (7-i,0,0,i,7,7,1,1);
                 self.box_apeak_xy (7-i,0,0,i,7,7,1,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
                 # ~ if (i<7)
                 if (i<7):
                     # ~ box_apeak_xy (3,4,0,i,7,7,1,0);
@@ -2197,7 +2269,7 @@ class Led_Cube_8x8x8():
                 # ~ box_apeak_xy (0,i,0,7,7-i,7,1,1);
                 self.box_apeak_xy (0,i,0,7,7-i,7,1,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
                 # ~ if (i<7)
                 if (i<7):
                     # ~ box_apeak_xy (4,4,0,7,7-i,7,1,0);
@@ -2209,7 +2281,7 @@ class Led_Cube_8x8x8():
                 # ~ box_apeak_xy (7-i,0,0,i,7,7,1,1);
                 self.box_apeak_xy (7-i,0,0,i,7,7,1,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
                 # ~ if (i<7)
                 if (i<7):
                     # ~ box_apeak_xy (4,3,0,7-i,0,7,1,0);
@@ -2230,7 +2302,7 @@ class Led_Cube_8x8x8():
                 # ~ line(i+1,7,0,i+1,7,7,1);
                 self.line(i+1,7,0,i+1,7,7,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 2:
         elif n == 2:
             # ~ for (i=0; i<7; i++) {
@@ -2240,7 +2312,7 @@ class Led_Cube_8x8x8():
                 # ~ line(7,6-i,0,7,6-i,7,1);
                 self.line(7,6-i,0,7,6-i,7,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 3:
         elif n == 3:
             # ~ for (i=0; i<7; i++) {
@@ -2250,7 +2322,7 @@ class Led_Cube_8x8x8():
                 # ~ line(6-i,0,0,6-i,0,7,1);
                 self.line(6-i,0,0,6-i,0,7,1);
                 # ~ delay(speed);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
         # ~ case 0:
         elif n == 0:
             # ~ for (i=0; i<7; i++) {
@@ -2259,7 +2331,7 @@ class Led_Cube_8x8x8():
                 self.line(7-i,0,0,7-i,0,7,0);
                 # ~ line(0,i+1,0,0,i+1,7,1);
                 self.line(0,i+1,0,0,i+1,7,1);
-                self.sleep(speed*0.000005); self.send_display()
+                self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
 
     # ~ void tranoutchar(uchar c,uint speed)
     def tranoutchar(self, c, speed):
@@ -2289,7 +2361,7 @@ class Led_Cube_8x8x8():
                 # ~ display[frame][k][4]|=table_cha[c][k]&a;
                 self.display[k*8+4] = self.display[k*8+4] | self.table_cha[c][k]&a;
             # ~ delay(speed);
-            self.sleep(speed*0.000005); self.send_display()
+            self.sleep([speed*0.000005,0][self.delay_index]); self.send_display()
 
     # ~ void max(uchar *a,uchar *b)
     def max(self, a, b):
@@ -2508,6 +2580,7 @@ class Led_Cube_8x8x8():
     # ~ // default animation included in with the ledcube with some modifications
     # ~ __bit flash_2()
     def flash_2(self):
+        self.clear()
         # ~ uchar i;
         # ~ for (i=129; i>0; i--)
         # ~ {
@@ -2517,14 +2590,14 @@ class Led_Cube_8x8x8():
             self.cirp(i-2,0,1)
 
             # ~ delay(8000);
-            self.sleep(8000*0.000005)
+            self.sleep([0.040,0][self.delay_index])
             self.send_display()
             # ~ cirp(i-1,0,0);
             self.cirp(i-1,0,0)
         # ~ }
 
         # ~ delay(8000);
-        self.sleep(8000*0.000005)
+        self.sleep([0.040,0][self.delay_index])
         self.send_display()
 
         # ~ for (i=0; i<136; i++)
@@ -2534,14 +2607,14 @@ class Led_Cube_8x8x8():
             # ~ cirp(i,1,1);
             self.cirp(i,1,1)
             # ~ delay(8000);
-            self.sleep(8000*0.000005)
+            self.sleep([0.040,0][self.delay_index])
             self.send_display()
             # ~ cirp(i-8,1,0);
             self.cirp(i-8,1,0)
         # ~ }
 
         # ~ delay(8000);
-        self.sleep(8000*0.000005)
+        self.sleep([0.040,0][self.delay_index])
         self.send_display()
 
         # ~ for (i=129; i>0; i--)
@@ -2551,12 +2624,12 @@ class Led_Cube_8x8x8():
             # ~ cirp(i-2,0,1);
             self.cirp(i-2,0,1)
             # ~ delay(8000);
-            self.sleep(8000*0.000005)
+            self.sleep([0.040,0][self.delay_index])
             self.send_display()
         # ~ }
 
         # ~ delay(8000);
-        self.sleep(8000*0.000005)
+        self.sleep([0.040,0][self.delay_index])
         self.send_display()
         self.point(0,0,0,0); self.point(0,1,0,0)
 
@@ -2567,13 +2640,13 @@ class Led_Cube_8x8x8():
             # ~ cirp(i-8,1,0);
             self.cirp(i-8,1,0)
             # ~ delay(8000);
-            self.sleep(8000*0.000005)
+            self.sleep([0.040,0][self.delay_index])
             self.send_display()
         # ~ }
 
         # ~ delay(60000);
         # ~ return 0;
-        self.sleep(8000*0.000005)
+        self.sleep([0.040,0][self.delay_index])
         self.send_display()
 
 
@@ -2581,13 +2654,14 @@ class Led_Cube_8x8x8():
     # ~ {
         # ~ char i;
     def flash_3(self):
+        self.clear()
 	# ~ for (i=0; i<8; i++) {
         for i in range(8):
             # ~ if (rx_in > 0) return 1; // RX command detected
             # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
             self.box_apeak_xy(0,i,0,7,i,7,1,1)
             # ~ delay(20000);
-            self.sleep(20000*0.000005); self.send_display()
+            self.sleep([0.1,0][self.delay_index]); self.send_display()
             # ~ if (i<7)
             if (i<7):
                 # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
@@ -2599,7 +2673,7 @@ class Led_Cube_8x8x8():
             # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
             self.box_apeak_xy(0,i,0,7,i,7,1,1)
             # ~ delay(20000);
-            self.sleep(20000*0.000005); self.send_display()
+            self.sleep([0.1,0][self.delay_index]); self.send_display()
             # ~ if (i>0)
             if (i>0):
                 # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
@@ -2611,7 +2685,7 @@ class Led_Cube_8x8x8():
             # ~ box_apeak_xy(0,i,0,7,i,7,1,1);
             self.box_apeak_xy(0,i,0,7,i,7,1,1)
             # ~ delay(20000);
-            self.sleep(20000*0.000005); self.send_display()
+            self.sleep([0.1,0][self.delay_index]); self.send_display()
             # ~ if (i<7)
             if (i<7):
                 # ~ box_apeak_xy(0,i,0,7,i,7,1,0);
@@ -2622,6 +2696,7 @@ class Led_Cube_8x8x8():
     # ~ {
         # ~ char i,j,an[8];
     def flash_4(self):
+        self.clear()
         an = [0] *8
         # ~ for (j=7; j<15; j++)
         for j in range(7,15):
@@ -2648,7 +2723,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]--;
                     an[j] = an[j] -1
             # ~ delay(15000);
-            self.sleep(15000*0.000005); self.send_display()
+            self.sleep([0.075,0][self.delay_index]); self.send_display()
 
         # ~ for (j=0; j<8; j++)
         for j in range(8):
@@ -2676,12 +2751,13 @@ class Led_Cube_8x8x8():
                     # ~ an[j]++;
                     an[j] = an[j] +1
             # ~ delay(15000);
-            self.sleep(15000*0.000005); self.send_display()
+            self.sleep([0.075,0][self.delay_index]); self.send_display()
 
 
     # ~ __bit flash_5()
     # ~ {
     def flash_5(self):
+        self.clear()
         # ~ uint a=15000;//a=delay
         a=15000 # //a=delay
         # ~ char i=8,j,an[4];
@@ -2711,7 +2787,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]--;
                     an[j] = an[j] - 1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
             i = i -1
 
         # ~ //2
@@ -2741,7 +2817,7 @@ class Led_Cube_8x8x8():
                     an[j] = an[j] - 1
 
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
             i = i -1
         # ~ //3
         # ~ i=3;
@@ -2769,7 +2845,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]++;
                     an[j] = an[j] + 1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
             i = i -1
         # ~ //4
         # ~ i=3;
@@ -2795,7 +2871,7 @@ class Led_Cube_8x8x8():
                 # ~ an[j]++;
                 an[j] = an[j] + 1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
             i = i -1
         # ~ //5
         # ~ i=3;
@@ -2819,7 +2895,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]--;
                     an[j] = an[j] - 1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
             i = i -1
         # ~ //6
         # ~ i=3;
@@ -2848,7 +2924,7 @@ class Led_Cube_8x8x8():
                     an[j] = an[j] - 1
             i = i -1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
         # ~ //7
         # ~ i=3;
         i=3;
@@ -2878,7 +2954,7 @@ class Led_Cube_8x8x8():
                     an[j] = an[j] - 1
             i = i -1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
         # ~ }
         # ~ //8
         # ~ i=10;
@@ -2907,12 +2983,13 @@ class Led_Cube_8x8x8():
                     an[j] = an[j] + 1
             i = i -1
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
 
 
 
     # ~ __bit flash_6()
     def flash_6(self):
+        self.clear()
         # ~ roll_apeak_yz(1,10000);
         self.roll_apeak_yz(1,10000);
         # ~ roll_apeak_yz(2,10000);
@@ -2944,7 +3021,7 @@ class Led_Cube_8x8x8():
                                 # ~ point (j,7-k,z-1,0);
                                 self.point (j,7-k,z-1,0);
                             # ~ delay(5000);
-                            self.sleep(5000*0.000005); self.send_display()
+                            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display(delay=0)
                        # ~ }
                     # ~ }
                 # ~ }
@@ -2954,7 +3031,7 @@ class Led_Cube_8x8x8():
 
     # ~ __bit flash_7()
     def flash_7(self):
-
+        self.clear()
         # ~ uint a=3000;
         a=3000;
         # ~ roll_apeak_yz(0,10000);
@@ -3003,38 +3080,38 @@ class Led_Cube_8x8x8():
             # ~ box_apeak_xy (0,i,0,7-i,i,7,1,1);
             self.box_apeak_xy (0,i,0,7-i,i,7,1,1);
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
 
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(0,a);
         self.roll_3_xy(0,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(1,a);
         self.roll_3_xy(1,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(2,a);
         self.roll_3_xy(2,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(3,a);
         self.roll_3_xy(3,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(0,a);
         self.roll_3_xy(0,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(1,a);
         self.roll_3_xy(1,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(2,a);
         self.roll_3_xy(2,a);
         # ~ delay(30000);
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ roll_3_xy(3,a);
         self.roll_3_xy(3,a);
         # ~ for (i=7; i>0; i--) {
@@ -3042,21 +3119,23 @@ class Led_Cube_8x8x8():
             # ~ box_apeak_xy(i,0,0,i,7,7,1,0);
             self.box_apeak_xy(i,0,0,i,7,7,1,0);
             # ~ delay(a);
-            self.sleep(a*0.000005); self.send_display()
+            self.sleep([a*0.000005,0][self.delay_index]); self.send_display()
 
     # ~ __bit flash_8()
     def flash_8(self):
+        self.clear()
         # ~ for (i=5; i<8; i++) {
         for i in range(5,8):
             # ~ tranoutchar(i,10000);
             self.tranoutchar(i,10000);
             # ~ delay(60000);
-            self.sleep(60000*0.000005); self.send_display()
+            self.sleep(0.3); self.send_display()
             # ~ delay(60000);
-            self.sleep(60000*0.000005); self.send_display()
+            self.sleep(0.3); self.send_display()
 
     # ~ __bit flash_9()
     def flash_9(self):
+        self.clear()
         # ~ uchar j,an[8],x,y,t,x1,y1;
         an = [0]*8
         # ~ for (i=0; i<8; i++) {
@@ -3068,7 +3147,7 @@ class Led_Cube_8x8x8():
                 # ~ box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
                 self.box_apeak_xy (i-1,0,0,i-1,7,7,1,0);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.05,0][self.delay_index]); self.send_display()
 
         # ~ roll_apeak_xy(3,10000);
         self.roll_apeak_xy(3,10000);
@@ -3083,7 +3162,7 @@ class Led_Cube_8x8x8():
             # ~ line(i,7,0,i,7,7,0);
             self.line(i,7,0,i,7,7,0);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.05,0][self.delay_index]); self.send_display()
 
         # ~ for (i=0; i<8; i++)
         for i in range(8):
@@ -3117,7 +3196,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]++;
                     an[j] = an[j] + 1
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
 
         # ~ for (i=0; i<85; i++) {
         for i in range(85):
@@ -3146,7 +3225,7 @@ class Led_Cube_8x8x8():
                     # ~ an[j]--;
                     an[j] = an[j] -1
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
         # ~ for (i=0; i<29; i++) {
         for i in range(29):
             # ~ clear(frame, 0);
@@ -3170,7 +3249,7 @@ class Led_Cube_8x8x8():
             # ~ an[0]++;
             an[0] = an[0] + 1
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
         # ~ for (i=0; i<16; i++) {
         for i in range(16):
             # ~ clear(frame, 0);
@@ -3192,22 +3271,25 @@ class Led_Cube_8x8x8():
             # ~ an[0]--;
             an[0] = an[0] - 1
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
         # ~ for (i=0; i<8; i++) {
         for i in range(8):
             # ~ line(i,i,0,0,0,i,0);
             self.line(i,i,0,0,0,i,0);
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
         # ~ for (i=1; i<7; i++) {
         for i in range(1,7):
             # ~ line(i,i,7,7,7,i,0);
             self.line(i,i,7,7,7,i,0);
             # ~ delay(5000);
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
             self.clear();
-            self.sleep(5000*0.000005); self.send_display()
+            self.sleep([5000*0.000005,0][self.delay_index]); self.send_display()
+
+
     def flash_9x_drop_this(self):
+        self.clear()
         an = [0]*8
         # ~ for (i=1; i<8; i++) {
         for i in range(1,8): # fixme fixme fixme
@@ -3225,7 +3307,7 @@ class Led_Cube_8x8x8():
             # ~ box(0,0,0,7-i,7-i,7-i,0,1);
             self.box(0,0,0,7-i,7-i,7-i,0,1);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep(0.05); self.send_display()
         # ~ for (i=1; i<8; i++) {
         for i in range(1,8):
             # ~ clear(frame, 0);
@@ -3233,7 +3315,7 @@ class Led_Cube_8x8x8():
             # ~ box(0,0,0,i,i,i,0,1);
             self.box(0,0,0,i,i,i,0,1);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep(0.05); self.send_display()
         # ~ for (i=1; i<7; i++) {
         for i in range(1,7):
             # ~ clear(frame, 0);
@@ -3241,13 +3323,13 @@ class Led_Cube_8x8x8():
             # ~ box(7,0,0,i,7-i,7-i,0,1);
             self.box(7,0,0,i,7-i,7-i,0,1);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep(0.05); self.send_display()
         # ~ for (i=1; i<8; i++) {
         for i in range(1,8):
             # ~ box(7,0,0,7-i,i,i,1,1);
             self.box(7,0,0,7-i,i,i,1,1);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep(0.05); self.send_display()
         # ~ for (i=1; i<7; i++) {
         for i in range(1,7):
             # ~ clear(frame, 0);
@@ -3255,10 +3337,11 @@ class Led_Cube_8x8x8():
             # ~ box(0,7,7,7-i,i,i,1,1);
             self.box(0,7,7,7-i,i,i,1,1);
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep(0.05); self.send_display()
 
     # ~ __bit flash_10()
     def flash_10(self):
+        self.clear()
     # ~ {
         # ~ uchar i,j,an[4],x,y,t;
         an = [0] *4
@@ -3283,7 +3366,7 @@ class Led_Cube_8x8x8():
             # ~ box(0,6-i,6-i,1,7-i,7-i,1,1);
             self.box(0,6-i,6-i,1,7-i,7-i,1,1);
             # ~ delay(30000);
-            self.sleep(30000*0.000005); self.send_display()
+            self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         # ~ }
         # ~ for (i=0; i<4; i++) {
         for i in range(4):
@@ -3311,7 +3394,7 @@ class Led_Cube_8x8x8():
                 # ~ an[j]++;
                 an[j] = an[j] + 1
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.05,0][self.delay_index]); self.send_display()
         # ~ }
         # ~ for (i=0; i<35; i++) {
         for i in range(35):
@@ -3335,7 +3418,7 @@ class Led_Cube_8x8x8():
                 # ~ an[j]--;
                 an[j] = an[j] - 1
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.05,0][self.delay_index]); self.send_display()
         # ~ for (i=0; i<35; i++) {
         for i in range(35):
             # ~ clear(frame, 0);
@@ -3357,7 +3440,7 @@ class Led_Cube_8x8x8():
                 # ~ an[j]++;
                 an[j] = an[j] - 1
             # ~ delay(10000);
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.05,0][self.delay_index]); self.send_display()
 
         # ~ for (i=0; i<36; i++) {
         for i in range(36):
@@ -3378,7 +3461,7 @@ class Led_Cube_8x8x8():
             # ~ for (j=0; j<4; j++)
             for j in range(4):
                 an[j] = an[j] - 1
-            self.sleep(10000*0.000005); self.send_display()
+            self.sleep([0.0,0][self.delay_index]); self.send_display()
         # ~ for (i=6; i>0; i--) {
         for i in range(6,0,-1):
             # ~ clear(frame, 0);
@@ -3400,12 +3483,13 @@ class Led_Cube_8x8x8():
             # ~ box(0,6-i,6-i,1,7-i,7-i,1,1);
             self.box(0,6-i,6-i,1,7-i,7-i,1,1);
             # ~ delay(30000);
-            self.sleep(30000*0.000005); self.send_display()
+            self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
         self.clear();
-        self.sleep(30000*0.000005); self.send_display()
+        self.sleep([30000*0.000005,0][self.delay_index]); self.send_display()
 
     # ~ __bit flash_11()
     def flash_11(self):
+        self.clear()
         # ~ uchar i,j,t,x,y;
         # ~ __code uchar daa[13]= {0,1,2,0x23,5,6,7,6,5,0x23,2,1,0};
         daa = [0,1,2,0x23,5,6,7,6,5,0x23,2,1,0]
@@ -3428,7 +3512,7 @@ class Led_Cube_8x8x8():
                 # ~ transss();
                 self.transss();
                 # ~ delay(10000);
-                self.sleep(10000*0.000005); self.send_display()
+                self.sleep([0.05,0][self.delay_index]); self.send_display()
         # ~ for (j=1; j<8; j++) {
         for j in range(1,8):
             # ~ if (j>3)
@@ -3450,7 +3534,7 @@ class Led_Cube_8x8x8():
                 # ~ transss();
                 self.transss();
                 # ~ delay(10000);
-                self.sleep(10000*0.000005); self.send_display()
+                self.sleep([0.05,0][self.delay_index]); self.send_display()
         # ~ for (j=1; j<8; j++) {
         for j in range(1,8):
             # ~ if (j>3)
@@ -3472,7 +3556,7 @@ class Led_Cube_8x8x8():
                 # ~ transss();
                 self.transss();
                 # ~ delay(10000);
-                self.sleep(10000*0.000005); self.send_display()
+                self.sleep([0.05,0][self.delay_index]); self.send_display()
 
     def run_sequence(self, seq, delay, index=0, total=1):
         self.outfile = []
@@ -3530,14 +3614,16 @@ class Led_Cube_8x8x8():
             self.flash_21()
         elif seq == 'flash_22':
             self.flash_22()
+        elif seq == 'flash_23':
+            self.flash_23()
         elif seq == 'drum_1':
             self.drum_1()
         elif seq == 'earth_1':
             self.earth_1()
 
-        self.sleep(0.5)
         self.clear()
         self.send_display()
+        self.sleep(0.5)
 
         if self.rgb == True or self.generate != '':
             # ~ filename = 'led_rgb_temp.txt'
@@ -3553,7 +3639,36 @@ class Led_Cube_8x8x8():
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
 
+    def read_earth_texture_file(self, filename='earth_texture_1.png'):
+        # PIL
+        print('Image.open(%s)' % (filename))
+        img3=Image.open(filename)
+        print('width=%d height=%d' % (img3.width, img3.height))
+        pixel = img3.getpixel((0,img3.height/2))
+        print(pixel)
+        # img3=np.array(img3)# convert to np array
+        # print(img3.shape)
+        print('\n')
+
+        self.earth_image = img3
+
+    def get_rgb_from_earth_texture(self, lat_degs, long_degs):
+
+        # long_degs = -1.0 * long_degs
+
+        while(long_degs<0):
+            long_degs += 360
+        while(long_degs>=360):
+            long_degs -= 360
+
+        x = float(long_degs)/360*self.earth_image.width
+        y = float(lat_degs)/180*self.earth_image.height + self.earth_image.height/2
+        pixel = self.earth_image.getpixel((int(x),int(y)))
+
+        return pixel
+
     def earth_1(self):
+        self.read_earth_texture_file()
 
         # self.sleep(5)
         colors = []
@@ -3568,32 +3683,64 @@ class Led_Cube_8x8x8():
                     z = z_index*1.0 - 3.5
 
                     r = math.sqrt(x*x + y*y + z*z)
-                    if r >= 3 -.1 and r <= 4:
+                    if r >= 3.1  and r <= 3.9:
                         new_pixel = np.array([[x], [y], [z], [1]])
                         pixel_coords = np.append(pixel_coords, new_pixel, axis=1)
 
-                        entry = {}
-                        entry['rho'] = math.sqrt(x**2 + y**2 + z**2)
-                        entry['phi'] = math.atan2(math.sqrt(x**2+y**2), z)
-                        entry['theta'] = math.atan2(y, x)
-                        polar.append(entry)
+                        # entry = {}
+                        # entry['rho'] = math.sqrt(x**2 + y**2 + z**2)
+                        # entry['phi'] = math.atan2(math.sqrt(x**2+y**2), z)
+                        # entry['theta'] = math.atan2(y, x)
+                        # polar.append(entry)
 
-                        color_wheel_pos = (int(entry['theta'] * 256/2/math.pi) + 256 ) % 256
+                        # color_wheel_pos = (int(entry['theta'] * 256/2/math.pi) + 256 ) % 256
 
-                        pixel_color = self.get_color_from_wheel(color_wheel_pos)
-                        colors.append(pixel_color)
+                        # pixel_color = self.get_color_from_wheel(color_wheel_pos)
+                        # colors.append(pixel_color)
 
-                        print(x,y,z,r, entry, pixel_color)
+                        # print(x,y,z,r, entry, pixel_color)
 
-        transform = self.get_translate_matrix( 3.5, 3.5, 3.5)
+        transform = self.get_rotate_y_matrix(0.0)  # make a rotated model with 0,0 at center of sphere
+        sphere_pixel_list_raw = transform.dot(pixel_coords)
+
+        cols = np.size(sphere_pixel_list_raw,1)
+        for col in range(cols):
+            x=sphere_pixel_list_raw[0,col]
+            y=sphere_pixel_list_raw[1,col]
+            z=sphere_pixel_list_raw[2,col]
+
+            entry = {}
+            entry['rho'] = math.sqrt(x**2 + y**2 + z**2)
+            entry['phi'] = math.atan2(math.sqrt(x**2+y**2), z)
+            entry['theta'] = math.atan2(y, x)
+            polar.append(entry)
+
+            lat_degs = 90 - entry['phi']*180/math.pi
+            long_degs = entry['theta']*180/math.pi
+            pixel_color_tuple = self.get_rgb_from_earth_texture(lat_degs, long_degs)
+            pixel_color = '%02x%02x%02x' % (pixel_color_tuple[1], pixel_color_tuple[0], pixel_color_tuple[2])  # convert to grb for led strand
+            colors.append(pixel_color)
+
+            print(x,y,z,r, entry, pixel_color)
+
+
+        transform = self.get_translate_matrix( 3.5, 3.5, 3.5).dot(transform) # make a rotated and translated model for rendering the pixels
         sphere_pixel_list = transform.dot(pixel_coords)
 
-        for rotation_index in range(1024):
+        for spin_index in range(360*4):
             colors = []
             for pixel_index in range(len(polar)):
-                color_wheel_pos = (int(polar[pixel_index]['theta'] * 256/2/math.pi) + 256 + rotation_index*2 ) % 256
-                pixel_color = self.get_color_from_wheel(color_wheel_pos)
+                entry = polar[pixel_index]
+                # color_wheel_pos = (int(polar[pixel_index]['theta'] * 256/2/math.pi) + 256 + spin_index*2 ) % 256
+                # pixel_color = self.get_color_from_wheel(color_wheel_pos)
+                # colors.append(pixel_color)
+
+                lat_degs = 90 - entry['phi']*180/math.pi
+                long_degs = entry['theta']*180/math.pi + spin_index
+                pixel_color_tuple = self.get_rgb_from_earth_texture(lat_degs, -long_degs)
+                pixel_color = '%02x%02x%02x' % (pixel_color_tuple[1], pixel_color_tuple[0], pixel_color_tuple[2])  # convert to grb for led strand
                 colors.append(pixel_color)
+
 
             self.clear();  self.send_pixel_array_to_rgb_commands(sphere_pixel_list, colors=colors)
 
@@ -3601,11 +3748,11 @@ class Led_Cube_8x8x8():
 
         self.clear();  self.send_pixel_array_to_rgb_commands(sphere_pixel_list, colors=colors)
 
-        self.sleep(10)
+        self.sleep(1)
 
 
     def drum_1(self):
-        if self.generate == False:
+        if self.generate == '':
             time_scale_factor = 1.0
             calc_points = 1000
         else:
@@ -3683,7 +3830,7 @@ class Led_Cube_8x8x8():
         img_flat_plane = self.string_plane_to_xyz_list(img, plane='xy')
         transform = self.get_translate_matrix( 0,0,4)
         flat_pane_pixels = transform.dot(img_flat_plane)
-        if self.generate == False:
+        if self.generate == '':
             self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         else:
             self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3703,11 +3850,11 @@ class Led_Cube_8x8x8():
 
                 transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
                 new_pixels = transform.dot(points_raw)
-                if self.generate == False:
+                if self.generate == '':
                     self.clear();  self.store_pixel_array(new_pixels); self.send_display()
                 else:
                     self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-            if self.generate == False:
+            if self.generate == '':
                 self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
             else:
                 self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels, color='ff0000')
@@ -3719,10 +3866,11 @@ class Led_Cube_8x8x8():
             for index in range(len(plane_flips[mode_index])):
 
                 flat_pane_pixels = plane_flips[mode_index][index].dot(img_flat_plane)
-                if self.generate == False:
+                if self.generate == '':
                     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
                 else:
                     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels, color='ff0000')
+                self.sleep([0,0.04][self.delay_index])
             self.sleep(1)
 
         # #
@@ -3738,11 +3886,11 @@ class Led_Cube_8x8x8():
 
         #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
         #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == False:
+        # if self.generate == '':
         #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         # else:
         #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3757,7 +3905,7 @@ class Led_Cube_8x8x8():
         #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
         #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
         #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3779,11 +3927,11 @@ class Led_Cube_8x8x8():
 
         #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
         #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == False:
+        # if self.generate == '':
         #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         # else:
         #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3800,7 +3948,7 @@ class Led_Cube_8x8x8():
         #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
         #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
         #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3822,11 +3970,11 @@ class Led_Cube_8x8x8():
 
         #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
         #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == False:
+        # if self.generate == '':
         #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         # else:
         #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -3841,7 +3989,7 @@ class Led_Cube_8x8x8():
         #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
         #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
         #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == False:
+        #     if self.generate == '':
         #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
         #     else:
         #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
@@ -4003,10 +4151,8 @@ if __name__ == "__main__":
 
 # new ideas
 # jump rope of some kind
-# vu meter
+# vu meter with time scroll
 # plasma cube sort of like plasma globe
 # diagonal line sweeping out a cone without filling it in then filling it in.
-# speed up the full cube led dropout animation.
-# 3 rings rotating on 3 separate axes like contact wormhole generator (same size rings; different size rings)
 #
 

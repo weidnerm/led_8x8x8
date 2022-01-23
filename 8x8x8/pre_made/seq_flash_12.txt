@@ -1,895 +1,599 @@
 setup channel_1_count=512
 brightness 1,32
-delay 20
+delay 70
 fill 1; render
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
 fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
-fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
+fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,265,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,264,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,296,1; render
+delay 70
+fill 1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,266,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,298,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,260,1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,264,1; fill 1,0000ff,265,1; fill 1,0000ff,268,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,280,1; fill 1,0000ff,281,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,296,1; fill 1,0000ff,297,1; fill 1,0000ff,300,1; fill 1,0000ff,308,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
+fill 1; fill 1,0000ff,261,1; fill 1,0000ff,262,1; fill 1,0000ff,263,1; fill 1,0000ff,264,1; fill 1,0000ff,267,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,280,1; fill 1,0000ff,283,1; fill 1,0000ff,284,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,296,1; fill 1,0000ff,299,1; fill 1,0000ff,309,1; fill 1,0000ff,310,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,263,1; fill 1,0000ff,265,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,279,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,295,1; fill 1,0000ff,297,1; fill 1,0000ff,311,1; render
+delay 70
+fill 1; fill 1,0000ff,279,1; fill 1,0000ff,280,1; fill 1,0000ff,295,1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; render
+delay 70
+fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,284,1; fill 1,0000ff,285,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; render
-delay 250
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,194,1; fill 1,0000ff,195,1; fill 1,0000ff,196,1; fill 1,0000ff,202,1; fill 1,0000ff,203,1; fill 1,0000ff,206,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,362,1; fill 1,0000ff,363,1; fill 1,0000ff,366,1; fill 1,0000ff,370,1; fill 1,0000ff,371,1; fill 1,0000ff,372,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,139,1; fill 1,0000ff,140,1; fill 1,0000ff,141,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,210,1; fill 1,0000ff,211,1; fill 1,0000ff,212,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,354,1; fill 1,0000ff,355,1; fill 1,0000ff,356,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,427,1; fill 1,0000ff,428,1; fill 1,0000ff,429,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,83,1; fill 1,0000ff,84,1; fill 1,0000ff,145,1; fill 1,0000ff,148,1; fill 1,0000ff,149,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,417,1; fill 1,0000ff,420,1; fill 1,0000ff,421,1; fill 1,0000ff,482,1; fill 1,0000ff,483,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,91,1; fill 1,0000ff,92,1; fill 1,0000ff,93,1; fill 1,0000ff,154,1; fill 1,0000ff,155,1; fill 1,0000ff,158,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,410,1; fill 1,0000ff,411,1; fill 1,0000ff,414,1; fill 1,0000ff,475,1; fill 1,0000ff,476,1; fill 1,0000ff,477,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,98,1; fill 1,0000ff,99,1; fill 1,0000ff,100,1; fill 1,0000ff,161,1; fill 1,0000ff,164,1; fill 1,0000ff,165,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,401,1; fill 1,0000ff,404,1; fill 1,0000ff,405,1; fill 1,0000ff,466,1; fill 1,0000ff,467,1; fill 1,0000ff,468,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,171,1; fill 1,0000ff,172,1; fill 1,0000ff,173,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,226,1; fill 1,0000ff,227,1; fill 1,0000ff,228,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,338,1; fill 1,0000ff,339,1; fill 1,0000ff,340,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,395,1; fill 1,0000ff,396,1; fill 1,0000ff,397,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,234,1; fill 1,0000ff,235,1; fill 1,0000ff,238,1; fill 1,0000ff,242,1; fill 1,0000ff,243,1; fill 1,0000ff,244,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,322,1; fill 1,0000ff,323,1; fill 1,0000ff,324,1; fill 1,0000ff,330,1; fill 1,0000ff,331,1; fill 1,0000ff,334,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,194,1; fill 1,0000ff,195,1; fill 1,0000ff,196,1; fill 1,0000ff,202,1; fill 1,0000ff,203,1; fill 1,0000ff,206,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,362,1; fill 1,0000ff,363,1; fill 1,0000ff,366,1; fill 1,0000ff,370,1; fill 1,0000ff,371,1; fill 1,0000ff,372,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,139,1; fill 1,0000ff,140,1; fill 1,0000ff,141,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,210,1; fill 1,0000ff,211,1; fill 1,0000ff,212,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,354,1; fill 1,0000ff,355,1; fill 1,0000ff,356,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,427,1; fill 1,0000ff,428,1; fill 1,0000ff,429,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,83,1; fill 1,0000ff,84,1; fill 1,0000ff,145,1; fill 1,0000ff,148,1; fill 1,0000ff,149,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,417,1; fill 1,0000ff,420,1; fill 1,0000ff,421,1; fill 1,0000ff,482,1; fill 1,0000ff,483,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,91,1; fill 1,0000ff,92,1; fill 1,0000ff,93,1; fill 1,0000ff,154,1; fill 1,0000ff,155,1; fill 1,0000ff,158,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,410,1; fill 1,0000ff,411,1; fill 1,0000ff,414,1; fill 1,0000ff,475,1; fill 1,0000ff,476,1; fill 1,0000ff,477,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,98,1; fill 1,0000ff,99,1; fill 1,0000ff,100,1; fill 1,0000ff,161,1; fill 1,0000ff,164,1; fill 1,0000ff,165,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,401,1; fill 1,0000ff,404,1; fill 1,0000ff,405,1; fill 1,0000ff,466,1; fill 1,0000ff,467,1; fill 1,0000ff,468,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,171,1; fill 1,0000ff,172,1; fill 1,0000ff,173,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,226,1; fill 1,0000ff,227,1; fill 1,0000ff,228,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,338,1; fill 1,0000ff,339,1; fill 1,0000ff,340,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,395,1; fill 1,0000ff,396,1; fill 1,0000ff,397,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,234,1; fill 1,0000ff,235,1; fill 1,0000ff,238,1; fill 1,0000ff,242,1; fill 1,0000ff,243,1; fill 1,0000ff,244,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,322,1; fill 1,0000ff,323,1; fill 1,0000ff,324,1; fill 1,0000ff,330,1; fill 1,0000ff,331,1; fill 1,0000ff,334,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,194,1; fill 1,0000ff,195,1; fill 1,0000ff,196,1; fill 1,0000ff,202,1; fill 1,0000ff,203,1; fill 1,0000ff,206,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,362,1; fill 1,0000ff,363,1; fill 1,0000ff,366,1; fill 1,0000ff,370,1; fill 1,0000ff,371,1; fill 1,0000ff,372,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,139,1; fill 1,0000ff,140,1; fill 1,0000ff,141,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,210,1; fill 1,0000ff,211,1; fill 1,0000ff,212,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,354,1; fill 1,0000ff,355,1; fill 1,0000ff,356,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,427,1; fill 1,0000ff,428,1; fill 1,0000ff,429,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,83,1; fill 1,0000ff,84,1; fill 1,0000ff,145,1; fill 1,0000ff,148,1; fill 1,0000ff,149,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,417,1; fill 1,0000ff,420,1; fill 1,0000ff,421,1; fill 1,0000ff,482,1; fill 1,0000ff,483,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,91,1; fill 1,0000ff,92,1; fill 1,0000ff,93,1; fill 1,0000ff,154,1; fill 1,0000ff,155,1; fill 1,0000ff,158,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,410,1; fill 1,0000ff,411,1; fill 1,0000ff,414,1; fill 1,0000ff,475,1; fill 1,0000ff,476,1; fill 1,0000ff,477,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,98,1; fill 1,0000ff,99,1; fill 1,0000ff,100,1; fill 1,0000ff,161,1; fill 1,0000ff,164,1; fill 1,0000ff,165,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,401,1; fill 1,0000ff,404,1; fill 1,0000ff,405,1; fill 1,0000ff,466,1; fill 1,0000ff,467,1; fill 1,0000ff,468,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,171,1; fill 1,0000ff,172,1; fill 1,0000ff,173,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,226,1; fill 1,0000ff,227,1; fill 1,0000ff,228,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,338,1; fill 1,0000ff,339,1; fill 1,0000ff,340,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,395,1; fill 1,0000ff,396,1; fill 1,0000ff,397,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,234,1; fill 1,0000ff,235,1; fill 1,0000ff,238,1; fill 1,0000ff,242,1; fill 1,0000ff,243,1; fill 1,0000ff,244,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,322,1; fill 1,0000ff,323,1; fill 1,0000ff,324,1; fill 1,0000ff,330,1; fill 1,0000ff,331,1; fill 1,0000ff,334,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,194,1; fill 1,0000ff,195,1; fill 1,0000ff,196,1; fill 1,0000ff,202,1; fill 1,0000ff,203,1; fill 1,0000ff,206,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,362,1; fill 1,0000ff,363,1; fill 1,0000ff,366,1; fill 1,0000ff,370,1; fill 1,0000ff,371,1; fill 1,0000ff,372,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,139,1; fill 1,0000ff,140,1; fill 1,0000ff,141,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,210,1; fill 1,0000ff,211,1; fill 1,0000ff,212,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,354,1; fill 1,0000ff,355,1; fill 1,0000ff,356,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,427,1; fill 1,0000ff,428,1; fill 1,0000ff,429,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,83,1; fill 1,0000ff,84,1; fill 1,0000ff,145,1; fill 1,0000ff,148,1; fill 1,0000ff,149,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,417,1; fill 1,0000ff,420,1; fill 1,0000ff,421,1; fill 1,0000ff,482,1; fill 1,0000ff,483,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,91,1; fill 1,0000ff,92,1; fill 1,0000ff,93,1; fill 1,0000ff,154,1; fill 1,0000ff,155,1; fill 1,0000ff,158,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,410,1; fill 1,0000ff,411,1; fill 1,0000ff,414,1; fill 1,0000ff,475,1; fill 1,0000ff,476,1; fill 1,0000ff,477,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,98,1; fill 1,0000ff,99,1; fill 1,0000ff,100,1; fill 1,0000ff,161,1; fill 1,0000ff,164,1; fill 1,0000ff,165,1; fill 1,0000ff,217,1; fill 1,0000ff,220,1; fill 1,0000ff,221,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,345,1; fill 1,0000ff,348,1; fill 1,0000ff,349,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,401,1; fill 1,0000ff,404,1; fill 1,0000ff,405,1; fill 1,0000ff,466,1; fill 1,0000ff,467,1; fill 1,0000ff,468,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,171,1; fill 1,0000ff,172,1; fill 1,0000ff,173,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,226,1; fill 1,0000ff,227,1; fill 1,0000ff,228,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,338,1; fill 1,0000ff,339,1; fill 1,0000ff,340,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,395,1; fill 1,0000ff,396,1; fill 1,0000ff,397,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,234,1; fill 1,0000ff,235,1; fill 1,0000ff,238,1; fill 1,0000ff,242,1; fill 1,0000ff,243,1; fill 1,0000ff,244,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,322,1; fill 1,0000ff,323,1; fill 1,0000ff,324,1; fill 1,0000ff,330,1; fill 1,0000ff,331,1; fill 1,0000ff,334,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,300,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,268,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,268,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,276,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,285,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,292,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,300,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,206,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,238,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,267,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,283,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,299,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,330,1; fill 1,0000ff,342,1; fill 1,0000ff,345,1; fill 1,0000ff,346,1; fill 1,0000ff,358,1; fill 1,0000ff,362,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,145,1; fill 1,0000ff,158,1; fill 1,0000ff,161,1; fill 1,0000ff,194,1; fill 1,0000ff,205,1; fill 1,0000ff,210,1; fill 1,0000ff,221,1; fill 1,0000ff,226,1; fill 1,0000ff,237,1; fill 1,0000ff,242,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,324,1; fill 1,0000ff,331,1; fill 1,0000ff,347,1; fill 1,0000ff,363,1; fill 1,0000ff,372,1; fill 1,0000ff,405,1; fill 1,0000ff,410,1; fill 1,0000ff,421,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,93,1; fill 1,0000ff,98,1; fill 1,0000ff,141,1; fill 1,0000ff,146,1; fill 1,0000ff,157,1; fill 1,0000ff,162,1; fill 1,0000ff,173,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,395,1; fill 1,0000ff,411,1; fill 1,0000ff,427,1; fill 1,0000ff,468,1; fill 1,0000ff,475,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,83,1; fill 1,0000ff,92,1; fill 1,0000ff,99,1; fill 1,0000ff,140,1; fill 1,0000ff,147,1; fill 1,0000ff,156,1; fill 1,0000ff,163,1; fill 1,0000ff,172,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,396,1; fill 1,0000ff,412,1; fill 1,0000ff,428,1; fill 1,0000ff,467,1; fill 1,0000ff,476,1; fill 1,0000ff,483,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,84,1; fill 1,0000ff,91,1; fill 1,0000ff,100,1; fill 1,0000ff,139,1; fill 1,0000ff,148,1; fill 1,0000ff,155,1; fill 1,0000ff,164,1; fill 1,0000ff,171,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,397,1; fill 1,0000ff,413,1; fill 1,0000ff,429,1; fill 1,0000ff,466,1; fill 1,0000ff,477,1; fill 1,0000ff,482,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,149,1; fill 1,0000ff,154,1; fill 1,0000ff,165,1; fill 1,0000ff,196,1; fill 1,0000ff,203,1; fill 1,0000ff,212,1; fill 1,0000ff,219,1; fill 1,0000ff,228,1; fill 1,0000ff,235,1; fill 1,0000ff,244,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,322,1; fill 1,0000ff,333,1; fill 1,0000ff,349,1; fill 1,0000ff,365,1; fill 1,0000ff,370,1; fill 1,0000ff,401,1; fill 1,0000ff,414,1; fill 1,0000ff,417,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,202,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,217,1; fill 1,0000ff,218,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,234,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,269,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,285,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,301,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,334,1; fill 1,0000ff,336,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,352,1; fill 1,0000ff,366,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,206,1; fill 1,0000ff,208,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,224,1; fill 1,0000ff,238,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,269,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,285,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,301,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,330,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,345,1; fill 1,0000ff,346,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,362,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,145,1; fill 1,0000ff,158,1; fill 1,0000ff,161,1; fill 1,0000ff,194,1; fill 1,0000ff,205,1; fill 1,0000ff,221,1; fill 1,0000ff,237,1; fill 1,0000ff,242,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,324,1; fill 1,0000ff,331,1; fill 1,0000ff,340,1; fill 1,0000ff,347,1; fill 1,0000ff,356,1; fill 1,0000ff,363,1; fill 1,0000ff,372,1; fill 1,0000ff,405,1; fill 1,0000ff,410,1; fill 1,0000ff,421,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,93,1; fill 1,0000ff,98,1; fill 1,0000ff,141,1; fill 1,0000ff,157,1; fill 1,0000ff,173,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,395,1; fill 1,0000ff,404,1; fill 1,0000ff,411,1; fill 1,0000ff,420,1; fill 1,0000ff,427,1; fill 1,0000ff,468,1; fill 1,0000ff,475,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,83,1; fill 1,0000ff,92,1; fill 1,0000ff,99,1; fill 1,0000ff,140,1; fill 1,0000ff,156,1; fill 1,0000ff,172,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,396,1; fill 1,0000ff,403,1; fill 1,0000ff,412,1; fill 1,0000ff,419,1; fill 1,0000ff,428,1; fill 1,0000ff,467,1; fill 1,0000ff,476,1; fill 1,0000ff,483,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,84,1; fill 1,0000ff,91,1; fill 1,0000ff,100,1; fill 1,0000ff,139,1; fill 1,0000ff,155,1; fill 1,0000ff,171,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,397,1; fill 1,0000ff,402,1; fill 1,0000ff,413,1; fill 1,0000ff,418,1; fill 1,0000ff,429,1; fill 1,0000ff,466,1; fill 1,0000ff,477,1; fill 1,0000ff,482,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,149,1; fill 1,0000ff,154,1; fill 1,0000ff,165,1; fill 1,0000ff,196,1; fill 1,0000ff,203,1; fill 1,0000ff,219,1; fill 1,0000ff,235,1; fill 1,0000ff,244,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,322,1; fill 1,0000ff,333,1; fill 1,0000ff,338,1; fill 1,0000ff,349,1; fill 1,0000ff,354,1; fill 1,0000ff,365,1; fill 1,0000ff,370,1; fill 1,0000ff,401,1; fill 1,0000ff,414,1; fill 1,0000ff,417,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,202,1; fill 1,0000ff,214,1; fill 1,0000ff,217,1; fill 1,0000ff,218,1; fill 1,0000ff,230,1; fill 1,0000ff,234,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,267,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,283,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,299,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,334,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,366,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,206,1; fill 1,0000ff,208,1; fill 1,0000ff,209,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,224,1; fill 1,0000ff,225,1; fill 1,0000ff,238,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,267,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,283,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,299,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,330,1; fill 1,0000ff,342,1; fill 1,0000ff,345,1; fill 1,0000ff,346,1; fill 1,0000ff,358,1; fill 1,0000ff,362,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,145,1; fill 1,0000ff,158,1; fill 1,0000ff,161,1; fill 1,0000ff,194,1; fill 1,0000ff,205,1; fill 1,0000ff,210,1; fill 1,0000ff,221,1; fill 1,0000ff,226,1; fill 1,0000ff,237,1; fill 1,0000ff,242,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,324,1; fill 1,0000ff,331,1; fill 1,0000ff,347,1; fill 1,0000ff,363,1; fill 1,0000ff,372,1; fill 1,0000ff,405,1; fill 1,0000ff,410,1; fill 1,0000ff,421,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,93,1; fill 1,0000ff,98,1; fill 1,0000ff,141,1; fill 1,0000ff,146,1; fill 1,0000ff,157,1; fill 1,0000ff,162,1; fill 1,0000ff,173,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,395,1; fill 1,0000ff,411,1; fill 1,0000ff,427,1; fill 1,0000ff,468,1; fill 1,0000ff,475,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,83,1; fill 1,0000ff,92,1; fill 1,0000ff,99,1; fill 1,0000ff,140,1; fill 1,0000ff,147,1; fill 1,0000ff,156,1; fill 1,0000ff,163,1; fill 1,0000ff,172,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,396,1; fill 1,0000ff,412,1; fill 1,0000ff,428,1; fill 1,0000ff,467,1; fill 1,0000ff,476,1; fill 1,0000ff,483,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,84,1; fill 1,0000ff,91,1; fill 1,0000ff,100,1; fill 1,0000ff,139,1; fill 1,0000ff,148,1; fill 1,0000ff,155,1; fill 1,0000ff,164,1; fill 1,0000ff,171,1; fill 1,0000ff,195,1; fill 1,0000ff,211,1; fill 1,0000ff,227,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,332,1; fill 1,0000ff,348,1; fill 1,0000ff,364,1; fill 1,0000ff,371,1; fill 1,0000ff,397,1; fill 1,0000ff,413,1; fill 1,0000ff,429,1; fill 1,0000ff,466,1; fill 1,0000ff,477,1; fill 1,0000ff,482,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,149,1; fill 1,0000ff,154,1; fill 1,0000ff,165,1; fill 1,0000ff,196,1; fill 1,0000ff,203,1; fill 1,0000ff,212,1; fill 1,0000ff,219,1; fill 1,0000ff,228,1; fill 1,0000ff,235,1; fill 1,0000ff,244,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,322,1; fill 1,0000ff,333,1; fill 1,0000ff,349,1; fill 1,0000ff,365,1; fill 1,0000ff,370,1; fill 1,0000ff,401,1; fill 1,0000ff,414,1; fill 1,0000ff,417,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,202,1; fill 1,0000ff,213,1; fill 1,0000ff,214,1; fill 1,0000ff,217,1; fill 1,0000ff,218,1; fill 1,0000ff,229,1; fill 1,0000ff,230,1; fill 1,0000ff,234,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,269,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,285,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,301,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,334,1; fill 1,0000ff,336,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,352,1; fill 1,0000ff,366,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,269,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,277,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,285,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,293,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,301,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,206,1; fill 1,0000ff,208,1; fill 1,0000ff,222,1; fill 1,0000ff,223,1; fill 1,0000ff,224,1; fill 1,0000ff,238,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,269,1; fill 1,0000ff,275,1; fill 1,0000ff,276,1; fill 1,0000ff,285,1; fill 1,0000ff,291,1; fill 1,0000ff,292,1; fill 1,0000ff,301,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,330,1; fill 1,0000ff,341,1; fill 1,0000ff,342,1; fill 1,0000ff,345,1; fill 1,0000ff,346,1; fill 1,0000ff,357,1; fill 1,0000ff,358,1; fill 1,0000ff,362,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,145,1; fill 1,0000ff,158,1; fill 1,0000ff,161,1; fill 1,0000ff,194,1; fill 1,0000ff,205,1; fill 1,0000ff,221,1; fill 1,0000ff,237,1; fill 1,0000ff,242,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,324,1; fill 1,0000ff,331,1; fill 1,0000ff,340,1; fill 1,0000ff,347,1; fill 1,0000ff,356,1; fill 1,0000ff,363,1; fill 1,0000ff,372,1; fill 1,0000ff,405,1; fill 1,0000ff,410,1; fill 1,0000ff,421,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,82,1; fill 1,0000ff,93,1; fill 1,0000ff,98,1; fill 1,0000ff,141,1; fill 1,0000ff,157,1; fill 1,0000ff,173,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,395,1; fill 1,0000ff,404,1; fill 1,0000ff,411,1; fill 1,0000ff,420,1; fill 1,0000ff,427,1; fill 1,0000ff,468,1; fill 1,0000ff,475,1; fill 1,0000ff,484,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,83,1; fill 1,0000ff,92,1; fill 1,0000ff,99,1; fill 1,0000ff,140,1; fill 1,0000ff,156,1; fill 1,0000ff,172,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,396,1; fill 1,0000ff,403,1; fill 1,0000ff,412,1; fill 1,0000ff,419,1; fill 1,0000ff,428,1; fill 1,0000ff,467,1; fill 1,0000ff,476,1; fill 1,0000ff,483,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,84,1; fill 1,0000ff,91,1; fill 1,0000ff,100,1; fill 1,0000ff,139,1; fill 1,0000ff,155,1; fill 1,0000ff,171,1; fill 1,0000ff,195,1; fill 1,0000ff,204,1; fill 1,0000ff,220,1; fill 1,0000ff,236,1; fill 1,0000ff,243,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,323,1; fill 1,0000ff,339,1; fill 1,0000ff,355,1; fill 1,0000ff,371,1; fill 1,0000ff,397,1; fill 1,0000ff,402,1; fill 1,0000ff,413,1; fill 1,0000ff,418,1; fill 1,0000ff,429,1; fill 1,0000ff,466,1; fill 1,0000ff,477,1; fill 1,0000ff,482,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,149,1; fill 1,0000ff,154,1; fill 1,0000ff,165,1; fill 1,0000ff,196,1; fill 1,0000ff,203,1; fill 1,0000ff,219,1; fill 1,0000ff,235,1; fill 1,0000ff,244,1; fill 1,0000ff,259,1; fill 1,0000ff,275,1; fill 1,0000ff,291,1; fill 1,0000ff,307,1; fill 1,0000ff,322,1; fill 1,0000ff,333,1; fill 1,0000ff,338,1; fill 1,0000ff,349,1; fill 1,0000ff,354,1; fill 1,0000ff,365,1; fill 1,0000ff,370,1; fill 1,0000ff,401,1; fill 1,0000ff,414,1; fill 1,0000ff,417,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,202,1; fill 1,0000ff,214,1; fill 1,0000ff,217,1; fill 1,0000ff,218,1; fill 1,0000ff,230,1; fill 1,0000ff,234,1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,267,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,283,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,299,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; fill 1,0000ff,334,1; fill 1,0000ff,336,1; fill 1,0000ff,337,1; fill 1,0000ff,350,1; fill 1,0000ff,351,1; fill 1,0000ff,352,1; fill 1,0000ff,353,1; fill 1,0000ff,366,1; render
-delay 25
-delay 20
+delay 70
 fill 1; fill 1,0000ff,258,1; fill 1,0000ff,259,1; fill 1,0000ff,260,1; fill 1,0000ff,266,1; fill 1,0000ff,267,1; fill 1,0000ff,270,1; fill 1,0000ff,272,1; fill 1,0000ff,273,1; fill 1,0000ff,274,1; fill 1,0000ff,275,1; fill 1,0000ff,278,1; fill 1,0000ff,281,1; fill 1,0000ff,282,1; fill 1,0000ff,283,1; fill 1,0000ff,286,1; fill 1,0000ff,287,1; fill 1,0000ff,288,1; fill 1,0000ff,289,1; fill 1,0000ff,290,1; fill 1,0000ff,291,1; fill 1,0000ff,294,1; fill 1,0000ff,298,1; fill 1,0000ff,299,1; fill 1,0000ff,302,1; fill 1,0000ff,306,1; fill 1,0000ff,307,1; fill 1,0000ff,308,1; render
-delay 25
-delay 30
-delay 20
+delay 70
 fill 1; render
+delay 500

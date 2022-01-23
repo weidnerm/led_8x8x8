@@ -1,0 +1,2 @@
+
+export SEQ=flash_3; python3 led_cube.py -g $SEQ; scp seq_$SEQ.txt pi@led888rgb.local:proj/led_strip/rpi-ws2812-server/Sequences/temp.txt && ssh pi@led888rgb.local "time sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f /home/pi/proj/led_strip/rpi-ws2812-server/Sequences/temp.txt"
