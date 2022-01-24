@@ -74,7 +74,7 @@ class Led_Cube_8x8x8():
 
         self.seq_list = [
             ("0000.dat" , 'all LEDs on'),
-#            ("0001.dat" , 'all LEDs on for '),
+#            ("0001.dat" , 'all LEDs on for a minute or so'),
             ("0002.dat" , 'flat plane falling down once'),
             ("0003.dat" , 'flat plane falling down once'),
             ("0004.dat" , 'flat plane falling down once'),
@@ -1943,6 +1943,10 @@ class Led_Cube_8x8x8():
     def send_file(self, filename, delay):
         fh = open(filename, 'rb')
 
+        new_delay = 50+int(delay)
+        if '0028.dat' in filename:
+            new_delay = 0
+
         while True:
             data = list(fh.read(0x48))
 
@@ -1960,7 +1964,7 @@ class Led_Cube_8x8x8():
                 self.clear()
                 pixel_list = self.correct_orientation(intdata)
                 self.store_pixel_array(pixel_list)
-                self.send_display()
+                self.send_display(delay=new_delay)
 
             bytesread = 0
 
