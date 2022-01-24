@@ -124,6 +124,7 @@ class Led_Cube_8x8x8():
             ('flash_21' , 'rotating biting pacman'),
             ('flash_22' , 'stargate transport guy'),
             ('flash_23' , 'rotating concentric rings like contact wormhole generator'),
+            ('flash_24' , 'rotating rainbow square'),
             ('drum_1'   , 'drum surface pulsing'),
             ('earth_1'   , 'rotating earth'),
         ]
@@ -1850,6 +1851,76 @@ class Led_Cube_8x8x8():
             self.store_pixel_array(new_pixels)
             self.send_display(delay=0)
             self.sleep([0,0.010][self.delay_index])
+
+
+
+
+    def flash_24(self):
+        self.clear()
+
+        img0 = ['XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                'XXXXXXXX']
+
+
+        colors = []
+        for row_index in range(8):
+            for col_index in range(8):
+                color = self.get_color_from_wheel(int(256*2*row_index/3/8))
+                # color = self.get_color_from_wheel(int(256*2/3*(col_index+row_index)/16))
+                colors.append(color)
+
+
+        # generate outer ring = 0
+        img_pixels_raw_0 = self.string_plane_to_xyz_list(img0, plane='xz')
+        img_pixels0 = self.get_translate_matrix(-3.5, 0, -3.5).dot(img_pixels_raw_0)
+
+        x0_angle = 0.0
+        y0_angle = 0.0
+        z0_angle = 0.0
+        for angle_index in range(16*20+4+1):
+            transform0 = self.get_translate_matrix( 0,0,0)
+            transform0 = self.get_rotate_x_matrix( x0_angle ).dot(transform0)
+            transform0 = self.get_rotate_z_matrix( z0_angle ).dot(transform0)
+            transform0 = self.get_rotate_y_matrix( y0_angle ).dot(transform0)
+            transform0 = self.get_translate_matrix(  3.5,   3.5,   3.5).dot(transform0)
+            new_pixels0 = transform0.dot(img_pixels0)
+
+            new_pixels = new_pixels0
+
+            # do single axis rotations
+            if ((angle_index >= 0) and (angle_index < 32)) :
+                x0_angle += 22.5/2
+            if ((angle_index >= 32) and (angle_index < 64+8)) :
+                z0_angle += 22.5/2
+            if ((angle_index >= 64+8) and (angle_index < 64+8+32)) :
+                y0_angle += 22.5/2
+
+
+            # expand to multi axis rotations
+            if ((angle_index >= 64+8+32) and (angle_index < 9999999)):
+                x0_angle += 22.5/4
+            if ((angle_index >= 64+8+32+16) and (angle_index < 9999999)):
+                z0_angle += 22.5/8
+            if ((angle_index >= 64+8+32+16+16) and (angle_index < 9999999)):
+                y0_angle += 22.5/10
+
+
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(new_pixels, colors=colors)
+            if angle_index == 0:
+                self.sleep(1) # display before rotating
+            # elif angle_index == 32 or angle_index == 64+8 or angle_index == 64+8+32:
+            #     self.sleep(0.5) # display before rotating
+
+            self.sleep([0,0.030][self.delay_index])
+
+        self.sleep(1) # display before clearing when done
 
 
 
@@ -3616,6 +3687,8 @@ class Led_Cube_8x8x8():
             self.flash_22()
         elif seq == 'flash_23':
             self.flash_23()
+        elif seq == 'flash_24':
+            self.flash_24()
         elif seq == 'drum_1':
             self.drum_1()
         elif seq == 'earth_1':
@@ -3873,132 +3946,6 @@ class Led_Cube_8x8x8():
                 self.sleep([0,0.04][self.delay_index])
             self.sleep(1)
 
-        # #
-        # # do the vibration mode 1,0
-        # #
-        # self.zero_cross_count = 0
-        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':1, 'n':0, 'c':0.1}
-        # for time_index in range(calc_points):
-        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
-
-        #     if self.zero_cross_count > 20:
-        #         break
-
-        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == '':
-        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # else:
-        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-
-        # #
-        # # flip the plane
-        # #
-        # self.sleep(1)
-        # for index in range(10+1):
-        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
-        #     transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
-        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-        #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-        # self.sleep(1)
-
-
-
-
-        # #
-        # # do the vibration mode 0,1
-        # #
-        # self.zero_cross_count = 0
-        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':0, 'n':1, 'c':0.1}
-        # for time_index in range(calc_points):
-        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
-
-        #     if self.zero_cross_count > 20:
-        #         break
-
-        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == '':
-        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # else:
-        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-
-
-        # #
-        # # flip the plane
-        # #
-        # self.sleep(1)
-        # for index in range(10+1):
-        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
-        #     transform = self.get_rotate_x_matrix( -index/10.0*180.0).dot(transform)
-        #     transform = self.get_rotate_y_matrix( index/10.0*180.0).dot(transform)
-        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-        #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-        # self.sleep(1)
-
-
-
-
-        # #
-        # # do the vibration mode 0,2
-        # #
-        # self.zero_cross_count = 0
-        # parms={'a':4, 'A':1.5, 'B':1.5, 'C':1, 'D':1, 'm':0, 'n':2, 'c':0.1}
-        # for time_index in range(calc_points):
-        #     points_raw = self.calc_drum_x_y(0, 0, 0, time_index*time_scale_factor, parms)
-
-        #     if self.zero_cross_count > 100:
-        #         break
-
-        #     transform = self.get_translate_matrix(  3.5,   3.5,   3.5)
-        #     new_pixels = transform.dot(points_raw)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(new_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(new_pixels)
-        # if self.generate == '':
-        #     self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        # else:
-        #     self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-
-        # #
-        # # flip the plane
-        # #
-        # self.sleep(1)
-        # for index in range(10+1):
-        #     transform = self.get_translate_matrix( -3.5,-3.5,0)
-        #     transform = self.get_rotate_x_matrix( index/10.0*180.0).dot(transform)
-        #     transform = self.get_translate_matrix( 3.5,3.5,0).dot(transform)
-        #     transform = self.get_translate_matrix( 0,0,3.75).dot(transform)
-        #     flat_pane_pixels = transform.dot(img_flat_plane)
-        #     if self.generate == '':
-        #         self.clear();  self.store_pixel_array(flat_pane_pixels); self.send_display()
-        #     else:
-        #         self.clear();  self.send_pixel_array_to_rgb_commands(flat_pane_pixels)
-        # self.sleep(1)
-
-
-
-        # # a=radius; A - this times sqrt(2) seems to be the height
-        # parms={'a':4, 'A':2.8, 'B':2.8, 'C':1, 'D':1, 'm':2, 'n':0, 'c':0.05}
 
 
     def calc_drum_x_y(self, x_offset, y_offset, z_offset, t, parms):
