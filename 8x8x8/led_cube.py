@@ -4142,7 +4142,7 @@ def main():
         for index in range(int(args.random_pre)):
             color = led_Cube_8x8x8.get_color_from_wheel(random.randint(0,255))
             filename = random.choice(led_Cube_8x8x8.pre_made_filenames)
-            print(filename)
+            print('color=%s   filename=%s' % (color, filename))
             cmd = 'cat pre_made/%s | sed -e "s:0000ff:%s:g" > pre_made/temp.txt' % (
                 filename, color)
 
