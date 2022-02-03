@@ -125,6 +125,7 @@ class Led_Cube_8x8x8():
             ('flash_22' , 'stargate transport guy'),
             ('flash_23' , 'rotating concentric rings like contact wormhole generator'),
             ('flash_24' , 'rotating rainbow square'),
+            ('flash_25' , 'a few blinking eyes'),
             ('drum_1'   , 'drum surface pulsing'),
             ('earth_1'   , 'rotating earth'),
         ]
@@ -1925,6 +1926,79 @@ class Led_Cube_8x8x8():
 
 
 
+    def flash_25(self):
+        self.clear()
+
+        img0 = ['XX']
+        raw_coords = [
+            [2, 7, 4],
+            [6, 7, 3],
+            [1, 6, 1],
+            [6, 4, 5],
+            [1, 3, 6],
+        ]
+        blink_seq = [
+            {'brightness': 1, 'duration': 100}, # open
+            {'brightness': 0.50, 'duration': 1}, # opening 3
+            {'brightness': 0.25, 'duration': 1}, # opening 2
+            {'brightness': 0.12, 'duration': 1}, # opening 1
+            {'brightness': 0.0, 'duration': 3}, # closed
+            {'brightness': 0.25, 'duration': 1}, # closing
+        ]
+
+        delay = []
+        blink_phase = []
+        brightness = []
+        for index in range(len(raw_coords)):
+            delay.append(random.randint(0,60))
+            blink_phase.append(len(blink_seq)-1 )
+            brightness.append(0)
+
+
+        img_pixels = []
+        img_pixels_raw_0 = self.string_plane_to_xyz_list(img0, plane='xz')
+        for pair_index in range(len(raw_coords)):
+            tmp_pixels = self.get_translate_matrix(
+                raw_coords[pair_index][0],
+                raw_coords[pair_index][1],
+                raw_coords[pair_index][2]).dot(img_pixels_raw_0)
+            img_pixels.append(tmp_pixels)
+
+        pixel_coords = np.array([[],[],[],[]])
+        for pair_index in range(len(raw_coords)):
+            pixel_coords = np.append(pixel_coords, img_pixels[pair_index], axis=1)
+        # colors=['00ff00']*(2*len(raw_coords))
+
+        for tick_index in range(40*20):
+
+            colors = []
+            for pair_index in range(len(raw_coords)):
+                if delay[pair_index] > 0:
+                    delay[pair_index] -= 1
+
+                if delay[pair_index] == 0:  #we've timed out in oru state
+                    if blink_phase[pair_index] > 0:  # not yet done with blinking
+                        blink_phase[pair_index] -= 1
+                        delay[pair_index] = blink_seq[blink_phase[pair_index]]['duration']
+                        brightness[pair_index] = blink_seq[blink_phase[pair_index]]['brightness']
+                    else:
+                        delay[pair_index] = random.randint(80,160)
+                        blink_phase[pair_index] = len(blink_seq)
+
+                tmp_brightness = brightness[pair_index]
+                tmp_color = '%02x%02x%02x' % (0,int(255*tmp_brightness),0)
+                colors.append(tmp_color)
+                colors.append(tmp_color)
+
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(pixel_coords, colors=colors)  # grb;  red
+            self.sleep(0.025)
+
+        self.sleep(1) # display before clearing when done
+
+
+
+
     def send_display(self, delay=70):
         for i in range(len(self.display)):
             # ~ if self.display[i] < 0:
@@ -3693,6 +3767,8 @@ class Led_Cube_8x8x8():
             self.flash_23()
         elif seq == 'flash_24':
             self.flash_24()
+        elif seq == 'flash_25':
+            self.flash_25()
         elif seq == 'drum_1':
             self.drum_1()
         elif seq == 'earth_1':
