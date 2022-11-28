@@ -11,10 +11,10 @@ import math
 import random
 import sys
 import os
-try:
-    from scipy.special import jn, jn_zeros
-except Exception as e:
-    pass
+# ~ try:
+from scipy.special import jn, jn_zeros
+# ~ except Exception as e:
+    # ~ pass
 try:
     from PIL import Image
 except Exception as e:
@@ -24,6 +24,7 @@ from CommandRunner import CommandRunner, CommandResult
 
 class Led_Cube_8x8x8():
     def __init__(self, args):
+        self.args=args
         self.portname = args.port
         self.baudrate = args.baud
 
@@ -143,7 +144,7 @@ class Led_Cube_8x8x8():
     def get_pre_made_filenames(self):
         pre_made_files = []
 
-        files = os.listdir('pre_made')
+        files = os.listdir(self.args.premade_dir)
         for filename in files:
             if filename.startswith('seq_') and filename.endswith('.txt'):
                 pre_made_files.append(filename)
@@ -4110,6 +4111,7 @@ def main():
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
     parser.add_argument('-rp', '--random_pre', default=0, help='run this many random sequences. zero is infinite')
+    parser.add_argument('-pd', '--premade_dir', default='pre_made', help='folder where premade sequences are found')
     parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
     parser.add_argument('--reps', default=1, help='repetitions')
 
@@ -4143,13 +4145,13 @@ def main():
             color = led_Cube_8x8x8.get_color_from_wheel(random.randint(0,255))
             filename = random.choice(led_Cube_8x8x8.pre_made_filenames)
             print('color=%s   filename=%s' % (color, filename))
-            cmd = 'cat pre_made/%s | sed -e "s:0000ff:%s:g" > pre_made/temp.txt' % (
-                filename, color)
+            cmd = 'cat %s/%s | sed -e "s:0000ff:%s:g" > %s/temp.txt' % (
+                args.premade_dir, filename, color, args.premade_dir)
 
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
 
-            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f pre_made/temp.txt'
+            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s/temp.txt' % (args.premade_dir)
 
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
@@ -4183,5 +4185,6 @@ if __name__ == "__main__":
 # vu meter with time scroll
 # plasma cube sort of like plasma globe
 # diagonal line sweeping out a cone without filling it in then filling it in.
-#
+# countdown and flash or something
+
 
