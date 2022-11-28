@@ -3719,7 +3719,7 @@ class Led_Cube_8x8x8():
         print('Running sequence %d/%d %s' % (index+1, total, seq))
         # handle data files
         if seq.endswith('.dat'):
-            self.send_file("examples/" + seq, delay)
+            self.send_file(self.args.examples_dir + "/" + seq, delay)
 
         # handle code sequences
         elif seq == 'flash_2':
@@ -3781,7 +3781,7 @@ class Led_Cube_8x8x8():
 
         if self.rgb == True or self.generate != '':
             # ~ filename = 'led_rgb_temp.txt'
-            filename = 'seq_%s.txt' % (seq)
+            filename = '/tmp/seq_%s.txt' % (seq)
 
             fh = open(filename, 'w')
             fh.write('\n'.join(self.outfile)+'\n')
@@ -4112,6 +4112,7 @@ def main():
     parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
     parser.add_argument('-rp', '--random_pre', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-pd', '--premade_dir', default='pre_made', help='folder where premade sequences are found')
+    parser.add_argument('-ed', '--examples_dir', default='examples', help='folder where premade sequences are found')
     parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
     parser.add_argument('--reps', default=1, help='repetitions')
 
