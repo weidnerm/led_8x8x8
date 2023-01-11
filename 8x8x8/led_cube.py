@@ -127,6 +127,8 @@ class Led_Cube_8x8x8():
             ('flash_23' , 'rotating concentric rings like contact wormhole generator'),
             ('flash_24' , 'rotating rainbow square'),
             ('flash_25' , 'a few blinking eyes'),
+            ('flash_26' , 'a cone'),
+            ('flash_27' , 'a hypercube'),
             ('drum_1'   , 'drum surface pulsing'),
             ('earth_1'   , 'rotating earth'),
         ]
@@ -1999,6 +2001,217 @@ class Led_Cube_8x8x8():
 
 
 
+    def flash_26(self):
+        self.clear()
+
+        img0 = ['XXXXXXXXX']
+        
+        full_pixel_array = np.array([[],[],[],[]])
+        full_colors = []
+
+        # ~ colors = [self.get_color_from_wheel(int(256*2*0/3/8))] *len(img0[0])
+        colors = ['0000ff'] *len(img0[0])
+        white_line_colors = ['ffffff'] *len(img0[0])
+
+        # create diagonal line to become cone 
+        img_pixels0 = self.string_plane_to_xyz_list(img0, plane='xz')
+        img_pixels0 = self.get_rotate_y_matrix( 90 ).dot(img_pixels0)
+        img_pixels0 = self.get_translate_matrix(0, 0, 0).dot(img_pixels0)
+        img_pixels0 = self.get_rotate_y_matrix( 25 ).dot(img_pixels0)
+
+        x0_angle = 0.0
+        y0_angle = 0.0
+        z0_angle = 0.0
+
+        # generate lines to form cone
+        lines_list = []
+        for angle_index in range(32):
+            transform0 = self.get_translate_matrix( 0,0,0)
+            transform0 = self.get_rotate_x_matrix( x0_angle ).dot(transform0)
+            transform0 = self.get_rotate_z_matrix( z0_angle ).dot(transform0)
+            transform0 = self.get_rotate_y_matrix( y0_angle ).dot(transform0)
+            transform0 = self.get_translate_matrix(  4,   3,   7).dot(transform0)
+            new_pixels0 = transform0.dot(img_pixels0)
+            lines_list.append(new_pixels0)
+
+            if ((angle_index >= 0) and (angle_index < 32)) :
+                z0_angle += 22.5/2
+
+        # sweep lines by itself
+        for angle_index in range(32*3+1):
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(lines_list[angle_index % len(lines_list)], colors=white_line_colors)
+            self.sleep([0,0.030][self.delay_index])
+
+        # sweep lines and accumulate into full cone
+        for angle_index in range(32):
+            full_pixel_array = np.append(full_pixel_array, lines_list[angle_index], axis=1)
+            if angle_index == 0:
+                full_colors = full_colors + white_line_colors
+            else:
+                full_colors = colors + full_colors
+
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(full_pixel_array, colors=full_colors)
+            self.sleep([0,0.030][self.delay_index])
+
+        # sweep white line on cone
+        full_colors = ['0000ff']*(len(img0[0])*len(lines_list))
+        for angle_index in range(32*3+1):
+
+            temp_colors = full_colors + white_line_colors
+            temp_pixels = np.append(full_pixel_array, lines_list[angle_index% len(lines_list)], axis=1)
+
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(temp_pixels, colors=temp_colors)
+            self.sleep([0,0.030][self.delay_index])
+
+        self.sleep(1) # display before clearing when done
+
+        # rotate whole cone
+        temp_colors = full_colors + white_line_colors
+        temp_pixels = np.append(full_pixel_array, lines_list[0], axis=1)
+        for angle_index in range(16+1):
+        
+            img_pixels0 = self.get_translate_matrix(0, -3, -3.5).dot(temp_pixels)
+            img_pixels0 = self.get_rotate_x_matrix( angle_index*180/16 ).dot(img_pixels0)
+            img_pixels0 = self.get_translate_matrix(0, 3, 3.5).dot(img_pixels0)
+            
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(img_pixels0, colors=temp_colors)
+            self.sleep([0,0.030][self.delay_index])
+
+        self.sleep(1) # display before clearing when done
+
+        # rotate whole cone off screen
+        temp_colors = full_colors + white_line_colors
+        temp_pixels = np.append(full_pixel_array, lines_list[0], axis=1)
+        for angle_index in range(32+1):
+        
+            img_pixels0 = self.get_translate_matrix(0, -3, -3.5).dot(temp_pixels)
+            img_pixels0 = self.get_rotate_x_matrix( 180 ).dot(img_pixels0)
+            img_pixels0 = self.get_translate_matrix(0, 3, 3.5).dot(img_pixels0)
+            img_pixels0 = self.get_translate_matrix(float(angle_index)/4, 0, 0).dot(img_pixels0)
+            
+            self.clear()
+            self.send_pixel_array_to_rgb_commands(img_pixels0, colors=temp_colors)
+            self.sleep([0,0.030*4][self.delay_index])
+
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+
+    def flash_27(self):
+        self.clear()
+
+        img0 = ['XXXXXXXX',
+                'X......X',
+                'X......X',
+                'X......X',
+                'X......X',
+                'X......X',
+                'X......X',
+                'XXXXXXXX']
+        img_pixels_raw_0 = self.string_plane_to_xyz_list(img0, plane='xz')
+        img_pixels0 = self.get_translate_matrix(0, 0, 0).dot(img_pixels_raw_0)
+
+
+        img1 = ['X......X',
+                '.X....X.',
+                '........',
+                '........',
+                '........',
+                '........',
+                '.X....X.',
+                'X......X']
+        img_pixels_raw_1 = self.string_plane_to_xyz_list(img1, plane='xz')
+        img_pixels1 = self.get_translate_matrix(0, 1, 0).dot(img_pixels_raw_1)
+
+
+        img2 = ['X......X',
+                '........',
+                '..XXXX..',
+                '..X..X..',
+                '..X..X..',
+                '..XXXX..',
+                '........',
+                'X......X']
+        img_pixels_raw_2 = self.string_plane_to_xyz_list(img2, plane='xz')
+        img_pixels2 = self.get_translate_matrix(0, 2, 0).dot(img_pixels_raw_2)
+
+
+        img3 = ['X......X',
+                '........',
+                '..X..X..',
+                '........',
+                '........',
+                '..X..X..',
+                '........',
+                'X......X']
+        img_pixels_raw_3 = self.string_plane_to_xyz_list(img3, plane='xz')
+        img_pixels3 = self.get_translate_matrix(0, 3, 0).dot(img_pixels_raw_3)
+
+        img_pixels4 = self.get_translate_matrix(0, 4, 0).dot(img_pixels_raw_3)
+
+        img_pixels5 = self.get_translate_matrix(0, 5, 0).dot(img_pixels_raw_2)
+
+        img_pixels6 = self.get_translate_matrix(0, 6, 0).dot(img_pixels_raw_1)
+
+        img_pixels7 = self.get_translate_matrix(0, 7, 0).dot(img_pixels_raw_0)
+
+
+
+        cube_pixels = np.append(img_pixels0, img_pixels1, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels2, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels3, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels4, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels5, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels6, axis=1)
+        cube_pixels = np.append(cube_pixels, img_pixels7, axis=1)
+
+
+        self.clear()
+        self.send_pixel_array_to_rgb_commands(cube_pixels, color='0000ff')
+        self.sleep([0,0.030][self.delay_index])
+
+        for reps in range(3):
+            self.sleep(2) # display before clearing when done
+
+            x0_angle = 0.0
+            y0_angle = 0.0
+            z0_angle = 0.0
+            scale = 1.0
+
+            for angle_index in range(32*2+1):
+                transform0 = self.get_translate_matrix( -3.5, -3.5, -3.5)
+                transform0 = self.get_scale_matrix( scale, scale, scale ).dot(transform0)
+                transform0 = self.get_rotate_x_matrix( x0_angle ).dot(transform0)
+                transform0 = self.get_rotate_z_matrix( z0_angle ).dot(transform0)
+                transform0 = self.get_rotate_y_matrix( y0_angle ).dot(transform0)
+                transform0 = self.get_translate_matrix( 3.5, 3.5, 3.5).dot(transform0)
+                temp_pixels = transform0.dot(cube_pixels)
+
+                z0_angle += 360.0/32
+                y0_angle += 360.0/32
+                if angle_index < 32:
+                    scale *= .9
+                else:
+                    scale /= .9
+
+                self.clear()
+                self.send_pixel_array_to_rgb_commands(temp_pixels, color='0000ff')
+                self.sleep(0.03)
+
+
+
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+
+
+
+
+
 
     def send_display(self, delay=70):
         for i in range(len(self.display)):
@@ -3770,6 +3983,10 @@ class Led_Cube_8x8x8():
             self.flash_24()
         elif seq == 'flash_25':
             self.flash_25()
+        elif seq == 'flash_26':
+            self.flash_26()
+        elif seq == 'flash_27':
+            self.flash_27()
         elif seq == 'drum_1':
             self.drum_1()
         elif seq == 'earth_1':
@@ -4147,12 +4364,12 @@ def main():
             filename = random.choice(led_Cube_8x8x8.pre_made_filenames)
             print('color=%s   filename=%s' % (color, filename))
             cmd = 'cat %s/%s | sed -e "s:0000ff:%s:g" > %s/temp.txt' % (
-                args.premade_dir, filename, color, args.premade_dir)
+                args.premade_dir, filename, color, '/tmp')
 
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
 
-            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s/temp.txt' % (args.premade_dir)
+            cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s/temp.txt' % ('/tmp')
 
             result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
             print('\n'.join(result.out))
@@ -4185,7 +4402,6 @@ if __name__ == "__main__":
 # jump rope of some kind
 # vu meter with time scroll
 # plasma cube sort of like plasma globe
-# diagonal line sweeping out a cone without filling it in then filling it in.
 # countdown and flash or something
 
 
