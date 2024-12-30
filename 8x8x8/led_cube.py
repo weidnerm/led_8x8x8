@@ -129,6 +129,7 @@ class Led_Cube_8x8x8():
             ('flash_25' , 'a few blinking eyes'),
             ('flash_26' , 'a cone'),
             ('flash_27' , 'a hypercube'),
+            ('flash_28' , 'laser printed msg'),
             ('drum_1'   , 'drum surface pulsing'),
             ('earth_1'   , 'rotating earth'),
         ]
@@ -2209,6 +2210,119 @@ class Led_Cube_8x8x8():
         self.sleep(1) # display before clearing when done
 
 
+    def flash_28(self):
+        self.clear()
+
+        img =  ['........',
+                '.XXXXXX.',
+                '...XX...',
+                '...XX...',
+                '...XX...',
+                '...XX...',
+                '.XXXXXX.',
+                '........']
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_I = self.get_translate_matrix( 0,  7,  0).dot(img_pixels_raw)
+
+        img =  ['.XX..XX.',
+                'XXX..XXX',
+                'XXXXXXXX',
+                'XXXXXXXX',
+                '.XXXXXX.',
+                '.XXXXXX.',
+                '..XXXX..',
+                '...XX...']
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_heart = self.get_translate_matrix( 0,  5,  0).dot(img_pixels_raw)
+
+
+        img =  ['........',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XX..XX.',
+                '.XXXXXX.',
+                '..XXXX..',
+                '........']
+        img_pixels_raw = self.string_plane_to_xyz_list(img, plane='xz')
+        img_pixels_U = self.get_translate_matrix( 0,  3,  0).dot(img_pixels_raw)
+
+        # ~ self.send_pixel_array_to_rgb_commands(img_pixels_I, color='0000ff')
+        # ~ self.sleep(1)
+        # ~ self.send_pixel_array_to_rgb_commands(img_pixels_heart, color='0000ff')
+        # ~ self.sleep(1)
+        # ~ self.send_pixel_array_to_rgb_commands(img_pixels_U, color='0000ff')
+        # ~ self.sleep(1)
+
+        start = np.array([[0.0], [0.0], [0.0], [1]])
+        end = np.array([[7.0], [3.0], [1.0], [1]])
+
+        laser_end_pixel = np.array([[0], [0], [0], [1]])
+        
+        full_msg_pixels = np.append(img_pixels_I, img_pixels_heart, axis=1)
+        full_msg_pixels = np.append(full_msg_pixels, img_pixels_U, axis=1)
+        full_msg_colors = ['ff0000'] * img_pixels_I.shape[1]
+        full_msg_colors += ['00ff00'] * img_pixels_heart.shape[1]
+        full_msg_colors += ['0101ff'] * img_pixels_U.shape[1] 
+        
+        for views in range(2):
+            # etch the I
+            for frame in range(full_msg_pixels.shape[1]):
+                frame_pixels = np.array([[],[],[],[]])
+                colors = []
+                for index in range(frame):
+                    temp = np.array([[full_msg_pixels[0,index]], [full_msg_pixels[1,index]], [full_msg_pixels[2,index]], [1]])
+                    # ~ frame_pixels = np.append(frame_pixels, temp)
+                    frame_pixels = np.append(frame_pixels, temp, axis=1)
+                colors = full_msg_colors[:frame]
+                
+                # get point for laser to hit
+                temp = np.array([[full_msg_pixels[0,frame]], [full_msg_pixels[1,frame]], [full_msg_pixels[2,frame]], [1]])
+                line = self.line_np(laser_end_pixel, temp)
+                colors = colors + (['ffffff'] * line.shape[1])
+                frame_pixels = np.append(frame_pixels, line, axis=1)
+                
+                self.sleep(0.05)
+                self.send_pixel_array_to_rgb_commands(frame_pixels, colors=colors)
+                    
+            # display the I
+            self.send_pixel_array_to_rgb_commands(full_msg_pixels, colors=full_msg_colors)
+            self.sleep(2)
+
+            for angle_index in range(16+32+1):
+                transform0 = self.get_translate_matrix( -3.5,-3.5,0)
+                transform0 = self.get_rotate_x_matrix( 0 ).dot(transform0)
+                transform0 = self.get_rotate_z_matrix( angle_index*360.0/32 ).dot(transform0)
+                transform0 = self.get_rotate_y_matrix( 0 ).dot(transform0)
+                transform0 = self.get_translate_matrix(  3.5,   3.5,   0).dot(transform0)
+                new_pixels0 = transform0.dot(full_msg_pixels)
+                self.send_pixel_array_to_rgb_commands(new_pixels0, colors=full_msg_colors)
+
+            for steps in range(6):
+                shifted_pixels = self.get_translate_matrix( 0,  -steps,  0).dot(new_pixels0)
+                self.send_pixel_array_to_rgb_commands(shifted_pixels, colors=full_msg_colors)
+                self.sleep(1)
+
+
+        # ~ cube_pixels = np.append(img_pixels0, img_pixels1, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels2, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels3, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels4, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels5, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels6, axis=1)
+        # ~ cube_pixels = np.append(cube_pixels, img_pixels7, axis=1)
+
+
+                # ~ self.clear()
+                # ~ self.send_pixel_array_to_rgb_commands(temp_pixels, color='0000ff')
+                # ~ self.sleep(0.03)
+
+
+
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+        self.sleep(1) # display before clearing when done
+
 
 
 
@@ -2820,6 +2934,36 @@ class Led_Cube_8x8x8():
         # ~ point(x2,y2,z2,le);
         self.point(x2,y2,z2,le)
 
+    def test_line(self):
+        start = np.array([[0.0], [0.0], [0.0], [1]])
+        end = np.array([[7.0], [3.0], [1.0], [1]])
+        
+        line = self.line_np(start,end)
+        print(line)
+
+    def line_np(self, start, end):
+        line_points = np.array([[], [], [], []])
+        
+        full_delta = end-start
+        # ~ print('full_delta=%s' % (full_delta))
+        
+        ortho_len = full_delta[0]+full_delta[1]+full_delta[2]  # add up the directions for total length
+        # ~ print('ortho_len=%s' % (ortho_len))
+
+        delta = full_delta/ortho_len
+        # ~ print('delta=%s' % (delta))
+        
+        temp = start
+        for index in range(int(ortho_len)):
+            line_points = np.append(line_points, temp, axis=1)
+            temp = temp + delta
+            # ~ print('   line_points=%s' % (line_points))
+            # ~ print('   temp=%s' % (temp))
+        line_points = np.append(line_points, end, axis=1)
+        # ~ print('line_points=%s' % (line_points))
+            
+        return line_points
+        
 
     # ~ void trans(uchar z,uint speed)
     def trans(self, z, speed):
@@ -3987,6 +4131,8 @@ class Led_Cube_8x8x8():
             self.flash_26()
         elif seq == 'flash_27':
             self.flash_27()
+        elif seq == 'flash_28':
+            self.flash_28()
         elif seq == 'drum_1':
             self.drum_1()
         elif seq == 'earth_1':
@@ -4328,6 +4474,7 @@ def main():
     parser.add_argument('-r', '--random', default=0, help='run this many random sequences. zero is infinite')
     parser.add_argument('-g', '--generate', default='', help='generate specific sequence(s) for ws2812 or all. comma separated list')
     parser.add_argument('-rp', '--random_pre', default=0, help='run this many random sequences. zero is infinite')
+    parser.add_argument('-pre', '--premade', default='', help='run this premade file')
     parser.add_argument('-pd', '--premade_dir', default='pre_made', help='folder where premade sequences are found')
     parser.add_argument('-ed', '--examples_dir', default='examples', help='folder where premade sequences are found')
     parser.add_argument('-l', '--list', action='store_true', help='list the sequences')
@@ -4335,9 +4482,8 @@ def main():
 
     args = parser.parse_args()
 
-
     led_Cube_8x8x8 = Led_Cube_8x8x8(args)
-
+    
     if args.math != 0:
         led_Cube_8x8x8.math_test()
         # ~ pass
@@ -4362,7 +4508,7 @@ def main():
         for index in range(int(args.random_pre)):
             color = led_Cube_8x8x8.get_color_from_wheel(random.randint(0,255))
             filename = random.choice(led_Cube_8x8x8.pre_made_filenames)
-            print('color=%s   filename=%s' % (color, filename))
+            print('color=%s   filename=%s  %d/%d' % (color, filename, index, int(args.random_pre)))
             cmd = 'cat %s/%s | sed -e "s:0000ff:%s:g" > %s/temp.txt' % (
                 args.premade_dir, filename, color, '/tmp')
 
@@ -4375,6 +4521,23 @@ def main():
             print('\n'.join(result.out))
 
             time.sleep(0.5)
+            
+    elif args.premade != '':
+        color = led_Cube_8x8x8.get_color_from_wheel(random.randint(0,255))
+        filename = args.premade
+        print('color=%s   filename=%s' % (color, filename))
+        cmd = 'cat %s/%s | sed -e "s:0000ff:%s:g" > %s/temp.txt' % (
+            args.premade_dir, filename, color, '/tmp')
+
+        result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
+        print('\n'.join(result.out))
+
+        cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f %s/temp.txt' % ('/tmp')
+
+        result = CommandRunner().runCommand(cmd, CommandRunner.NO_LOG)
+        print('\n'.join(result.out))
+
+        time.sleep(0.5)
 
     elif args.canned != 0:
         for index in range(int(args.reps)):
@@ -4403,5 +4566,12 @@ if __name__ == "__main__":
 # vu meter with time scroll
 # plasma cube sort of like plasma globe
 # countdown and flash or something
+# red and green rotating quadrants.
+# laser etching of I heart U or something like that.
+# planes at off angles passing through cube.
+# lasers 3d print a heart
+
+
+
 
 
