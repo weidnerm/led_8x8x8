@@ -1,0 +1,4 @@
+setup channel_1_count=512
+brightness 1,59
+fill 1,000000,0,LEN
+render
