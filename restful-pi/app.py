@@ -1,126 +1,197 @@
 from flask import Flask
 from flask_restplus import Api, Resource, fields
-import RPi.GPIO as GPIO
-
+import os
+import psutil
+import signal
 
 app = Flask(__name__)
 api = Api(app,
           version='1.0',
           title='RESTful Pi',
-          description='A RESTful API to control the GPIO pins of a Raspbery Pi',
+          description='A RESTful API to control the LED CUBE of a Raspbery Pi',
           doc='/docs')
 
-ns = api.namespace('pins', description='Pin related operations')
+ns = api.namespace('light', description='Pin related operations')
 
-pin_model = api.model('pins', {
-    'id': fields.Integer(readonly=True, description='The pin unique identifier'),
-    'pin_num': fields.Integer(required=True, description='GPIO pin associated with this endpoint'),
-    'color': fields.String(required=True, description='LED color'),
-    'state': fields.String(required=True, description='LED on or off')
+light_model = api.model('light', {
+    'brightness': fields.Integer(required=True, description='Light brighness 0-255'),
+    'rgb': fields.String(required=True, description='Light color. 6 digit hex rgb'),
+    'state': fields.String(required=True, description='Light on or off'),
+    'effect': fields.String(required=False, description='Active effect or empty string')
 })
 
 
-class PinUtil(object):
+class LightUtil(object):
     def __init__(self):
         self.counter = 0
-        self.pins = []
+        # ~ self.pins = []
+        self.light = {
+            "rgb": "ffffff",
+            "state": "off",
+            "brightness": 32,
+            "effect": ''
+        }
+            
 
-    def get(self, id):
-        for pin in self.pins:
-            if pin['id'] == id:
-                return pin
-        api.abort(404, f"pin {id} doesn't exist.")
+    def get(self):
+        return self.light
+        
+    def get_pre_made_filenames(self):
+        pre_made_files = []
+
+        files = os.listdir('/home/pi/proj/led_8x8x8/8x8x8/pre_made')
+        for filename in files:
+            if filename.startswith('seq_') and filename.endswith('.txt'):
+                filename = filename[4:-4]  # drop leading seq_ and trailing .txt
+                pre_made_files.append(filename)
+
+        pre_made_files.sort()
+        
+        return pre_made_files
 
     def create(self, data):
-        pin = data
-        pin['id'] = self.counter = self.counter + 1
-        self.pins.append(pin)
-        GPIO.setup(pin['pin_num'], GPIO.OUT)
-
-        if pin['state'] == 'off':
-            GPIO.output(pin['pin_num'], GPIO.LOW)
-        elif pin['state'] == 'on':
-            GPIO.output(pin['pin_num'], GPIO.HIGH)
-
-        return pin
-
-    def update(self, id, data):
-        pin = self.get(id)
-        pin.update(data)  # this is the dict_object update method
-        GPIO.setup(pin['pin_num'], GPIO.OUT)
-
-        if pin['state'] == 'off':
-            GPIO.output(pin['pin_num'], GPIO.LOW)
-        elif pin['state'] == 'on':
-            GPIO.output(pin['pin_num'], GPIO.HIGH)
-
-        return pin
-
-    def delete(self, id):
-        pin = self.get(id)
-        GPIO.output(pin['pin_num'], GPIO.LOW)
-        self.pins.remove(pin)
+        self.light = data
+        self.generate_command_file()
+        self.send_command_file()
+        return self.light
 
 
-@ns.route('/')  # keep in mind this our ns-namespace (pins/)
+    def update(self, data):
+        cmd = 'sudo python3 /home/pi/proj/rest/restful-pi/ptk_light.py'
+        os.system(cmd)
+        self.light['effect'] = '' # clear out effect since done
+        if data:
+            print('update data: %s' % (data))
+            self.light.update(data)  # this is the dict_object update method
+            if 'effect' in data and data['effect'] != '':  # run effect
+                self.run_effect(data['effect'])
+            else:  
+                self.generate_command_file()
+                self.send_command_file()
+        return self.light
+
+    def delete(self):
+        pass
+
+    def run_effect(self, effect):
+        if effect == 'random_loop':            
+            cmd = 'python /home/pi//proj/led_8x8x8/8x8x8/led_cube.py '\
+                  '--premade_dir /home/pi//proj/led_8x8x8/8x8x8/pre_made '\
+                  '--random_pre %s &' % (5000)
+        else:
+            cmd = 'python /home/pi//proj/led_8x8x8/8x8x8/led_cube.py '\
+                  '--premade_dir /home/pi//proj/led_8x8x8/8x8x8/pre_made '\
+                  '--premade seq_%s.txt &' % (effect)
+        os.system(cmd)
+
+    def generate_command_file(self, filename='temp.txt'):
+        text = []
+    
+        text.append('setup channel_1_count=512')
+        text.append('brightness 1,%d' % (self.light['brightness']))
+        grb = self.light['rgb'][2:4] + self.light['rgb'][0:2] + self.light['rgb'][4:6] # swap red and green since its green-red-blue in hw.
+        if self.light['state'] == 'on':
+            text.append('fill 1,%s,0,LEN' % (grb))
+        else:
+            text.append('fill 1,000000,0,LEN')
+        text.append('render')
+        
+        fh = open(filename, "w")
+        fh.write('\n'.join(text)+'\n')
+        fh.close()
+
+    def send_command_file(self, filename='temp.txt'):
+        cmd = 'sudo /home/pi/proj/led_strip/rpi-ws2812-server/test -f /home/pi/proj/rest/restful-pi/%s &' %(filename)
+        os.system(cmd)
+        
+
+    # ~ def kill_process_and_children(self, pid, sig=signal.SIGTERM):
+        # ~ """Kill a process and all its children processes."""
+        # ~ try:
+            # ~ process = psutil.Process(pid)
+        # ~ except psutil.NoSuchProcess:
+            # ~ return
+
+        # ~ children = process.children(recursive=True)
+        # ~ for child in children:
+            # ~ try:
+                # ~ child.send_signal(sig)
+            # ~ except psutil.NoSuchProcess:
+                # ~ pass
+
+        # ~ try:
+            # ~ process.send_signal(sig)
+        # ~ except :
+            # ~ pass
+
+    # ~ def find_and_kill_process(self):
+        # ~ """Find and kill all processes matching the given name."""
+        # ~ process_name = 'test'
+        # ~ parent_py = 'led_cube.py'
+        # ~ for proc in psutil.process_iter(['pid', 'name', 'ppid', 'cmdline']):
+            # ~ if proc.info['name'] == process_name:
+                # ~ print('name:%s' % (proc.info['name']))
+                # ~ print(proc.info)
+                # ~ self.kill_process_and_children(proc.info['pid'])
+            # ~ if parent_py in proc.info['cmdline']:
+                # ~ print('name:%s' % (proc.info['name']))
+                # ~ print(proc.info)
+                # ~ self.kill_process_and_children(proc.info['pid'])
+                
+
+
+@ns.route('/')  # keep in mind this our ns-namespace (light/)
 class PinList(Resource):
-    """Shows a list of all pins, and lets you POST to add new pins"""
+    """Shows a list of all light, and lets you POST to add new light"""
 
-    @ns.marshal_list_with(pin_model)
+    @ns.marshal_list_with(light_model)
     def get(self):
-        """List all pins"""
-        return pin_util.pins
+        """List all light"""
+        return light_util.light
 
-    @ns.expect(pin_model)
-    @ns.marshal_with(pin_model, code=201)
+    @ns.expect(light_model)
+    @ns.marshal_with(light_model, code=201)
     def post(self):
         """Create a new pin"""
-        return pin_util.create(api.payload)
+        return light_util.create(api.payload)
+
+    @ns.expect(light_model, validate=True)
+    @ns.marshal_with(light_model)
+    def put(self):
+        """Update a pin given its identifier"""
+        return light_util.update(api.payload)
+    
+    @ns.expect(light_model)
+    @ns.marshal_with(light_model)
+    def patch(self):
+        """Partially update a pin given its identifier"""
+        return light_util.update(api.payload)
 
 
-@ns.route('/<int:id>')
-@ns.response(404, 'pin not found')
-@ns.param('id', 'The pin identifier')
+@ns.route('/effect_list')
 class Pin(Resource):
-    """Show a single pin item and lets you update/delete them"""
+    """Gets list of possible effects"""
 
-    @ns.marshal_with(pin_model)
-    def get(self, id):
+    def get(self):
         """Fetch a pin given its resource identifier"""
-        return pin_util.get(id)
+        return {"effect_list": light_util.get_pre_made_filenames()+['random_loop']}
 
-    @ns.response(204, 'pin deleted')
-    def delete(self, id):
+    def delete(self):
         """Delete a pin given its identifier"""
-        pin_util.delete(id)
         return '', 204
 
-    @ns.expect(pin_model, validate=True)
-    @ns.marshal_with(pin_model)
-    def put(self, id):
-        """Update a pin given its identifier"""
-        return pin_util.update(id, api.payload)
+    def put(self):
+        """Fully update a pin given its identifier"""
+        return '', 204
     
-    @ns.expect(pin_model)
-    @ns.marshal_with(pin_model)
-    def patch(self, id):
+    def patch(self):
         """Partially update a pin given its identifier"""
-        return pin_util.update(id, api.payload)
+        return '', 204
 
 
-GPIO.setmode(GPIO.BCM)
 
-pin_util = PinUtil()
-pin_util.create({'pin_num': 23, 'color': 'red', 'state': 'off'})
-pin_util.create({'pin_num': 24, 'color': 'yellow', 'state': 'off'})
-pin_util.create({'pin_num': 25, 'color': 'blue', 'state': 'off'})
-pin_util.create({'pin_num': 22, 'color': 'red', 'state': 'off'})
-pin_util.create({'pin_num': 12, 'color': 'yellow', 'state': 'off'})
-pin_util.create({'pin_num': 16, 'color': 'blue', 'state': 'off'})
-pin_util.create({'pin_num': 20, 'color': 'red', 'state': 'off'})
-pin_util.create({'pin_num': 21, 'color': 'green', 'state': 'off'})
-pin_util.create({'pin_num': 13, 'color': 'yellow', 'state': 'off'})
 
+light_util = LightUtil()
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='192.168.86.70')
