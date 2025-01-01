@@ -1,0 +1,53 @@
+# Loads default set of integrations. Do not remove.
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+# logger:
+#   default: critical
+#   logs:
+#     # log level for a custom integration
+#     custom_components.led888rgb: debug
+
+light:
+  - platform: led888rgb
+    name: "LED 8x8x8 RGB Cube Light"
+    host: 192.168.86.70
+
+amcrest:
+  - host: 192.168.86.64
+    username: admin
+    password: dR7n5Fiab2aa
+    name: front
+    binary_sensors:
+      - motion_detected
+      - online
+    sensors:
+      - sdcard
+      - ptz_preset
+  - host: 192.168.86.61
+    username: admin
+    password: mLVcg7AGjNZV
+    name: back
+    binary_sensors:
+      - motion_detected
+      - online
+    sensors:
+      - sdcard
+      - ptz_preset
+  - host: 192.168.86.30
+    username: admin
+    password: fnizdGgtPPH3
+    name: side
+    binary_sensors:
+      - motion_detected
+      - online
+    sensors:
+      - sdcard
+      - ptz_preset
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
