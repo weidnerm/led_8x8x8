@@ -8,6 +8,7 @@ import sys
 from Effects import Effects
 from MqttLed import MqttLed
 from threading import Lock
+import traceback
 
 class Light_8x8x8:
     def __init__(self):
@@ -74,6 +75,7 @@ class Light_8x8x8:
                     self.mqtt.send_state_update(self.state)
                     self.effects.fill_full_cube_color(self.state)
 
+            self.mqtt.handle_discover_refresh()  # occasionally resend the discovery message
             time.sleep(0.005)
 
 

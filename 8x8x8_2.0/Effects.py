@@ -2,6 +2,7 @@ import time
 from rpi_ws281x import *
 import random
 import os
+import traceback
 
 # LED strip configuration:
 LED_COUNT      = 512     # Number of LED pixels.

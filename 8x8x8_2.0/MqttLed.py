@@ -6,6 +6,7 @@ import os
 import json
 import socket
 import sys
+import traceback
 
 class MqttLed:
     def __init__(self, light):
@@ -30,6 +31,7 @@ class MqttLed:
         
         self.ip_state_topic           = "stat/%s/ipaddress" % (self.dev_sensor_ip_id)
 
+        self.last_discover_send_time = time.time()
         # >>> from uuid import getnode as get_mac
         # >>> mac = get_mac()
         # >>> print(mac)
@@ -94,27 +96,43 @@ class MqttLed:
         }
 
 
+        self.last_discover_send_time = time.time()
+        
+        try:
+            ret_config_1 = self.mqttc.publish("homeassistant/light/%s/config" % (self.dev_light_dev_id), json.dumps(mqtt_discovery_payload_light), True)
+            ret_config_2 = self.mqttc.publish("homeassistant/sensor/%s/config" % (self.dev_sensor_ip_id), json.dumps(mqtt_discovery_payload_ip), True)
+        
+            ret_config_1.wait_for_publish()
+            ret_config_2.wait_for_publish()
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
 
-        ret_config_1 = self.mqttc.publish("homeassistant/light/%s/config" % (self.dev_light_dev_id), json.dumps(mqtt_discovery_payload_light), True)
-        ret_config_2 = self.mqttc.publish("homeassistant/sensor/%s/config" % (self.dev_sensor_ip_id), json.dumps(mqtt_discovery_payload_ip), True)
-    
-        ret_config_1.wait_for_publish()
-        ret_config_2.wait_for_publish()
-
+    def handle_discover_refresh(self):
+        if time.time() > self.last_discover_send_time + 1*60:
+            self.discover()
+            self.send_state_update(self.light.state)
 
 
     def send_state_update(self, state):
         
-        ret_state_2 = self.mqttc.publish(self.state_topic, json.dumps(state), False)
-
+        try:
+            ret_state_2 = self.mqttc.publish(self.state_topic, json.dumps(state), False)
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
 
 
     def undiscover(self):
-        ret_config_1 = self.mqttc.publish("homeassistant/light/%s/config" % (self.dev_light_dev_id), '', True)
-        ret_config_2 = self.mqttc.publish("homeassistant/sensor/%s/config" % (self.dev_sensor_ip_id), '', True)
+        try:
+            ret_config_1 = self.mqttc.publish("homeassistant/light/%s/config" % (self.dev_light_dev_id), '', True)
+            ret_config_2 = self.mqttc.publish("homeassistant/sensor/%s/config" % (self.dev_sensor_ip_id), '', True)
 
-        ret_config_1.wait_for_publish()
-        ret_config_2.wait_for_publish()
+            ret_config_1.wait_for_publish()
+            ret_config_2.wait_for_publish()
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
 
 
 
@@ -184,6 +202,10 @@ class MqttLed:
             # we should always subscribe from on_connect callback to be sure
             # our subscribed is persisted across reconnections.
             client.subscribe("$SYS/#")
+            self.mqttc.subscribe(self.command_topic)
+            self.mqttc.subscribe(self.effect_command_topic)
+            self.send_state_update(self.light.state)
+            self.publish_ip()
 
     def on_publish(self, client, userdata, mid, reason_code, properties):
         # reason_code and properties will only be present in MQTTv5. It's always unset in MQTTv3
@@ -218,12 +240,14 @@ class MqttLed:
         self.mqttc.on_publish = self.on_publish
 
         self.mqttc.user_data_set([])
-        self.mqttc.connect("homeassistant.local")
+        try:
+            self.mqttc.connect("homeassistant.local")
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
 
         # ~ # subscribe to topics
-        self.mqttc.subscribe(self.command_topic)
-        self.mqttc.subscribe(self.effect_command_topic)
-         
+
         
         self.mqttc.loop_start()
 
@@ -260,15 +284,23 @@ class MqttLed:
         print('hostname = %s' % (hostname))
         print('IPAddr = %s' % (IPAddr))
         if IPAddr != '127.0.0.1': #do a sanity check since it doesnt always work.  not sure why
-            ret_state_2 = self.mqttc.publish(self.ip_state_topic, IPAddr, True)
+            try:
+                ret_state_2 = self.mqttc.publish(self.ip_state_topic, IPAddr, True)
 
-            ret_state_2.wait_for_publish()
+                # ret_state_2.wait_for_publish()
+            except:
+                exception_text = traceback.format_exc()
+                print(exception_text)
 
 
     def mqtt_disconnect(self):
 
-        self.mqttc.disconnect()
-        self.mqttc.loop_stop()
+        try:
+            self.mqttc.disconnect()
+            self.mqttc.loop_stop()
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
 
     def start(self):
         time.sleep(30)
