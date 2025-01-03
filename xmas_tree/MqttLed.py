@@ -12,9 +12,9 @@ class MqttLed:
     def __init__(self, light):
         self.light = light
 
-        self.dev_id           = 'led888rgb_ffe13e'
-        self.dev_light_dev_id = 'led888rgb_ffe13e_lt'
-        self.dev_sensor_ip_id = 'led888rgb_ffe13e_ip'
+        self.dev_id           = 'xmastree_b6d8e8'
+        self.dev_light_dev_id = 'xmastree_b6d8e8_lt'
+        self.dev_sensor_ip_id = 'xmastree_b6d8e8_ip'
 
 
         self.brightness_command_topic = 'cmnd/%s/brightness' % (self.dev_light_dev_id)
@@ -37,7 +37,7 @@ class MqttLed:
         # >>> print(mac)
         # 202481602650430
         # >>> print('%x' % mac)
-        # b827ebffe13e
+        # b827ebb6d8e8
         # >>> 
 
     def discover(self):
@@ -66,12 +66,12 @@ class MqttLed:
             'effect_list' : ['random_loop'] + self.light.effects.effect_name_list,
             "name": "Light",
             "unique_id": self.dev_light_dev_id,
-            "icon": "mdi:cube-outline",
+            "icon": "mdi:pine-tree",
             "device": {
-                "name": "LED Cube 8x8x8 RGB",
+                "name": "LED Xmas Tree",
                 "identifiers": self.dev_id,
                 "mf": "Michael Weidner",
-                "model": "RGB Cube Light",
+                "model": "LED tree",
                 "sw": "2.00",
                 "hw": "2.00",
                 }
@@ -90,7 +90,7 @@ class MqttLed:
             "state_topic": self.ip_state_topic,
             "icon": "mdi:ip-network",
             "device": {
-                "name": "LED Cube 8x8x8 RGB",
+                "name": "LED Xmas Tree",
                 "identifiers": self.dev_id,
                 }
         }

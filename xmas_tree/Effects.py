@@ -5,7 +5,7 @@ import os
 import traceback
 
 # LED strip configuration:
-LED_COUNT      = 512     # Number of LED pixels.
+LED_COUNT      = 500     # Number of LED pixels.
 LED_PIN        = 18      # GPIO pin connected to the pixels (18 uses PWM!).
 #LED_PIN        = 10      # GPIO pin connected to the pixels (10 uses SPI /dev/spidev0.0).
 LED_FREQ_HZ    = 800000  # LED signal frequency in hertz (usually 800khz)
@@ -89,9 +89,13 @@ class Effects:
         in_lines = fh.readlines()
         fh.close()
 
+        loops = []
+
         self.last_time = time.time()
 
-        for in_line in in_lines:
+        for line_index in range(len(in_lines)):
+            in_line = in_lines[line_index]
+
             cmds = in_line.split(';')
             for cmd in cmds:
                 cmd = cmd.strip()
@@ -112,6 +116,90 @@ class Effects:
                     colorObj = Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
                     for index in range(num):
                         strip.setPixelColor(startpos+index, colorObj)
+                
+                elif cmd.startswith('do'):  # do loop
+                    entry = {'do_pos':line_index+1, 'n_loops':0}
+
+                elif cmd.startswith('brightness 1,'):  # brightness 1,64
+                    fields = cmd.split(',')
+                    brightness = int(fields[1])
+                    strip.setBrightness(brightness)
+
+                elif cmd.startswith('rainbow 1,'):  # rainbow 1,1,0,LEN
+                    fields = cmd.split(',')
+                    repeats = int(fields[1])
+                    startpos = int(fields[2])
+                    length = fields[3]
+                    if length == 'LEN':
+                        length = LED_COUNT
+                    else:
+                        length = int(length)
+                    angle = 0
+                    increment = 256*repeats/length
+                    for index in range(length):
+                        colorObj = self.deg2color(int(angle+0.5+85))
+                        angle += increment
+                        strip.setPixelColor(startpos+index, colorObj)
+
+                # <channel>,         #channel to rotate (default 1)
+                # <places>,          #number of places to move each color value (default 1)
+                # <direction>,       #direction (0 or 1) for forward and backwards rotating (default 0)
+                # <start>,           #at which led should we start (default is 0)
+                # <len>              #number of leds to fill with the given color after start (default all leds)
+                # <RRGGBB>           #first led(s) get this color instead of the color of the last led
+                elif cmd.startswith('rotate 1,'):  #rotate 1,1,1,0,LEN;
+                    fields = cmd.split(',')
+                    places = int(fields[1])
+                    direction = int(fields[2])
+                    startpos = int(fields[3])
+                    length = fields[4]
+                    if len(fields) > 5:
+                        color = fields[5]
+                    else:
+                        color = None
+                    if length == 'LEN':
+                        length = LED_COUNT
+                    else:
+                        length = int(length)
+
+                    for place in range(places):
+                        if direction == 1:
+                            tmpColor = strip.getPixelColor(startpos)
+                            for index in range(1+startpos, startpos+length):
+                                strip.setPixelColor(index-1, strip.getPixelColor(index))
+                            if color == None:
+                                strip.setPixelColor(length-1+startpos, tmpColor)
+                            else:
+                                strip.setPixelColor(length-1+startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
+                        else:
+                            tmpColor = strip.getPixelColor(length -1 + startpos)
+                            for index in range(length -1 + startpos, startpos, -1):
+                                strip.setPixelColor(index, strip.getPixelColor(index-1))
+                            if color == None:
+                                strip.setPixelColor(startpos, tmpColor)
+                            else:
+                                strip.setPixelColor(startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
+        # for(n=0;n<nplaces;n++){
+        #     if (direction==1){
+        #         tmp = ledstring.channel[channel].leds[start];
+        #         for(i=1+start;i<numPixels+start;i++){
+        #             ledstring.channel[channel].leds[i-1] = ledstring.channel[channel].leds[i];
+        #         }
+        #         if (new_color!=-1)
+        #             ledstring.channel[channel].leds[numPixels-1+start]=new_color;
+        #         else
+        #             ledstring.channel[channel].leds[numPixels-1+start]=tmp;
+        #     }else{
+        #         tmp = ledstring.channel[channel].leds[numPixels-1+start];
+        #         for(i=numPixels-1+start;i>0+start;i--){
+        #             ledstring.channel[channel].leds[i] = ledstring.channel[channel].leds[i-1];
+        #         }
+        #         if (new_color!=-1)
+        #             ledstring.channel[channel].leds[0+start]=new_color;
+        #         else
+        #             ledstring.channel[channel].leds[0+start]=tmp;
+        #     }
+        # }
 
                 elif (cmd == 'fill 1'):  # blank the leds
                     self.clear_strip(strip)
@@ -122,13 +210,14 @@ class Effects:
                     if exit_needed:
                         return  # new command arrived.  abort sequence
 
-                if (cmd == 'render'):  # render the line
+                elif (cmd == 'render'):  # render the line
                     strip.show()
                     if self.light.get_work_queue_length():
                         return  # new command arrived.  abort sequence
 
 
-    def deg2color(self, wheelPos):
+    def deg2color(self, fullWheelPos):
+        wheelPos = fullWheelPos % 256  # wrap around 
         if(wheelPos < 85):
             return Color(255 - wheelPos * 3,wheelPos * 3 , 0)
         elif(wheelPos < 170):

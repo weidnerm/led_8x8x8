@@ -10,14 +10,14 @@ from MqttLed import MqttLed
 from threading import Lock
 import traceback
 
-class Light_8x8x8:
+class XmasTree:
     def __init__(self):
-        self.effects = Effects('/home/pi/proj/led_8x8x8/8x8x8/pre_made/', self)
+        self.effects = Effects('/home/pi/proj/led_8x8x8/xmas_tree/pre_made', self)
         self.mqtt = MqttLed(self)
         self.state = {
             'state':'OFF',
             'brightness':32,
-            'color': {"r":255,"g":192,"b":140}
+            'color': {"r":255,"g":0,"b":0}
         }
         self.work_queue = []
         self.work_queue_lock = Lock()
@@ -87,21 +87,21 @@ if __name__ == '__main__':
     parser.add_argument('-ud', '--undiscover', action='store_true', help='undiscover from homeassistant MQTT')
     args = parser.parse_args()
 
-    myLight_8x8x8 = Light_8x8x8()
-    myLight_8x8x8.mqtt.mqtt_connect()
+    myXmasTree = XmasTree()
+    myXmasTree.mqtt.mqtt_connect()
 
     if args.undiscover:
-        myLight_8x8x8.mqtt.undiscover()
+        myXmasTree.mqtt.undiscover()
     else:
-        myLight_8x8x8.mqtt.discover()
-        myLight_8x8x8.mqtt.publish_ip()
-        myLight_8x8x8.effects.fill_full_cube_color(myLight_8x8x8.state)
-        myLight_8x8x8.mqtt.send_state_update(myLight_8x8x8.state)
+        myXmasTree.mqtt.discover()
+        myXmasTree.mqtt.publish_ip()
+        myXmasTree.effects.fill_full_cube_color(myXmasTree.state)
+        myXmasTree.mqtt.send_state_update(myXmasTree.state)
 
 
-        myLight_8x8x8.run()
+        myXmasTree.run()
 
 
 
-    myLight_8x8x8.mqtt.mqtt_disconnect()
+    myXmasTree.mqtt.mqtt_disconnect()
 
