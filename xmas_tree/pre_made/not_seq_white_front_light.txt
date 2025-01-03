@@ -1,0 +1,31 @@
+setup channel_1_count=500
+#https://github.com/tom-2015/rpi-ws2812-server
+fill 1
+render
+fill 1
+fill 1,ffffff,14,14
+render;delay 50
+fill 1,ffffff,71,12
+render;delay 50
+fill 1,ffffff,122,11
+render;delay 50
+fill 1,ffffff,168,12
+render;delay 50
+fill 1,ffffff,216,10
+render;delay 50
+fill 1,ffffff,258,9
+render;delay 50
+fill 1,ffffff,298,9
+render;delay 50
+fill 1,ffffff,335,9
+render;delay 50
+fill 1,ffffff,372,8
+render;delay 50
+fill 1,ffffff,409,9
+render;delay 50
+fill 1,ffffff,444,7
+render;delay 50
+fill 1,ffffff,472,5
+render;delay 50
+fill 1,ffffff,492,2
+render;delay 50

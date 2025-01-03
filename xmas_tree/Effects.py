@@ -82,206 +82,210 @@ class Effects:
 
 
     def play_seq(self, strip, filename):
-        basefilename = filename.split('/')[-1].replace('.txt','')
-        self.on = self.deg2color(random.randint(0,255))
+        try:
+            basefilename = filename.split('/')[-1].replace('.txt','')
+            self.on = self.deg2color(random.randint(0,255))
 
-        fh = open(os.path.join(self.premadeDir, filename), 'r')
-        in_lines = fh.readlines()
-        fh.close()
+            fh = open(os.path.join(self.premadeDir, filename), 'r')
+            in_lines = fh.readlines()
+            fh.close()
 
-        loops = []
+            loops = []
 
-        self.last_time = time.time()
+            self.last_time = time.time()
 
-        line_index = 0
-        while (line_index < len(in_lines)):
-            in_line = in_lines[line_index]
+            line_index = 0
+            while (line_index < len(in_lines)):
+                in_line = in_lines[line_index]
 
-            cmds = in_line.split(';')
-            for cmd in cmds:
-                cmd = cmd.strip()
-            
-                if cmd.startswith('fill 1,0000ff,'):  # gather up the individual led numbers for monocrome
-                    fields = cmd.split(',')
-                    color = fields[1]
-                    startpos = int(fields[2])
-                    num = int(fields[3])
-                    for index in range(num):
-                        strip.setPixelColor(startpos+index, self.on)
-                                     
-                elif cmd.startswith('fill 1,'):  # some color other than the to-be-replaced one
-                    fields = cmd.split(',')
-                    color = fields[1]
-                    startpos = int(fields[2])
-                    num = int(fields[3])
-                    colorObj = Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
-                    for index in range(num):
-                        strip.setPixelColor(startpos+index, colorObj)
+                cmds = in_line.split(';')
+                for cmd in cmds:
+                    cmd = cmd.strip()
                 
-                elif cmd.startswith('candycane 1,'):  #     candycane 1,1f0000,1,1f0000,20,LEN; 
-                    fields = cmd.split(',')
-                    color1 = fields[1]
-                    length1 = int(fields[2])
-                    color2 = fields[3]
-                    length2 = int(fields[4])
-                    startPos = int(fields[5])
-                    length = fields[6]
-                    if length == 'LEN':
-                        length = LED_COUNT
-                    else:
-                        length = int(length)
-
-                    colorObj1 = Color(int(color1[0:2], 16), int(color1[2:4], 16), int(color1[4:6], 16))
-                    colorObj2 = Color(int(color2[0:2], 16), int(color2[2:4], 16), int(color2[4:6], 16))
+                    if cmd.startswith('fill 1,0000ff,'):  # gather up the individual led numbers for monocrome
+                        fields = cmd.split(',')
+                        color = fields[1]
+                        startpos = int(fields[2])
+                        num = int(fields[3])
+                        for index in range(num):
+                            strip.setPixelColor(startpos+index, self.on)
+                                        
+                    elif cmd.startswith('fill 1,'):  # some color other than the to-be-replaced one
+                        fields = cmd.split(',')
+                        color = fields[1]
+                        startpos = int(fields[2])
+                        num = int(fields[3])
+                        colorObj = Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16))
+                        for index in range(num):
+                            strip.setPixelColor((startpos+index)%LED_COUNT, colorObj)
                     
-                    position = startPos
-                    remaining = length
-                    while remaining > 0:
-                        remaining1 = length1
-                        while (remaining1 > 0) and (remaining > 0):
-                            strip.setPixelColor(position, colorObj1)
-                            position += 1
-                            remaining1 -= 1
-                            remaining -= 1
-                        remaining2 = length2
-                        while (remaining2 > 0) and (remaining > 0):
-                            strip.setPixelColor(position, colorObj2)
-                            position += 1
-                            remaining2 -= 1
-                            remaining -= 1
+                    elif cmd.startswith('candycane 1,'):  #     candycane 1,1f0000,1,1f0000,20,LEN; 
+                        fields = cmd.split(',')
+                        color1 = fields[1]
+                        length1 = int(fields[2])
+                        color2 = fields[3]
+                        length2 = int(fields[4])
+                        startPos = int(fields[5])
+                        length = fields[6]
+                        if length == 'LEN':
+                            length = LED_COUNT
+                        else:
+                            length = int(length)
 
+                        colorObj1 = Color(int(color1[0:2], 16), int(color1[2:4], 16), int(color1[4:6], 16))
+                        colorObj2 = Color(int(color2[0:2], 16), int(color2[2:4], 16), int(color2[4:6], 16))
+                        
+                        position = startPos
+                        remaining = length
+                        while remaining > 0:
+                            remaining1 = length1
+                            while (remaining1 > 0) and (remaining > 0):
+                                strip.setPixelColor(position, colorObj1)
+                                position += 1
+                                remaining1 -= 1
+                                remaining -= 1
+                            remaining2 = length2
+                            while (remaining2 > 0) and (remaining > 0):
+                                strip.setPixelColor(position, colorObj2)
+                                position += 1
+                                remaining2 -= 1
+                                remaining -= 1
+
+                    
+                    elif cmd.startswith('do'):  # do loop
+                        entry = {'do_pos':line_index, 'n_loops':0}
+                        loops.append(entry)
+                        print('starting loop at line %d' % (line_index))
+
+                    elif cmd.startswith('loop'):  # loop x
+                        fields = cmd.split()
+                        max_loops = 0
+                        if len(fields) > 1:
+                            if fields[1] == 'LEN':
+                                max_loops = LED_COUNT
+                            else:
+                                max_loops = int(fields[1])
+                        print('loop at line %d with len %d.  do_pos=%d  n_loops=%d' % (line_index, max_loops, loops[-1]['do_pos'], loops[-1]['n_loops']))
+                        if len(loops) == 0: # no do found
+                            line_index = 0
+                            print('no do found for the loop at line %d' % (line_index))
+                        else:
+                            loops[-1]['n_loops'] += 1
+                            if (max_loops == 0) or (loops[-1]['n_loops'] < max_loops):
+                                line_index = loops[-1]['do_pos']
+                            else:
+                                loops.pop()
+                        # if (loop_index==0){ //no do found!
+                        #     fseek(input_file, 0, SEEK_SET);
+                        # }else{
+                        #     loops[loop_index-1].n_loops++;
+                        #     if (max_loops==0 || loops[loop_index-1].n_loops<max_loops){ //if number of loops is 0 = loop forever
+                        #         fseek(input_file, loops[loop_index-1].do_pos,SEEK_SET);
+                        #     }else{
+                        #         if (loop_index>0) loop_index--; //exit loop
+                        #     }
+                        # }
+
+                    elif cmd.startswith('brightness 1,'):  # brightness 1,64
+                        fields = cmd.split(',')
+                        brightness = int(fields[1])
+                        strip.setBrightness(brightness)
+
+                    elif cmd.startswith('rainbow 1,'):  # rainbow 1,1,0,LEN
+                        fields = cmd.split(',')
+                        repeats = int(fields[1])
+                        startpos = int(fields[2])
+                        length = fields[3]
+                        if length == 'LEN':
+                            length = LED_COUNT
+                        else:
+                            length = int(length)
+                        angle = 0
+                        increment = 256*repeats/length
+                        for index in range(length):
+                            colorObj = self.deg2color(int(angle+0.5+85))
+                            angle += increment
+                            strip.setPixelColor(startpos+index, colorObj)
+
+                    # <channel>,         #channel to rotate (default 1)
+                    # <places>,          #number of places to move each color value (default 1)
+                    # <direction>,       #direction (0 or 1) for forward and backwards rotating (default 0)
+                    # <start>,           #at which led should we start (default is 0)
+                    # <len>              #number of leds to fill with the given color after start (default all leds)
+                    # <RRGGBB>           #first led(s) get this color instead of the color of the last led
+                    elif cmd.startswith('rotate 1,'):  #rotate 1,1,1,0,LEN;
+                        fields = cmd.split(',')
+                        places = int(fields[1])
+                        direction = int(fields[2])
+                        startpos = int(fields[3])
+                        length = fields[4]
+                        if len(fields) > 5:
+                            color = fields[5]
+                        else:
+                            color = None
+                        if length == 'LEN':
+                            length = LED_COUNT
+                        else:
+                            length = int(length)
+
+                        for place in range(places):
+                            if direction == 1:
+                                tmpColor = strip.getPixelColor(startpos)
+                                for index in range(1+startpos, startpos+length):
+                                    strip.setPixelColor(index-1, strip.getPixelColor(index))
+                                if color == None:
+                                    strip.setPixelColor(length-1+startpos, tmpColor)
+                                else:
+                                    strip.setPixelColor(length-1+startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
+                            else:
+                                tmpColor = strip.getPixelColor(length -1 + startpos)
+                                for index in range(length -1 + startpos, startpos, -1):
+                                    strip.setPixelColor(index, strip.getPixelColor(index-1))
+                                if color == None:
+                                    strip.setPixelColor(startpos, tmpColor)
+                                else:
+                                    strip.setPixelColor(startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
+                        # for(n=0;n<nplaces;n++){
+                        #     if (direction==1){
+                        #         tmp = ledstring.channel[channel].leds[start];
+                        #         for(i=1+start;i<numPixels+start;i++){
+                        #             ledstring.channel[channel].leds[i-1] = ledstring.channel[channel].leds[i];
+                        #         }
+                        #         if (new_color!=-1)
+                        #             ledstring.channel[channel].leds[numPixels-1+start]=new_color;
+                        #         else
+                        #             ledstring.channel[channel].leds[numPixels-1+start]=tmp;
+                        #     }else{
+                        #         tmp = ledstring.channel[channel].leds[numPixels-1+start];
+                        #         for(i=numPixels-1+start;i>0+start;i--){
+                        #             ledstring.channel[channel].leds[i] = ledstring.channel[channel].leds[i-1];
+                        #         }
+                        #         if (new_color!=-1)
+                        #             ledstring.channel[channel].leds[0+start]=new_color;
+                        #         else
+                        #             ledstring.channel[channel].leds[0+start]=tmp;
+                        #     }
+                        # }
+
+                    elif (cmd == 'fill 1'):  # blank the leds
+                        self.clear_strip(strip)
+
+                    elif cmd.startswith('delay'):
+                        fields = cmd.split()
+                        exit_needed = self.delay(int(fields[1]))
+                        if exit_needed:
+                            return  # new command arrived.  abort sequence
+
+                    elif (cmd == 'render'):  # render the line
+                        strip.show()
+                        if self.light.get_work_queue_length():
+                            return  # new command arrived.  abort sequence
                 
-                elif cmd.startswith('do'):  # do loop
-                    entry = {'do_pos':line_index, 'n_loops':0}
-                    loops.append(entry)
-                    print('starting loop at line %d' % (line_index))
-
-                elif cmd.startswith('loop'):  # loop x
-                    fields = cmd.split()
-                    max_loops = 0
-                    if len(fields) > 1:
-                        if fields[1] == 'LEN':
-                            max_loops = LED_COUNT
-                        else:
-                            max_loops = int(fields[1])
-                    print('loop at line %d with len %d.  do_pos=%d  n_loops=%d' % (line_index, max_loops, loops[-1]['do_pos'], loops[-1]['n_loops']))
-                    if len(loops) == 0: # no do found
-                        line_index = 0
-                        print('no do found for the loop at line %d' % (line_index))
-                    else:
-                        loops[-1]['n_loops'] += 1
-                        if (max_loops == 0) or (loops[-1]['n_loops'] < max_loops):
-                            line_index = loops[-1]['do_pos']
-                        else:
-                            loops.pop()
-                    # if (loop_index==0){ //no do found!
-                    #     fseek(input_file, 0, SEEK_SET);
-                    # }else{
-                    #     loops[loop_index-1].n_loops++;
-                    #     if (max_loops==0 || loops[loop_index-1].n_loops<max_loops){ //if number of loops is 0 = loop forever
-                    #         fseek(input_file, loops[loop_index-1].do_pos,SEEK_SET);
-                    #     }else{
-                    #         if (loop_index>0) loop_index--; //exit loop
-                    #     }
-                    # }
-
-                elif cmd.startswith('brightness 1,'):  # brightness 1,64
-                    fields = cmd.split(',')
-                    brightness = int(fields[1])
-                    strip.setBrightness(brightness)
-
-                elif cmd.startswith('rainbow 1,'):  # rainbow 1,1,0,LEN
-                    fields = cmd.split(',')
-                    repeats = int(fields[1])
-                    startpos = int(fields[2])
-                    length = fields[3]
-                    if length == 'LEN':
-                        length = LED_COUNT
-                    else:
-                        length = int(length)
-                    angle = 0
-                    increment = 256*repeats/length
-                    for index in range(length):
-                        colorObj = self.deg2color(int(angle+0.5+85))
-                        angle += increment
-                        strip.setPixelColor(startpos+index, colorObj)
-
-                # <channel>,         #channel to rotate (default 1)
-                # <places>,          #number of places to move each color value (default 1)
-                # <direction>,       #direction (0 or 1) for forward and backwards rotating (default 0)
-                # <start>,           #at which led should we start (default is 0)
-                # <len>              #number of leds to fill with the given color after start (default all leds)
-                # <RRGGBB>           #first led(s) get this color instead of the color of the last led
-                elif cmd.startswith('rotate 1,'):  #rotate 1,1,1,0,LEN;
-                    fields = cmd.split(',')
-                    places = int(fields[1])
-                    direction = int(fields[2])
-                    startpos = int(fields[3])
-                    length = fields[4]
-                    if len(fields) > 5:
-                        color = fields[5]
-                    else:
-                        color = None
-                    if length == 'LEN':
-                        length = LED_COUNT
-                    else:
-                        length = int(length)
-
-                    for place in range(places):
-                        if direction == 1:
-                            tmpColor = strip.getPixelColor(startpos)
-                            for index in range(1+startpos, startpos+length):
-                                strip.setPixelColor(index-1, strip.getPixelColor(index))
-                            if color == None:
-                                strip.setPixelColor(length-1+startpos, tmpColor)
-                            else:
-                                strip.setPixelColor(length-1+startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
-                        else:
-                            tmpColor = strip.getPixelColor(length -1 + startpos)
-                            for index in range(length -1 + startpos, startpos, -1):
-                                strip.setPixelColor(index, strip.getPixelColor(index-1))
-                            if color == None:
-                                strip.setPixelColor(startpos, tmpColor)
-                            else:
-                                strip.setPixelColor(startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
-                    # for(n=0;n<nplaces;n++){
-                    #     if (direction==1){
-                    #         tmp = ledstring.channel[channel].leds[start];
-                    #         for(i=1+start;i<numPixels+start;i++){
-                    #             ledstring.channel[channel].leds[i-1] = ledstring.channel[channel].leds[i];
-                    #         }
-                    #         if (new_color!=-1)
-                    #             ledstring.channel[channel].leds[numPixels-1+start]=new_color;
-                    #         else
-                    #             ledstring.channel[channel].leds[numPixels-1+start]=tmp;
-                    #     }else{
-                    #         tmp = ledstring.channel[channel].leds[numPixels-1+start];
-                    #         for(i=numPixels-1+start;i>0+start;i--){
-                    #             ledstring.channel[channel].leds[i] = ledstring.channel[channel].leds[i-1];
-                    #         }
-                    #         if (new_color!=-1)
-                    #             ledstring.channel[channel].leds[0+start]=new_color;
-                    #         else
-                    #             ledstring.channel[channel].leds[0+start]=tmp;
-                    #     }
-                    # }
-
-                elif (cmd == 'fill 1'):  # blank the leds
-                    self.clear_strip(strip)
-
-                elif cmd.startswith('delay'):
-                    fields = cmd.split()
-                    exit_needed = self.delay(int(fields[1]))
-                    if exit_needed:
-                        return  # new command arrived.  abort sequence
-
-                elif (cmd == 'render'):  # render the line
-                    strip.show()
-                    if self.light.get_work_queue_length():
-                        return  # new command arrived.  abort sequence
+                line_index += 1
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
             
-            line_index += 1
-
 
     def deg2color(self, fullWheelPos):
         wheelPos = fullWheelPos % 256  # wrap around 

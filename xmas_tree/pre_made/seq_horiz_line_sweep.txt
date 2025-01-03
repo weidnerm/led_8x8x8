@@ -1,0 +1,91 @@
+setup channel_1_count=500
+#https://github.com/tom-2015/rpi-ws2812-server
+brightness 1,32
+fill 1
+render
+
+do
+
+fill 1
+fill 1,ffffff,0,58;render
+delay 50
+fill 1
+fill 1,ffffff,59,51;render
+delay 50
+fill 1
+fill 1,ffffff,111,44;render
+delay 50
+fill 1
+fill 1,ffffff,156,49;render
+delay 50
+fill 1
+fill 1,ffffff,206,42;render
+delay 50
+fill 1
+fill 1,ffffff,249,39;render
+delay 50
+fill 1
+fill 1,ffffff,289,36;render
+delay 50
+fill 1
+fill 1,ffffff,326,37;render
+delay 50
+fill 1
+fill 1,ffffff,364,35;render
+delay 50
+fill 1
+fill 1,ffffff,400,36;render
+delay 50
+fill 1
+fill 1,ffffff,437,29;render
+delay 50
+fill 1
+fill 1,ffffff,467,22;render
+delay 50
+fill 1
+fill 1,ffffff,490,9;render
+delay 50
+fill 1
+fill 1,ffffff,490,9;render
+delay 50
+fill 1
+fill 1,ffffff,467,22;render
+delay 50
+fill 1
+fill 1,ffffff,437,29;render
+delay 50
+fill 1
+fill 1,ffffff,400,36;render
+delay 50
+fill 1
+fill 1,ffffff,364,35;render
+delay 50
+fill 1
+fill 1,ffffff,326,37;render
+delay 50
+fill 1
+fill 1,ffffff,289,36;render
+delay 50
+fill 1
+fill 1,ffffff,249,39;render
+delay 50
+fill 1
+fill 1,ffffff,206,42;render
+delay 50
+fill 1
+fill 1,ffffff,156,49;render
+delay 50
+fill 1
+fill 1,ffffff,111,44;render
+delay 50
+fill 1
+fill 1,ffffff,59,51;render
+delay 50
+fill 1
+fill 1,ffffff,0,58;render
+delay 50
+
+loop 2
+
+fill 1
+render
