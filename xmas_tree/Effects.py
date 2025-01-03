@@ -93,7 +93,8 @@ class Effects:
 
         self.last_time = time.time()
 
-        for line_index in range(len(in_lines)):
+        line_index = 0
+        while (line_index < len(in_lines)):
             in_line = in_lines[line_index]
 
             cmds = in_line.split(';')
@@ -117,8 +118,72 @@ class Effects:
                     for index in range(num):
                         strip.setPixelColor(startpos+index, colorObj)
                 
+                elif cmd.startswith('candycane 1,'):  #     candycane 1,1f0000,1,1f0000,20,LEN; 
+                    fields = cmd.split(',')
+                    color1 = fields[1]
+                    length1 = int(fields[2])
+                    color2 = fields[3]
+                    length2 = int(fields[4])
+                    startPos = int(fields[5])
+                    length = fields[6]
+                    if length == 'LEN':
+                        length = LED_COUNT
+                    else:
+                        length = int(length)
+
+                    colorObj1 = Color(int(color1[0:2], 16), int(color1[2:4], 16), int(color1[4:6], 16))
+                    colorObj2 = Color(int(color2[0:2], 16), int(color2[2:4], 16), int(color2[4:6], 16))
+                    
+                    position = startPos
+                    remaining = length
+                    while remaining > 0:
+                        remaining1 = length1
+                        while (remaining1 > 0) and (remaining > 0):
+                            strip.setPixelColor(position, colorObj1)
+                            position += 1
+                            remaining1 -= 1
+                            remaining -= 1
+                        remaining2 = length2
+                        while (remaining2 > 0) and (remaining > 0):
+                            strip.setPixelColor(position, colorObj2)
+                            position += 1
+                            remaining2 -= 1
+                            remaining -= 1
+
+                
                 elif cmd.startswith('do'):  # do loop
-                    entry = {'do_pos':line_index+1, 'n_loops':0}
+                    entry = {'do_pos':line_index, 'n_loops':0}
+                    loops.append(entry)
+                    print('starting loop at line %d' % (line_index))
+
+                elif cmd.startswith('loop'):  # loop x
+                    fields = cmd.split()
+                    max_loops = 0
+                    if len(fields) > 1:
+                        if fields[1] == 'LEN':
+                            max_loops = LED_COUNT
+                        else:
+                            max_loops = int(fields[1])
+                    print('loop at line %d with len %d.  do_pos=%d  n_loops=%d' % (line_index, max_loops, loops[-1]['do_pos'], loops[-1]['n_loops']))
+                    if len(loops) == 0: # no do found
+                        line_index = 0
+                        print('no do found for the loop at line %d' % (line_index))
+                    else:
+                        loops[-1]['n_loops'] += 1
+                        if (max_loops == 0) or (loops[-1]['n_loops'] < max_loops):
+                            line_index = loops[-1]['do_pos']
+                        else:
+                            loops.pop()
+                    # if (loop_index==0){ //no do found!
+                    #     fseek(input_file, 0, SEEK_SET);
+                    # }else{
+                    #     loops[loop_index-1].n_loops++;
+                    #     if (max_loops==0 || loops[loop_index-1].n_loops<max_loops){ //if number of loops is 0 = loop forever
+                    #         fseek(input_file, loops[loop_index-1].do_pos,SEEK_SET);
+                    #     }else{
+                    #         if (loop_index>0) loop_index--; //exit loop
+                    #     }
+                    # }
 
                 elif cmd.startswith('brightness 1,'):  # brightness 1,64
                     fields = cmd.split(',')
@@ -179,27 +244,27 @@ class Effects:
                                 strip.setPixelColor(startpos, tmpColor)
                             else:
                                 strip.setPixelColor(startpos, Color(int(color[0:2], 16), int(color[2:4], 16), int(color[4:6], 16)))
-        # for(n=0;n<nplaces;n++){
-        #     if (direction==1){
-        #         tmp = ledstring.channel[channel].leds[start];
-        #         for(i=1+start;i<numPixels+start;i++){
-        #             ledstring.channel[channel].leds[i-1] = ledstring.channel[channel].leds[i];
-        #         }
-        #         if (new_color!=-1)
-        #             ledstring.channel[channel].leds[numPixels-1+start]=new_color;
-        #         else
-        #             ledstring.channel[channel].leds[numPixels-1+start]=tmp;
-        #     }else{
-        #         tmp = ledstring.channel[channel].leds[numPixels-1+start];
-        #         for(i=numPixels-1+start;i>0+start;i--){
-        #             ledstring.channel[channel].leds[i] = ledstring.channel[channel].leds[i-1];
-        #         }
-        #         if (new_color!=-1)
-        #             ledstring.channel[channel].leds[0+start]=new_color;
-        #         else
-        #             ledstring.channel[channel].leds[0+start]=tmp;
-        #     }
-        # }
+                    # for(n=0;n<nplaces;n++){
+                    #     if (direction==1){
+                    #         tmp = ledstring.channel[channel].leds[start];
+                    #         for(i=1+start;i<numPixels+start;i++){
+                    #             ledstring.channel[channel].leds[i-1] = ledstring.channel[channel].leds[i];
+                    #         }
+                    #         if (new_color!=-1)
+                    #             ledstring.channel[channel].leds[numPixels-1+start]=new_color;
+                    #         else
+                    #             ledstring.channel[channel].leds[numPixels-1+start]=tmp;
+                    #     }else{
+                    #         tmp = ledstring.channel[channel].leds[numPixels-1+start];
+                    #         for(i=numPixels-1+start;i>0+start;i--){
+                    #             ledstring.channel[channel].leds[i] = ledstring.channel[channel].leds[i-1];
+                    #         }
+                    #         if (new_color!=-1)
+                    #             ledstring.channel[channel].leds[0+start]=new_color;
+                    #         else
+                    #             ledstring.channel[channel].leds[0+start]=tmp;
+                    #     }
+                    # }
 
                 elif (cmd == 'fill 1'):  # blank the leds
                     self.clear_strip(strip)
@@ -214,6 +279,8 @@ class Effects:
                     strip.show()
                     if self.light.get_work_queue_length():
                         return  # new command arrived.  abort sequence
+            
+            line_index += 1
 
 
     def deg2color(self, fullWheelPos):

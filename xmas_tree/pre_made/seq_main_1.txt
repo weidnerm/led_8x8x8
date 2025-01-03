@@ -1,0 +1,130 @@
+setup channel_1_count=500
+#https://github.com/tom-2015/rpi-ws2812-server
+brightness 1,128
+# r,g,b
+fill 1
+render
+
+#do
+#    do
+#        rotate 1,1,1,0,LEN,3f3f3f
+#        render
+#        delay 50
+#    loop 1
+#    do
+#        rotate 1,1,1,0,LEN,1f0000
+#        render
+#        delay 50
+#    loop 19
+#loop 22
+#
+#do # rotate in somee red fill
+#    rotate 1,1,1,0,LEN,1f0000
+#    render
+#    delay 50
+#loop LEN
+#do # flashing a white one every 10.
+#candycane 1,1f0000,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,080808,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,101010,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,202020,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,404040,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,414141,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,404040,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,202020,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,101010,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,080808,1,1f0000,20,0,LEN; render; delay 50
+#candycane 1,1f0000,1,1f0000,20,0,LEN; render; delay 50
+#delay 100
+#candycane 1,1f0000,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,080808,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,101010,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,202020,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,404040,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,414141,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,404040,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,202020,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,101010,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,080808,1,1f0000,20,10,LEN; render; delay 50
+#candycane 1,1f0000,1,1f0000,20,10,LEN; render; delay 50
+#delay 100
+#loop 4
+do # rotate some green backwards
+    rotate 1,1,0,0,LEN,001f00
+    render
+    delay 50
+loop LEN
+do # flashing a white one every 10.
+candycane 1,1f0000,1,001f00,20,0,LEN; render; delay 50
+candycane 1,080808,1,001f00,20,0,LEN; render; delay 50
+candycane 1,101010,1,001f00,20,0,LEN; render; delay 50
+candycane 1,202020,1,001f00,20,0,LEN; render; delay 50
+candycane 1,404040,1,001f00,20,0,LEN; render; delay 50
+candycane 1,414141,1,001f00,20,0,LEN; render; delay 50
+candycane 1,404040,1,001f00,20,0,LEN; render; delay 50
+candycane 1,202020,1,001f00,20,0,LEN; render; delay 50
+candycane 1,101010,1,001f00,20,0,LEN; render; delay 50
+candycane 1,080808,1,001f00,20,0,LEN; render; delay 50
+candycane 1,001f00,1,001f00,20,0,LEN; render; delay 50
+delay 100
+candycane 1,001f00,1,001f00,20,10,LEN; render; delay 50
+candycane 1,080808,1,001f00,20,10,LEN; render; delay 50
+candycane 1,101010,1,001f00,20,10,LEN; render; delay 50
+candycane 1,202020,1,001f00,20,10,LEN; render; delay 50
+candycane 1,404040,1,001f00,20,10,LEN; render; delay 50
+candycane 1,414141,1,001f00,20,10,LEN; render; delay 50
+candycane 1,404040,1,001f00,20,10,LEN; render; delay 50
+candycane 1,202020,1,001f00,20,10,LEN; render; delay 50
+candycane 1,101010,1,001f00,20,10,LEN; render; delay 50
+candycane 1,080808,1,001f00,20,10,LEN; render; delay 50
+candycane 1,001f00,1,001f00,20,10,LEN; render; delay 50
+delay 100
+loop 4
+do # rotate some blue forwards
+    rotate 1,1,1,0,LEN,00001f
+    render
+    delay 50
+loop LEN
+do # flashing a white one every 10.
+candycane 1,1f0000,1,00001f,20,0,LEN; render; delay 50
+candycane 1,080808,1,00001f,20,0,LEN; render; delay 50
+candycane 1,101010,1,00001f,20,0,LEN; render; delay 50
+candycane 1,202020,1,00001f,20,0,LEN; render; delay 50
+candycane 1,404040,1,00001f,20,0,LEN; render; delay 50
+candycane 1,414141,1,00001f,20,0,LEN; render; delay 50
+candycane 1,404040,1,00001f,20,0,LEN; render; delay 50
+candycane 1,202020,1,00001f,20,0,LEN; render; delay 50
+candycane 1,101010,1,00001f,20,0,LEN; render; delay 50
+candycane 1,080808,1,00001f,20,0,LEN; render; delay 50
+candycane 1,00001f,1,00001f,20,0,LEN; render; delay 50
+delay 100
+candycane 1,00001f,1,00001f,20,10,LEN; render; delay 50
+candycane 1,080808,1,00001f,20,10,LEN; render; delay 50
+candycane 1,101010,1,00001f,20,10,LEN; render; delay 50
+candycane 1,202020,1,00001f,20,10,LEN; render; delay 50
+candycane 1,404040,1,00001f,20,10,LEN; render; delay 50
+candycane 1,414141,1,00001f,20,10,LEN; render; delay 50
+candycane 1,404040,1,00001f,20,10,LEN; render; delay 50
+candycane 1,202020,1,00001f,20,10,LEN; render; delay 50
+candycane 1,101010,1,00001f,20,10,LEN; render; delay 50
+candycane 1,080808,1,00001f,20,10,LEN; render; delay 50
+candycane 1,00001f,1,00001f,20,10,LEN; render; delay 50
+delay 100
+loop 4
+do
+    do
+        rotate 1,1,1,0,LEN,1f0000
+        render
+        delay 50
+    loop 10
+    do
+        rotate 1,1,1,0,LEN,001f00
+        render
+        delay 50
+    loop 10
+loop 30
+do
+    rotate 1,1,1,0,LEN,000000
+    render
+    delay 50
+loop LEN
