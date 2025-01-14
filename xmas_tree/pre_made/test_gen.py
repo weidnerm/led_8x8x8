@@ -21,7 +21,7 @@ def main():
     vert_line_sweep('seq_vert_line_sweep.txt')
     horiz_line_sweep('seq_horiz_line_sweep.txt')
     red_green_full_rotate('seq_red_green_full_rotate.txt')
-    white_front_light('seq_white_front_light.txt')
+    # white_front_light('seq_white_front_light.txt')
     
 def vert_line_sweep(filename):
     lines = []
