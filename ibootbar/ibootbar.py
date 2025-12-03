@@ -7,10 +7,12 @@ import argparse
 import sys
 
 class IBootBar:
-    def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=1):
+    def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=1, debug=False):
         """
         Initialize the iBootBar controller.
         """
+        
+        self.debug = debug
         try:
             self.ser = serial.Serial(
                 port=port,
@@ -22,11 +24,13 @@ class IBootBar:
             )
             self.ser.flushInput()
             self.ser.flushOutput()
-            print('time.sleep(0.1)')
+            if self.debug:
+                print('time.sleep(0.1)')
             time.sleep(0.1)
             # Wake up the device
             self.ser.write(b'\r\n')
-            print('time.sleep(0.1)')
+            if self.debug:
+                print('time.sleep(0.1)')
             time.sleep(0.1)
             self._read_response()  # Clear any garbage
         except serial.SerialException as e:
@@ -36,7 +40,8 @@ class IBootBar:
     def _send_command(self, cmd):
         print('cmd:%s' % (cmd))
         self.ser.write((cmd + '\r\n').encode('utf-8'))
-        print('time.sleep(0.15)')
+        if self.debug:
+            print('time.sleep(0.15)')
         time.sleep(0.15)  # Critical: give device time to respond
 
     def _read_response(self):
@@ -54,13 +59,15 @@ class IBootBar:
                 # ~ time.sleep(0.05)
                 
         response = self.ser.read_until(b'SBB> ').decode('utf-8', errors='ignore').strip()
+        print('response:%s' % (response))
       
         return response.strip()
 
     def _wait_for_prompt(self):
         """Sometimes the device is slow - wait for SBB> prompt"""
         self.ser.write(b'\r\n')
-        print('time.sleep(0.2)')
+        if self.debug:
+            print('time.sleep(0.2)')
         time.sleep(0.2)
         self._read_response()
 
@@ -114,7 +121,8 @@ class IBootBar:
                 if match:
                     return match.group(1).capitalize()
 
-            print('time.sleep(0.8)')
+            if self.debug:
+                print('time.sleep(0.8)')
             time.sleep(0.8)
 
         raise Exception(f"Failed to read outlet {number}")
@@ -139,7 +147,8 @@ class IBootBar:
                         result[num] = {"name": name, "state": state}
                 if result:
                     return result
-            print('time.sleep(1)')
+            if self.debug:
+                print('time.sleep(1)')
             time.sleep(1)
         raise Exception("Failed to get all outlets")
 
@@ -147,6 +156,7 @@ class IBootBar:
 def main():
     parser = argparse.ArgumentParser(description="Control Dataprobe iBoot-Bar via serial (Raspberry Pi)")
     parser.add_argument("-p", "--port", default="/dev/ttyUSB0", help="Serial port (default: /dev/ttyUSB0)")
+    parser.add_argument("--debug", action="store_true", help="Show all outlets")
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -162,7 +172,7 @@ def main():
 
     args = parser.parse_args()
 
-    iboot = IBootBar(port=args.port)
+    iboot = IBootBar(port=args.port, debug=args.debug)
 
     try:
         if args.command == "set":
