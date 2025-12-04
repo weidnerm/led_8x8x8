@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-
 import serial
 import re
 import time
@@ -9,138 +8,159 @@ import sys
 import json
 import socket
 import threading
+import queue
 import os
 import netrc
 
+# 1. Add this helper at the top (after imports)
+def debug_print(client, topic, payload):
+    if client.userdata and client.userdata.get('debug', False):
+        print(f"MQTT PUBLISH → {topic} : {payload}")
+        
 def get_machine_id_suffix():
-    """
-    Return the last 8 hex digits of the Raspberry Pi's unique ID.
-    Tries in order:
-      1. /etc/machine-id (preferred – always 32 hex chars)
-      2. CPU serial from /proc/cpuinfo
-    Returns 8-character lowercase hex string.
-    """
-    # 1. Try /etc/machine-id first (most reliable, 32 hex chars)
     try:
         with open("/etc/machine-id", "r") as f:
             mid = f.read().strip()
             if len(mid) == 32:
-                return mid[-8:]  # last 8 chars → e.g. "d825d86b"
+                return mid[-8:]
     except Exception:
         pass
-
-    # 2. Fallback: CPU serial (16 hex chars, padded with zeros on older Pis)
     try:
         with open("/proc/cpuinfo", "r") as f:
             for line in f:
                 if line.startswith("Serial"):
                     serial = line.split(":")[1].strip()
-                    # Remove leading zeros and take last 8
                     serial_clean = serial.lstrip("0") or "0"
                     return serial_clean[-8:].lower()
     except Exception:
         pass
+    return "00000000"
 
-    return "00000000"  # ultimate fallback
-class IBootBar:
-    def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=5, debug=False):
+# ────────────────────── Thread-safe serial worker ──────────────────────
+class SerialWorker(threading.Thread):
+    def __init__(self, port="/dev/ttyUSB0", debug=False):
+        super().__init__(daemon=True)
         self.debug = debug
-        self.prompt = b'SBB> '
+        self.port = port
+        self.queue = queue.Queue()
+        self.start()
+
+    def run(self):
         try:
-            self.ser = serial.Serial(
-                port=port,
-                baudrate=baudrate,
+            ser = serial.Serial(
+                port=self.port,
+                baudrate=115200,
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=timeout
+                timeout=5
             )
-            self.ser.flushInput()
-            self.ser.flushOutput()
+            ser.flushInput()
+            ser.flushOutput()
             time.sleep(0.5)
-            self._log("Serial port opened:", port)
-            self._sync_prompt()
-        except serial.SerialException as e:
-            print(f"Error opening serial port {port}: {e}")
-            sys.exit(1)
-
-    def _log(self, *args):
-        if self.debug:
-            print("SERIAL DEBUG:", *args)
-
-    def _sync_prompt(self):
-        self.ser.write(b'\r\n')
-        time.sleep(0.1)
-        self.ser.read_all()
-
-    def _send_command(self, cmd):
-        full_cmd = cmd + '\r\n'
-        self._log(">>>", full_cmd.strip())
-        self.ser.write(full_cmd.encode('utf-8'))
-        self.ser.flush()
-
-    def _read_response(self):
-        try:
-            data = self.ser.read_until(self.prompt)
-            response = data.decode('utf-8', errors='ignore')
-            if response.endswith('SBB> '):
-                response = response[:-5]
-            response = response.strip()
-            self._log("<<<", repr(response) if response else "(empty)")
-            return response
+            if self.debug:
+                print("SERIAL DEBUG: Serial port opened:", self.port)
+            ser.write(b'\r\n')
+            time.sleep(0.1)
+            ser.read_all()
         except Exception as e:
-            self._log("Read error:", e)
-            return ""
+            print(f"Serial open failed: {e}")
+            return
+
+        prompt = b'SBB> '
+
+        while True:
+            job = self.queue.get()
+            if job is None:          # shutdown signal
+                ser.close()
+                break
+
+            cmd, result_q = job
+
+            try:
+                if self.debug:
+                    print("SERIAL DEBUG: >>>", cmd.strip())
+                ser.write((cmd + '\r\n').encode('utf-8'))
+                ser.flush()
+
+                data = ser.read_until(prompt)
+                resp = data.decode('utf-8', errors='ignore')
+                if resp.endswith('SBB> '):
+                    resp = resp[:-5].strip()
+                else:
+                    resp = resp.strip()
+
+                if self.debug:
+                    print("SERIAL DEBUG: <<<", repr(resp) if resp else "(empty)")
+
+                result_q.put(("OK", resp))
+            except Exception as e:
+                result_q.put(("ERROR", str(e)))
+
+    def execute(self, command):
+        result_q = queue.Queue()
+        self.queue.put((command, result_q))
+        status, resp = result_q.get()
+        return status, resp
+
+# ────────────────────── IBootBar using the worker ──────────────────────
+class IBootBar:
+    def __init__(self, port="/dev/ttyUSB0", debug=False):
+        self.worker = SerialWorker(port=port, debug=debug)
+
+    def _exec(self, cmd):
+        status, resp = self.worker.execute(cmd)
+        if status != "OK":
+            raise Exception(f"Serial error: {resp}")
+        return resp
 
     def _wait_for_prompt(self):
-        self.ser.write(b'\r\n')
-        time.sleep(0.05)
-        self.ser.read_until(self.prompt)
+        self._exec("")
 
     def set_outlet(self, number, state):
         if not 1 <= number <= 8:
             raise ValueError("Outlet number must be 1-8")
         state = state.capitalize()
         cmd = f"set outlet {number} {state.lower()}"
-        max_retries = 4
-        for attempt in range(max_retries):
+        for _ in range(4):
             self._wait_for_prompt()
-            self._send_command(cmd)
-            response = self._read_response()
-            if "OK" in response.upper():
+            resp = self._exec(cmd)
+            if "OK" in resp.upper():
                 if self.get_outlet_state(number) == state:
-                    self._log(f"Outlet {number} → {state}")
                     return True
             time.sleep(0.5)
         raise Exception(f"Failed to set outlet {number}")
 
     def get_outlet_state(self, number):
         cmd = f"get outlet {number}"
-        max_retries = 4
-        for attempt in range(max_retries):
+        for _ in range(4):
             self._wait_for_prompt()
-            self._send_command(cmd)
-            response = self._read_response()
-            if "OK" in response.upper():
-                m = re.search(r'\b(On|Off)\b', response, re.IGNORECASE)
+            resp = self._exec(cmd)
+            if "OK" in resp.upper():
+                m = re.search(r'\b(On|Off)\b', resp, re.IGNORECASE)
                 if m:
                     return m.group(1).capitalize()
             time.sleep(0.5)
         raise Exception(f"Failed to read outlet {number}")
 
     def get_all_outlets(self):
-        max_retries = 3
-        for attempt in range(max_retries):
+        for _ in range(3):
             self._wait_for_prompt()
-            self._send_command("get outlets")
-            response = self._read_response()
-            if "OK" in response.upper() and "Outlet" in response:
+            resp = self._exec("get outlets").replace('Outlets:', '')
+            if "OK" in resp.upper() and "Outlet" in resp:
                 result = {}
-                for line in response.split('\n'):
-                    line = line.strip()
-                    if not line or not line[0].isdigit():
+                for raw_line in resp.split('\n'):
+                    line = raw_line.strip()
+                    # Skip header line and empty lines
+                    if not line or line.startswith("Outlets:"):
                         continue
-                    parts = line.split()
+                    # Handle possible leading spaces
+                    clean = line.lstrip()
+                    if not clean or not clean[0].isdigit():
+                        continue
+                    parts = clean.split()
+                    if len(parts) < 3:
+                        continue
                     num = int(parts[0])
                     state = parts[-1].capitalize()
                     result[num] = {"state": state}
@@ -148,8 +168,9 @@ class IBootBar:
                     return result
             time.sleep(0.6)
         raise Exception("Failed to get all outlets")
+        
 
-
+# ────────────────────── Rest of your original code (unchanged) ──────────────────────
 def get_local_ip():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
@@ -161,7 +182,6 @@ def get_local_ip():
         s.close()
     return ip
 
-
 class MQTTBridge:
     def read_netrc(self, filename=None):
         if filename is None:
@@ -171,14 +191,12 @@ class MQTTBridge:
         except Exception as e:
             print(f"Could not read .netrc: {e}")
             return {}
-
     def get_credentials(self, machine):
         hosts = self.read_netrc()
         if machine in hosts:
             login, _, password = hosts[machine]
             return login, password
         return None, None
-
     def mqtt_connect(self, client, mqtt_host):
         username, password = self.get_credentials(mqtt_host)
         if username and password:
@@ -187,19 +205,14 @@ class MQTTBridge:
         else:
             print("No credentials in .netrc → connecting anonymously")
 
-
-# MQTT callbacks
 def on_connect(client, userdata, flags, rc):
     if rc != 0:
         print(f"MQTT connect failed: {rc}")
         return
     print("Connected to MQTT broker")
-
     prefix = userdata['mqtt_prefix']
     device_info = userdata['device_info']
     max_outlet = userdata['max_outlet']
-
-    # Register switches
     for i in range(1, max_outlet + 1):
         client.publish(f"homeassistant/switch/{prefix}_outlet_{i}/config", json.dumps({
             "name": f"iBootBar Outlet {i}",
@@ -213,8 +226,6 @@ def on_connect(client, userdata, flags, rc):
             "availability_topic": f"{prefix}/availability"
         }), retain=True)
         client.subscribe(f"{prefix}/outlet_{i}/set")
-
-    # IP sensor
     client.publish(f"homeassistant/sensor/{prefix}_ip/config", json.dumps({
         "name": "iBootBar Pi IP",
         "unique_id": f"{prefix}_ip",
@@ -223,16 +234,13 @@ def on_connect(client, userdata, flags, rc):
         "device": device_info,
         "availability_topic": f"{prefix}/availability"
     }), retain=True)
-
     client.publish(f"{prefix}/availability", "online", retain=True)
     publish_states(client, userdata)
-
 
 def on_message(client, userdata, msg):
     prefix = userdata['mqtt_prefix']
     max_outlet = userdata['max_outlet']
     ibootbar = userdata['ibootbar']
-
     payload = msg.payload.decode().strip().upper()
     for i in range(1, max_outlet + 1):
         if msg.topic == f"{prefix}/outlet_{i}/set" and payload in ["ON", "OFF"]:
@@ -244,26 +252,34 @@ def on_message(client, userdata, msg):
                 print(f"Outlet {i} error: {e}")
             break
 
-
+# 2. Replace your publish_states() function with this version:
 def publish_states(client, userdata):
     ibootbar = userdata['ibootbar']
     prefix = userdata['mqtt_prefix']
     max_outlet = userdata['max_outlet']
+    debug = userdata.get('debug', False)  # <-- added
+
     try:
         states = ibootbar.get_all_outlets()
         for i in range(1, max_outlet + 1):
-            state = states.get(i, {}).get("state", "OFF").upper()
-            client.publish(f"{prefix}/outlet_{i}/state", state, retain=True)
+            raw_state = states.get(i, {}).get("state", "OFF")
+            state_upper = raw_state.upper()  # <-- force uppercase
+            topic = f"{prefix}/outlet_{i}/state"
+            client.publish(topic, state_upper, retain=True)
+            if debug:
+                print(f"MQTT PUBLISH → {topic} : {state_upper}")
     except Exception as e:
         print("State update failed:", e)
-    client.publish(f"{prefix}/ip/state", get_local_ip())
 
+    ip_topic = f"{prefix}/ip/state"
+    client.publish(ip_topic, get_local_ip())
+    if debug:
+        print(f"MQTT PUBLISH → {ip_topic} : {get_local_ip()}")
 
 def polling_thread(client, userdata):
     while True:
         publish_states(client, userdata)
         time.sleep(12)
-
 
 def undiscover(client, userdata):
     prefix = userdata['mqtt_prefix']
@@ -274,14 +290,13 @@ def undiscover(client, userdata):
     client.publish(f"{prefix}/availability", "offline", retain=True)
     print("Undiscovery sent.")
 
-
 def main():
     parser = argparse.ArgumentParser(description="iBootBar → Home Assistant (MQTT)")
-    parser.add_argument("--mqtt_host", required=True, help="MQTT broker (as in .netrc)")
+    parser.add_argument("--mqtt_host", required=True)
     parser.add_argument("--mqtt_port", type=int, default=1883)
     parser.add_argument("--serial_port", default="/dev/ttyUSB0")
-    parser.add_argument("--mqtt_prefix", help="Custom prefix (default: ibootbar_XXXX)")
-    parser.add_argument("--include-port8", action="store_true", help="Also expose outlet 8 (default: hidden)")
+    parser.add_argument("--mqtt_prefix")
+    parser.add_argument("--include-port8", action="store_true")
     parser.add_argument("--debug", action="store_true")
     parser.add_argument("--undiscover", action="store_true")
     args = parser.parse_args()
@@ -291,9 +306,9 @@ def main():
     max_outlet = 8 if args.include_port8 else 7
 
     print(f"Starting iBootBar bridge")
-    print(f"   Prefix   : {prefix}")
-    print(f"   Outlets  : 1–{max_outlet} {'(8 hidden)' if not args.include_port8 else '(8 included)'}")
-    print(f"   Serial   : {args.serial_port}")
+    print(f" Prefix : {prefix}")
+    print(f" Outlets : 1–{max_outlet} {'(8 hidden)' if not args.include_port8 else '(8 included)'}")
+    print(f" Serial : {args.serial_port}")
 
     ibootbar = IBootBar(port=args.serial_port, debug=args.debug)
 
@@ -302,14 +317,15 @@ def main():
         "name": "iBootBar Power Strip",
         "model": "iBoot-Bar",
         "manufacturer": "Dataprobe",
-        "sw_version": "1.2"
+        "sw_version": "1.4-threadsafe"
     }
 
     userdata = {
         "ibootbar": ibootbar,
         "mqtt_prefix": prefix,
         "device_info": device_info,
-        "max_outlet": max_outlet
+        "max_outlet": max_outlet,
+        "debug": args.debug          # ← ADD THIS LINE
     }
 
     client = mqtt.Client(userdata=userdata)
@@ -334,8 +350,12 @@ def main():
         sys.exit(0)
 
     threading.Thread(target=polling_thread, args=(client, userdata), daemon=True).start()
-    client.loop_forever()
-
+    try:
+        client.loop_forever()
+    finally:
+        if hasattr(ibootbar, 'worker'):
+            ibootbar.worker.queue.put(None)
+            ibootbar.worker.join(timeout=2)
 
 if __name__ == "__main__":
     main()
