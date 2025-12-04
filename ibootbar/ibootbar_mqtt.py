@@ -13,25 +13,35 @@ import os
 import netrc
 
 def get_machine_id_suffix():
-    """Return last 4 hex digits of /etc/machine-id or cpuinfo serial"""
+    """
+    Return the last 8 hex digits of the Raspberry Pi's unique ID.
+    Tries in order:
+      1. /etc/machine-id (preferred – always 32 hex chars)
+      2. CPU serial from /proc/cpuinfo
+    Returns 8-character lowercase hex string.
+    """
+    # 1. Try /etc/machine-id first (most reliable, 32 hex chars)
     try:
         with open("/etc/machine-id", "r") as f:
             mid = f.read().strip()
-            if len(mid) >= 8:
-                return mid[-8]
-    except:
+            if len(mid) == 32:
+                return mid[-8:]  # last 8 chars → e.g. "d825d86b"
+    except Exception:
         pass
+
+    # 2. Fallback: CPU serial (16 hex chars, padded with zeros on older Pis)
     try:
         with open("/proc/cpuinfo", "r") as f:
             for line in f:
                 if line.startswith("Serial"):
                     serial = line.split(":")[1].strip()
-                    if len(serial) >= 8:
-                        return serial[-8:-4].lower()
-    except:
+                    # Remove leading zeros and take last 8
+                    serial_clean = serial.lstrip("0") or "0"
+                    return serial_clean[-8:].lower()
+    except Exception:
         pass
-    return "0000"  # fallback
 
+    return "00000000"  # ultimate fallback
 class IBootBar:
     def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=5, debug=False):
         self.debug = debug
