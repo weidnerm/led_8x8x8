@@ -31,6 +31,8 @@ class MqttLed:
         
         self.ip_state_topic           = "stat/%s/ipaddress" % (self.dev_sensor_ip_id)
 
+        self.availability_topic       = 'stat/%s/availability' % (self.dev_id)
+
         self.last_discover_send_time = time.time()
         # >>> from uuid import getnode as get_mac
         # >>> mac = get_mac()
@@ -67,6 +69,9 @@ class MqttLed:
             "name": "Light",
             "unique_id": self.dev_light_dev_id,
             "icon": "mdi:pine-tree",
+            'availability_topic': self.availability_topic,
+            'payload_available': 'online',
+            'payload_not_available': 'offline',
             "device": {
                 "name": "LED Xmas Tree",
                 "identifiers": self.dev_id,
@@ -89,6 +94,9 @@ class MqttLed:
             "unique_id": self.dev_sensor_ip_id,
             "state_topic": self.ip_state_topic,
             "icon": "mdi:ip-network",
+            'availability_topic': self.availability_topic,
+            'payload_available': 'online',
+            'payload_not_available': 'offline',
             "device": {
                 "name": "LED Xmas Tree",
                 "identifiers": self.dev_id,
@@ -109,10 +117,16 @@ class MqttLed:
             print(exception_text)
 
     def handle_discover_refresh(self):
-        if time.time() > self.last_discover_send_time + 1*60:
+        if time.time() > self.last_discover_send_time + 1*60:  # Every 1 minutes
             self.discover()
             self.send_state_update(self.light.state)
-
+            try:
+                ret_avail = self.mqttc.publish(self.availability_topic, 'online', retain=True)
+                ret_avail.wait_for_publish()
+            except:
+                exception_text = traceback.format_exc()
+                print(exception_text)
+            self.last_discover_send_time = time.time()
 
     def send_state_update(self, state):
         
@@ -207,6 +221,13 @@ class MqttLed:
             self.send_state_update(self.light.state)
             self.publish_ip()
 
+            try:
+                ret_avail = self.mqttc.publish(self.availability_topic, 'online', retain=True)
+                ret_avail.wait_for_publish()
+            except:
+                exception_text = traceback.format_exc()
+                print(exception_text)
+    
     def on_publish(self, client, userdata, mid, reason_code, properties):
         # reason_code and properties will only be present in MQTTv5. It's always unset in MQTTv3
         print('on_publish reached.  mid=%s  reason_code=%s  properties=%s' % (mid, reason_code, properties))
@@ -240,6 +261,8 @@ class MqttLed:
         self.mqttc.on_publish = self.on_publish
 
         self.mqttc.user_data_set([])
+        self.mqttc.will_set(self.availability_topic, 'offline', qos=1, retain=True)
+        
         try:
             self.mqttc.connect("homeassistant.local")
         except:
@@ -295,6 +318,13 @@ class MqttLed:
 
     def mqtt_disconnect(self):
 
+        try:
+            ret_avail = self.mqttc.publish(self.availability_topic, 'offline', retain=True)
+            ret_avail.wait_for_publish()
+        except:
+            exception_text = traceback.format_exc()
+            print(exception_text)
+    
         try:
             self.mqttc.disconnect()
             self.mqttc.loop_stop()
