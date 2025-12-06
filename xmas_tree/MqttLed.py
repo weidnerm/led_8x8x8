@@ -122,7 +122,7 @@ class MqttLed:
             self.send_state_update(self.light.state)
             try:
                 ret_avail = self.mqttc.publish(self.availability_topic, 'online', retain=True)
-                ret_avail.wait_for_publish()
+#                ret_avail.wait_for_publish()
             except:
                 exception_text = traceback.format_exc()
                 print(exception_text)
@@ -223,7 +223,7 @@ class MqttLed:
 
             try:
                 ret_avail = self.mqttc.publish(self.availability_topic, 'online', retain=True)
-                ret_avail.wait_for_publish()
+#                ret_avail.wait_for_publish()
             except:
                 exception_text = traceback.format_exc()
                 print(exception_text)
@@ -320,7 +320,7 @@ class MqttLed:
 
         try:
             ret_avail = self.mqttc.publish(self.availability_topic, 'offline', retain=True)
-            ret_avail.wait_for_publish()
+#            ret_avail.wait_for_publish()
         except:
             exception_text = traceback.format_exc()
             print(exception_text)
