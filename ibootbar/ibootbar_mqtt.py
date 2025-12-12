@@ -53,14 +53,16 @@ class SerialWorker(threading.Thread):
                 bytesize=serial.EIGHTBITS,
                 parity=serial.PARITY_NONE,
                 stopbits=serial.STOPBITS_ONE,
-                timeout=5
+                timeout=1
             )
             ser.flushInput()
             ser.flushOutput()
+            print("TIME DEBUG: time.sleep(0.5)")
             time.sleep(0.5)
             if self.debug:
                 print("SERIAL DEBUG: Serial port opened:", self.port)
-            ser.write(b'\r\n')
+            ser.write(b'\r')
+            print("TIME DEBUG: time.sleep(0.1)")
             time.sleep(0.1)
             ser.read_all()
         except Exception as e:
@@ -80,7 +82,7 @@ class SerialWorker(threading.Thread):
             try:
                 if self.debug:
                     print("SERIAL DEBUG: >>>", cmd.strip())
-                ser.write((cmd + '\r\n').encode('utf-8'))
+                ser.write((cmd + '\r').encode('utf-8'))
                 ser.flush()
 
                 data = ser.read_until(prompt)
@@ -114,8 +116,8 @@ class IBootBar:
             raise Exception(f"Serial error: {resp}")
         return resp
 
-    def _wait_for_prompt(self):
-        self._exec("")
+    # ~ def _wait_for_prompt(self):
+        # ~ self._exec("")
 
     def set_outlet(self, number, state):
         if not 1 <= number <= 8:
@@ -123,29 +125,31 @@ class IBootBar:
         state = state.capitalize()
         cmd = f"set outlet {number} {state.lower()}"
         for _ in range(4):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()()
             resp = self._exec(cmd)
             if "OK" in resp.upper():
                 if self.get_outlet_state(number) == state:
                     return True
+            print("TIME DEBUG: time.sleep(0.5)")
             time.sleep(0.5)
         raise Exception(f"Failed to set outlet {number}")
 
     def get_outlet_state(self, number):
         cmd = f"get outlet {number}"
         for _ in range(4):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()()
             resp = self._exec(cmd)
             if "OK" in resp.upper():
                 m = re.search(r'\b(On|Off)\b', resp, re.IGNORECASE)
                 if m:
                     return m.group(1).capitalize()
+            print("TIME DEBUG: time.sleep(0.5)")
             time.sleep(0.5)
         raise Exception(f"Failed to read outlet {number}")
 
     def get_all_outlets(self):
         for _ in range(3):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()()
             resp = self._exec("get outlets").replace('Outlets:', '')
             if "OK" in resp.upper() and "Outlet" in resp:
                 result = {}
@@ -166,6 +170,7 @@ class IBootBar:
                     result[num] = {"state": state}
                 if result:
                     return result
+            print("TIME DEBUG: time.sleep(0.6)")
             time.sleep(0.6)
         raise Exception("Failed to get all outlets")
         
