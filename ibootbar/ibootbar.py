@@ -7,7 +7,7 @@ import argparse
 import sys
 
 class IBootBar:
-    def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=1, debug=False):
+    def __init__(self, port="/dev/ttyUSB0", baudrate=115200, timeout=2, debug=False):
         """
         Initialize the iBootBar controller.
         """
@@ -25,12 +25,12 @@ class IBootBar:
             self.ser.flushInput()
             self.ser.flushOutput()
             if self.debug:
-                print('time.sleep(0.1)')
+                print('TIME DEBUG: time.sleep(0.1)')
             time.sleep(0.1)
             # Wake up the device
             self.ser.write(b'\r\n')
             if self.debug:
-                print('time.sleep(0.1)')
+                print('TIME DEBUG: time.sleep(0.1)')
             time.sleep(0.1)
             self._read_response()  # Clear any garbage
         except serial.SerialException as e:
@@ -39,9 +39,9 @@ class IBootBar:
 
     def _send_command(self, cmd):
         print('cmd:%s' % (cmd))
-        self.ser.write((cmd + '\r\n').encode('utf-8'))
+        self.ser.write((cmd + '\r').encode('utf-8'))
         if self.debug:
-            print('time.sleep(0.15)')
+            print('TIME DEBUG: time.sleep(0.15)')
         time.sleep(0.15)  # Critical: give device time to respond
 
     def _read_response(self):
@@ -55,7 +55,7 @@ class IBootBar:
                 # ~ if 'OK' in response:
                     # ~ break
             # ~ else:
-                # ~ print('time.sleep(0.05)')
+                # ~ print('TIME DEBUG: time.sleep(0.05)')
                 # ~ time.sleep(0.05)
                 
         response = self.ser.read_until(b'SBB> ').decode('utf-8', errors='ignore').strip()
@@ -63,13 +63,13 @@ class IBootBar:
       
         return response.strip()
 
-    def _wait_for_prompt(self):
-        """Sometimes the device is slow - wait for SBB> prompt"""
-        self.ser.write(b'\r\n')
-        if self.debug:
-            print('time.sleep(0.2)')
-        time.sleep(0.2)
-        self._read_response()
+    # ~ def _wait_for_prompt(self):
+        # ~ """Sometimes the device is slow - wait for SBB> prompt"""
+        # ~ self.ser.write(b'\r')
+        # ~ if self.debug:
+            # ~ print('TIME DEBUG: time.sleep(0.2)')
+        # ~ time.sleep(0.2)
+        # ~ self._read_response()
 
     def set_outlet(self, number, state):
         if not 1 <= number <= 8:
@@ -82,7 +82,7 @@ class IBootBar:
         max_retries = 10
 
         for attempt in range(max_retries):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()
             self._send_command(cmd)
             print('cmd=%s' %(cmd))
             response = self._read_response()
@@ -99,7 +99,7 @@ class IBootBar:
             else:
                 print(f"Command failed (attempt {attempt+1}/{max_retries}): {response}")
 
-            print('time.sleep(0.1)')
+            print('TIME DEBUG: time.sleep(0.1)')
             time.sleep(0.1)
 
         raise Exception(f"Failed to set outlet {number} to {state} after {max_retries} attempts")
@@ -112,7 +112,7 @@ class IBootBar:
         max_retries = 4
 
         for attempt in range(max_retries):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()
             self._send_command(cmd)
             response = self._read_response()
 
@@ -122,7 +122,7 @@ class IBootBar:
                     return match.group(1).capitalize()
 
             if self.debug:
-                print('time.sleep(0.8)')
+                print('TIME DEBUG: time.sleep(0.8)')
             time.sleep(0.8)
 
         raise Exception(f"Failed to read outlet {number}")
@@ -130,7 +130,7 @@ class IBootBar:
     def get_all_outlets(self):
         max_retries = 3
         for attempt in range(max_retries):
-            self._wait_for_prompt()
+            # ~ self._wait_for_prompt()
             self._send_command("get outlets")
             response = self._read_response()
 
@@ -148,7 +148,7 @@ class IBootBar:
                 if result:
                     return result
             if self.debug:
-                print('time.sleep(1)')
+                print('TIME DEBUG: time.sleep(1)')
             time.sleep(1)
         raise Exception("Failed to get all outlets")
 
