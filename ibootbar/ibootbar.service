@@ -1,0 +1,21 @@
+[Unit]
+Description=iBootBar MQTT Bridge for Home Assistant
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/proj/led_8x8x8/ibootbar
+ExecStart=/usr/bin/python3 /home/pi/proj/led_8x8x8/ibootbar/ibootbar_mqtt.py --mqtt_host homeassistant.local --debug
+Restart=always
+RestartSec=5
+# Optional: limit restarts if something is really broken
+# RestartPreventExitStatus=1
+
+# Make it survive reboots and start at boot
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
