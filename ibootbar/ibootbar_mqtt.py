@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
+import sys
+sys.stdout.reconfigure(line_buffering=True)  # Force immediate print flushing
 import serial
 import re
 import time
 import paho.mqtt.client as mqtt
 import argparse
-import sys
 import json
 import socket
 import threading
@@ -215,11 +216,19 @@ def on_connect(client, userdata, flags, rc):
         print(f"MQTT connect failed: {rc}")
         return
     print("Connected to MQTT broker")
+
     prefix = userdata['mqtt_prefix']
     device_info = userdata['device_info']
     max_outlet = userdata['max_outlet']
+    debug = userdata.get('debug', False)
+
+    # === RE-PUBLISH DISCOVERY ON EVERY CONNECT (fixes boot race) ===
+    # Small delay to let broker/HA settle
+    time.sleep(2)
+
     for i in range(1, max_outlet + 1):
-        client.publish(f"homeassistant/switch/{prefix}_outlet_{i}/config", json.dumps({
+        config_topic = f"homeassistant/switch/{prefix}_outlet_{i}/config"
+        payload = json.dumps({
             "name": f"iBootBar Outlet {i}",
             "unique_id": f"{prefix}_outlet_{i}",
             "command_topic": f"{prefix}/outlet_{i}/set",
@@ -229,9 +238,14 @@ def on_connect(client, userdata, flags, rc):
             "qos": 1,
             "device": device_info,
             "availability_topic": f"{prefix}/availability"
-        }), retain=True)
+        })
+        client.publish(config_topic, payload, retain=True)
+        if debug:
+            print(f"MQTT DISCOVERY → {config_topic}")
         client.subscribe(f"{prefix}/outlet_{i}/set")
-    client.publish(f"homeassistant/sensor/{prefix}_ip/config", json.dumps({
+
+    ip_config_topic = f"homeassistant/sensor/{prefix}_ip/config"
+    client.publish(ip_config_topic, json.dumps({
         "name": "iBootBar Pi IP",
         "unique_id": f"{prefix}_ip",
         "state_topic": f"{prefix}/ip/state",
@@ -239,9 +253,18 @@ def on_connect(client, userdata, flags, rc):
         "device": device_info,
         "availability_topic": f"{prefix}/availability"
     }), retain=True)
-    client.publish(f"{prefix}/availability", "online", retain=True)
-    publish_states(client, userdata)
+    if debug:
+        print(f"MQTT DISCOVERY → {ip_config_topic}")
 
+    # === SEND AVAILABILITY ONLINE ===
+    client.publish(f"{prefix}/availability", "online", retain=True)
+    if debug:
+        print(f"MQTT AVAILABILITY → {prefix}/availability : online")
+
+    # Initial state push
+    publish_states(client, userdata)
+    
+    
 def on_message(client, userdata, msg):
     prefix = userdata['mqtt_prefix']
     max_outlet = userdata['max_outlet']
@@ -280,7 +303,12 @@ def publish_states(client, userdata):
     client.publish(ip_topic, get_local_ip())
     if debug:
         print(f"MQTT PUBLISH → {ip_topic} : {get_local_ip()}")
+        
+    client.publish(f"{prefix}/availability", "online", retain=True)
+    if debug:
+        print(f"MQTT PUBLISH → {prefix}/availability : online")
 
+    
 def polling_thread(client, userdata):
     while True:
         publish_states(client, userdata)
