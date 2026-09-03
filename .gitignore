@@ -1,0 +1,6 @@
+
+__pycache__/
+tmp_rpi-ws2812-server/
+*.py[cod]
+8x8x8/pre_made/seq_user_text_full_wrap.txt
+8x8x8_2.0/wrap_text.txt

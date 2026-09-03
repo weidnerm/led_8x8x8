@@ -3,6 +3,12 @@ from rpi_ws281x import *
 import random
 import os
 import traceback
+from TextWrap import (
+    USER_WRAP_EFFECT,
+    USER_WRAP_FILE,
+    write_seq_file,
+    normalize_text,
+)
 
 # LED strip configuration:
 LED_COUNT      = 512     # Number of LED pixels.
@@ -32,6 +38,10 @@ class Effects:
                 effect_name = file.replace('seq_', '').replace('.txt', '').replace('_', ' ')  # transform filename to effect name.  drop prefix, suffix and use spaces
                 self.effect_name_list.append(effect_name)
                 self.effect_filenames[effect_name] = file
+
+        if USER_WRAP_EFFECT not in self.effect_name_list:
+            self.effect_name_list.append(USER_WRAP_EFFECT)
+        self.effect_filenames[USER_WRAP_EFFECT] = USER_WRAP_FILE
         self.effect_name_list.sort() # alphabetize the list
 
         # Create NeoPixel object with appropriate configuration.
@@ -58,10 +68,19 @@ class Effects:
         return exit_processing
 
 
+    def generate_user_wrap_seq(self, text):
+        text = normalize_text(text) or 'HELLO'
+        dest = os.path.join(self.premadeDir, USER_WRAP_FILE)
+        write_seq_file(text, dest)
+        print('wrote wrap seq for %r -> %s' % (text, dest))
+        return dest
+
+
     def play_effect(self, effect):
         if effect == 'random_loop':
+            pool = [n for n in self.effect_name_list if n != USER_WRAP_EFFECT]
             while self.light.get_work_queue_length() == 0:
-                random_effect = random.choice(self.effect_name_list)
+                random_effect = random.choice(pool)
 
                 self.light.state['effect'] = random_effect  # update the state tracking
                 self.light.mqtt.send_state_update(self.light.state)
@@ -72,12 +91,14 @@ class Effects:
             self.light.state['effect'] = effect  # update the state tracking
             self.light.mqtt.send_state_update(self.light.state)
 
+            if effect == USER_WRAP_EFFECT:
+                self.generate_user_wrap_seq(getattr(self.light, 'wrap_text', 'HELLO'))
+
             filename = self.effect_filenames[effect]
             self.play_seq(self.strip, filename)
 
         self.light.state['state'] = 'OFF'  # sequence ends with light off
-        # self.light.state.pop('effect', None)  # drop the completed effect.
-        self.light.state.pop('effect', None)  # drop the completed effect.
+        self.light.state.pop('effect', None)
         self.light.mqtt.send_state_update(self.light.state)
 
 
@@ -85,7 +106,12 @@ class Effects:
         basefilename = filename.split('/')[-1].replace('.txt','')
         self.on = self.deg2color(random.randint(0,255))
 
-        fh = open(os.path.join(self.premadeDir, filename), 'r')
+        path = os.path.join(self.premadeDir, filename)
+        if not os.path.isfile(path):
+            print('missing sequence file %s' % path)
+            return
+
+        fh = open(path, 'r')
         in_lines = fh.readlines()
         fh.close()
 
@@ -139,69 +165,6 @@ class Effects:
             return Color(wheelPos * 3, 0, 255 - wheelPos * 3)
 
 
-
-
-
-# /home/pi/proj/led_8x8x8/8x8x8/pre_made
-#     seq_a_cone.txt
-#     seq_a_few_blinking_eyes.txt
-#     seq_all_leds_on.txt
-#     seq_back_and_forth_twisting_plane.txt
-#     seq_bouncing_moto_logo.txt
-#     seq_bouncing_sphere.txt
-#     seq_corner_pulses.txt
-#     seq_drum_1.txt
-#     seq_falling_streamer.txt
-#     seq_flat_plan_falling_down_1
-#     seq_flat_plan_falling_down_2
-#     seq_flat_plan_falling_down_3
-#     seq_full_cube_fill_in_from_top.txt
-#     seq_full_cube_fill_in_from_top_2.txt
-#     seq_full_cube_fill_in_from_top_3.txt
-#     seq_full_sheet_crumbling_and_falling_quickly_1.txt
-#     seq_full_sheet_crumbling_and_falling_quickly_2.txt
-#     seq_full_sheet_crumbling_and_falling_quickly_3.txt
-#     seq_hourglass_pyramid.txt
-#     seq_hypercube.txt
-#     seq_i_heart_u_around_edge.txt
-#     seq_i_heart_u_swiped_in.txt
-#     seq_i_heart_you_rotating.txt
-#     seq_laser_printed_msg.txt
-#     seq_multi_axis_pacman.txt
-#     seq_open_arrow_around_edge_1.txt
-#     seq_open_arrow_around_edge_2.txt
-#     seq_raining_dots_and_rising_dots_1.txt
-#     seq_raining_dots_and_rising_dots_2.txt
-#     seq_raining_dots_and_rising_dots_3.txt
-#     seq_rains_asian_words.txt
-#     seq_random_all_leds.txt
-#     seq_random_all_leds_fast.txt
-#     seq_random_rising_dots_1.txt
-#     seq_random_rising_dots_2.txt
-#     seq_random_rising_dots_3.txt
-#     seq_rotating_biting_pacman.txt
-#     seq_rotating_concentric_rings_like_contact.txt
-#     seq_rotating_earth.txt
-#     seq_rotating_edge_and_corner_volumes.txt
-#     seq_rotating_i_heart_u.txt
-#     seq_rotating_rainbow_square.txt
-#     seq_rotating_rings_axis_thick.txt
-#     seq_rotating_rings_axis_thin.txt
-#     seq_rotating_rings_pulses_thin.txt
-#     seq_sideways_pulsing_pyramid_plane.txt
-#     seq_stargate_transport_guy.txt
-#     seq_stretching_in_i_heart_u.txt
-#     seq_twisting_planes_and_more.txt
-#     seq_twisting_rotating_sheet_1.txt
-#     seq_twisting_rotating_sheet_2.txt
-#     seq_up_and_down_plane_from_corner.txt
-#     seq_up_down_sheet_waves.txt
-#     seq_vertical_plane_sweeping_sideways.txt
-#     seq_vertical_plane_waving_sideways.txt
-#     seq_vertically_waving_sheet_1.txt
-#     seq_vertically_waving_sheet_2.txt
-#     seq_vertically_waving_sheet_3.txt
-
     def clear_strip(self, strip):
         for index in range(self.len):
             strip.setPixelColor(index, self.off)
@@ -230,15 +193,11 @@ class Effects:
 
     def strip_test(self):
 
-        # self.seq_full_sheet_crumbling_and_falling_quickly_1(self.strip)
-        # self.seq_drum_1(self.strip)
         result = self.play_seq(self.strip, 'seq_rotating_rainbow_square.txt')
         result = self.play_seq(self.strip, 'seq_full_sheet_crumbling_and_falling_quickly_2.txt')
         result = self.play_seq(self.strip, 'seq_laser_printed_msg.txt')
         result = self.play_seq(self.strip, 'seq_a_cone.txt')
         result = self.play_seq(self.strip, 'seq_drum_1.txt')
-        # result = self.play_seq(self.strip, 'seq_rotating_earth.txt')
-
 
         # render
         self.strip.show()

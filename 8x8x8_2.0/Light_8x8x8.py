@@ -7,11 +7,17 @@ import socket
 import sys
 from Effects import Effects
 from MqttLed import MqttLed
+from TextWrap import normalize_text, USER_WRAP_FILE
 from threading import Lock
 import traceback
 
+WRAP_TEXT_PATH = '/home/pi/proj/led_8x8x8/8x8x8_2.0/wrap_text.txt'
+DEFAULT_WRAP_TEXT = 'HELLO'
+
+
 class Light_8x8x8:
     def __init__(self):
+        self.wrap_text = self._load_wrap_text()
         self.effects = Effects('/home/pi/proj/led_8x8x8/8x8x8/pre_made/', self)
         self.mqtt = MqttLed(self)
         self.state = {
@@ -21,6 +27,28 @@ class Light_8x8x8:
         }
         self.work_queue = []
         self.work_queue_lock = Lock()
+        self.effects.generate_user_wrap_seq(self.wrap_text)
+
+    def _load_wrap_text(self):
+        try:
+            with open(WRAP_TEXT_PATH, 'r') as fh:
+                text = fh.read()
+            return normalize_text(text) or DEFAULT_WRAP_TEXT
+        except Exception:
+            return DEFAULT_WRAP_TEXT
+
+    def set_wrap_text(self, text):
+        text = normalize_text(text) or DEFAULT_WRAP_TEXT
+        self.wrap_text = text
+        try:
+            tmp = WRAP_TEXT_PATH + '.tmp'
+            with open(tmp, 'w') as fh:
+                fh.write(text)
+            os.replace(tmp, WRAP_TEXT_PATH)
+        except Exception:
+            print(traceback.format_exc())
+        self.effects.generate_user_wrap_seq(text)
+        self.mqtt.send_text_update(text)
 
     def process_state_command(self, command):
         # queue up the command to be worked on.
@@ -93,6 +121,7 @@ if __name__ == '__main__':
     else:
         myLight_8x8x8.mqtt.discover()
         myLight_8x8x8.mqtt.publish_ip()
+        myLight_8x8x8.mqtt.send_text_update(myLight_8x8x8.wrap_text)
         myLight_8x8x8.effects.fill_full_cube_color(myLight_8x8x8.state)
         myLight_8x8x8.mqtt.send_state_update(myLight_8x8x8.state)
 

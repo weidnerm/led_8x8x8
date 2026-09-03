@@ -5,6 +5,7 @@ import os
 import json
 import socket
 import traceback
+from TextWrap import MAX_TEXT_LEN
 
 DISCOVER_REFRESH_SEC = 15 * 60
 BROKER = 'homeassistant.local'
@@ -17,13 +18,26 @@ class MqttLed:
         self.dev_id           = 'led888rgb_ffe13e'
         self.dev_light_dev_id = 'led888rgb_ffe13e_lt'
         self.dev_sensor_ip_id = 'led888rgb_ffe13e_ip'
+        self.dev_text_id      = 'led888rgb_ffe13e_txt'
 
         self.command_topic      = 'cmnd/%s/state' % (self.dev_light_dev_id)
         self.state_topic        = 'stat/%s/state' % (self.dev_light_dev_id)
         self.ip_state_topic     = 'stat/%s/ipaddress' % (self.dev_sensor_ip_id)
         self.availability_topic = 'tele/%s/LWT' % (self.dev_id)
+        self.text_command_topic = 'cmnd/%s/text' % (self.dev_text_id)
+        self.text_state_topic   = 'stat/%s/text' % (self.dev_text_id)
 
         self.last_discover_send_time = 0
+
+    def _device(self):
+        return {
+            'name': 'LED Cube 8x8x8 RGB',
+            'identifiers': [self.dev_id],
+            'mf': 'Michael Weidner',
+            'model': 'RGB Cube Light',
+            'sw': '2.02',
+            'hw': '2.00',
+        }
 
     def discover(self):
         mqtt_discovery_payload_light = {
@@ -40,14 +54,7 @@ class MqttLed:
             'name': 'Light',
             'unique_id': self.dev_light_dev_id,
             'icon': 'mdi:cube-outline',
-            'device': {
-                'name': 'LED Cube 8x8x8 RGB',
-                'identifiers': [self.dev_id],
-                'mf': 'Michael Weidner',
-                'model': 'RGB Cube Light',
-                'sw': '2.01',
-                'hw': '2.00',
-            },
+            'device': self._device(),
         }
 
         mqtt_discovery_payload_ip = {
@@ -58,10 +65,22 @@ class MqttLed:
             'payload_available': 'online',
             'payload_not_available': 'offline',
             'icon': 'mdi:ip-network',
-            'device': {
-                'name': 'LED Cube 8x8x8 RGB',
-                'identifiers': [self.dev_id],
-            },
+            'device': self._device(),
+        }
+
+        mqtt_discovery_payload_text = {
+            'name': 'Wrap text',
+            'unique_id': self.dev_text_id,
+            'command_topic': self.text_command_topic,
+            'state_topic': self.text_state_topic,
+            'availability_topic': self.availability_topic,
+            'payload_available': 'online',
+            'payload_not_available': 'offline',
+            'mode': 'text',
+            'min': 0,
+            'max': MAX_TEXT_LEN,
+            'icon': 'mdi:format-text-rotation-angle-up',
+            'device': self._device(),
         }
 
         self.last_discover_send_time = time.time()
@@ -79,8 +98,15 @@ class MqttLed:
                 qos=1,
                 retain=True,
             )
+            ret_config_3 = self.mqttc.publish(
+                'homeassistant/text/%s/config' % (self.dev_text_id),
+                json.dumps(mqtt_discovery_payload_text),
+                qos=1,
+                retain=True,
+            )
             ret_config_1.wait_for_publish()
             ret_config_2.wait_for_publish()
+            ret_config_3.wait_for_publish()
         except Exception:
             print(traceback.format_exc())
 
@@ -88,6 +114,7 @@ class MqttLed:
         if time.time() > self.last_discover_send_time + DISCOVER_REFRESH_SEC:
             self.discover()
             self.send_state_update(self.light.state)
+            self.send_text_update(self.light.wrap_text)
 
     def send_state_update(self, state):
         payload = dict(state)
@@ -99,14 +126,24 @@ class MqttLed:
         except Exception:
             print(traceback.format_exc())
 
+    def send_text_update(self, text):
+        try:
+            self.mqttc.publish(self.text_state_topic, text, qos=0, retain=True)
+        except Exception:
+            print(traceback.format_exc())
+
     def undiscover(self):
         try:
-            ret_config_1 = self.mqttc.publish(
-                'homeassistant/light/%s/config' % (self.dev_light_dev_id), '', qos=1, retain=True)
-            ret_config_2 = self.mqttc.publish(
-                'homeassistant/sensor/%s/config' % (self.dev_sensor_ip_id), '', qos=1, retain=True)
-            ret_config_1.wait_for_publish()
-            ret_config_2.wait_for_publish()
+            topics = [
+                'homeassistant/light/%s/config' % (self.dev_light_dev_id),
+                'homeassistant/sensor/%s/config' % (self.dev_sensor_ip_id),
+                'homeassistant/text/%s/config' % (self.dev_text_id),
+            ]
+            waits = []
+            for topic in topics:
+                waits.append(self.mqttc.publish(topic, '', qos=1, retain=True))
+            for w in waits:
+                w.wait_for_publish()
         except Exception:
             print(traceback.format_exc())
 
@@ -132,6 +169,16 @@ class MqttLed:
             print('subscribe failed: %s' % (reason_code_list[0],))
 
     def on_message(self, client, userdata, message):
+        if message.topic == self.text_command_topic:
+            try:
+                text = message.payload.decode('utf-8')
+            except Exception:
+                print('decode error on text payload %s' % (message.payload,))
+                return
+            print('wrap text: %r' % (text,))
+            self.light.set_wrap_text(text)
+            return
+
         if message.topic != self.command_topic:
             return
         try:
@@ -148,8 +195,10 @@ class MqttLed:
             print('Failed to connect: %s. loop will retry' % (reason_code,))
             return
         client.subscribe(self.command_topic)
+        client.subscribe(self.text_command_topic)
         client.publish(self.availability_topic, 'online', qos=1, retain=True)
         self.send_state_update(self.light.state)
+        self.send_text_update(self.light.wrap_text)
         self.publish_ip()
 
     def mqtt_connect(self):
