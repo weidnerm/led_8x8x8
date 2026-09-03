@@ -77,7 +77,7 @@ class Effects:
 
         self.light.state['state'] = 'OFF'  # sequence ends with light off
         # self.light.state.pop('effect', None)  # drop the completed effect.
-        self.light.state['effect'] = None  # drop the completed effect.
+        self.light.state.pop('effect', None)  # drop the completed effect.
         self.light.mqtt.send_state_update(self.light.state)
 
 

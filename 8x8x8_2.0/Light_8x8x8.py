@@ -27,8 +27,10 @@ class Light_8x8x8:
         self.work_queue_append(command)
 
     def work_queue_append(self, command):
+        # Latest MQTT command wins. Drop stale commands so an aborted
+        # effect does not replay an older color/effect afterwards.
         self.work_queue_lock.acquire()
-        self.work_queue.append(command)
+        self.work_queue = [command]
         self.work_queue_lock.release()
 
     def work_queue_pop(self):
@@ -61,15 +63,11 @@ class Light_8x8x8:
                     self.state['brightness'] = command['brightness']
                 if 'color' in command:
                     self.state['color'] = command['color']
-                # if 'effect' in command:
-                #     self.state['effect'] = command['effect']
-                
-                self.state.pop('effect', None)  # drop the ongoing effect.
 
+                self.state.pop('effect', None)  # drop the ongoing effect.
 
                 # process command
                 if 'effect' in command:
-                    pass  # fixme.  handle effect
                     self.effects.play_effect(command['effect'])
                 else:
                     self.mqtt.send_state_update(self.state)
@@ -104,4 +102,3 @@ if __name__ == '__main__':
 
 
     myLight_8x8x8.mqtt.mqtt_disconnect()
-
